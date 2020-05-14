@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/homeb"
+            android:icon="@drawable/ic_home_gray_24dp"
+            android:title="Accueil" />
+
+        <item
+            android:id="@+id/courses"
+            android:icon="@drawable/ic_school_gray_24dp"
+            android:title="Cours" />
+
+        <item
+            android:id="@+id/exercices"
+            android:icon="@drawable/ic_library_books_gray_24dp"
+            android:title="Exercices" />
+
+        <item
+            android:id="@+id/forum"
+            android:icon="@drawable/ic_forum_gray_24dp"
+            android:title="Forum" />
+
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_person_gray_24dp"
+            android:title="Profil" />
+</menu>
