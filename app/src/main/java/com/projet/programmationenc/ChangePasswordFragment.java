@@ -32,7 +32,7 @@ public class ChangePasswordFragment extends Fragment {
     private String password1change,password2change;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
-    private Etudiant E;
+    private Student S;
 
     @Nullable
     @Override
@@ -94,11 +94,11 @@ public class ChangePasswordFragment extends Fragment {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                                E = snapshot.getValue(Etudiant.class);
-                                                if(E.id.equals(user.getUid())) {
-                                                    E.setPassword(password1change);
+                                                S = snapshot.getValue(Student.class);
+                                                if(S.id.equals(user.getUid())) {
+                                                    S.setPassword(password1change);
                                                     databaseReference.child("Etudiants").child(user.getUid()).removeValue();
-                                                    databaseReference.child("Etudiants").child(user.getUid()).setValue(E);
+                                                    databaseReference.child("Etudiants").child(user.getUid()).setValue(S);
                                                     Toast.makeText(getContext(),"Changement reussi du mot de passe",Toast.LENGTH_SHORT).show();
                                                     break;
                                                 }

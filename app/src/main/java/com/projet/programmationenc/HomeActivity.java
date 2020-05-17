@@ -8,7 +8,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     public String retrievedLastName;
     public String retrievedPassword;
     public String retrievedAvatar;
-    private Etudiant E;
+    private Student S;
     private ImageView imgvavatartopnagiv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +68,15 @@ public class HomeActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Log.e(TAG, "onDataChange: hahowa dkhel bach ijbed data mn realtime database");
-                        E = snapshot.getValue(Etudiant.class);
-                        if(E.id.equals(user.getUid())) {
-                            retrievedFirstName = E.firstname;
-                            retrievedLastName = E.lastname;
-                            retrievedPassword = E.password;
+                        S = snapshot.getValue(Student.class);
+                        if(S.id.equals(user.getUid())) {
+                            retrievedFirstName = S.firstname;
+                            retrievedLastName = S.lastname;
+                            retrievedPassword = S.password;
                             String fullname = retrievedFirstName + " " + retrievedLastName;
                             txtvemail.setText(user.getEmail());
                             txtvfullname.setText(fullname);
-                                retrievedAvatar = E.avatarUri;
+                                retrievedAvatar = S.avatarUri;
                                 Glide.with(HomeActivity.this)
                                         .load(Uri.parse(retrievedAvatar))
                                         .apply(RequestOptions.fitCenterTransform())

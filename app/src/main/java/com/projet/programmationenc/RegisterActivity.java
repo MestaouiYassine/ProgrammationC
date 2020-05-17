@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -116,9 +115,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                Etudiant E = new Etudiant(user.getUid(),firstname,lastname,password1);
+                                Student S = new Student(user.getUid(),firstname,lastname,password1);
                                 DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
-                                dr.child("Etudiants").child(user.getUid()).setValue(E);
+                                dr.child("Etudiants").child(user.getUid()).setValue(S);
 
                                 user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

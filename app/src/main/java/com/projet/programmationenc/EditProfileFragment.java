@@ -1,11 +1,8 @@
 package com.projet.programmationenc;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,24 +17,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class EditProfileFragment extends Fragment {
     private static final String TAG = "EditProfileFragment";
@@ -48,7 +38,7 @@ public class EditProfileFragment extends Fragment {
     private TextView txtvchangeavatar;
     private Button btnconfirmedit;
     private ImageButton btnremoveavatar;
-    private Etudiant E;
+    private Student S;
     private DatabaseReference databaseReference;
     Uri imgavataruri;
     @Nullable
@@ -102,12 +92,12 @@ public class EditProfileFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Log.e(TAG, "onDataChange: hahwa dkhel bach i7eyed lavatar");
-                            E = snapshot.getValue(Etudiant.class);
-                            if(E.id.equals(user.getUid())) {
+                            S = snapshot.getValue(Student.class);
+                            if(S.id.equals(user.getUid())) {
                                 imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
 //                                E.setAvatar("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
 //                                databaseReference.child("Etudiants").child(user.getUid()).removeValue();
-//                                databaseReference.child("Etudiants").child(user.getUid()).setValue(E);
+//                                databaseReference.child("Etudiants").child(user.getUid()).setValue(S);
                                 Glide.with(getActivity())
                                         .load(imgavataruri)
                                         .apply(RequestOptions.fitCenterTransform())
@@ -152,12 +142,12 @@ public class EditProfileFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 Log.e(TAG, "onDataChange: hahwa dkhel bach i modifier data f realtime database");
-                                    E = snapshot.getValue(Etudiant.class);
-                                    if (E.id.equals(user.getUid())) {
-                                        E.setFirstname(firstnameedit);
-                                        E.setLastname(lastnameedit);
+                                    S = snapshot.getValue(Student.class);
+                                    if (S.id.equals(user.getUid())) {
+                                        S.setFirstname(firstnameedit);
+                                        S.setLastname(lastnameedit);
 //                                        if (imgavataruri != null) {
-                                            E.setAvatar(imgavataruri.toString());
+                                            S.setAvatar(imgavataruri.toString());
                                             Log.e(TAG, "onDataChange: hahwa l9a avatar o zado l Etudiant");
 //                                        }
 //                                        else {
@@ -165,7 +155,7 @@ public class EditProfileFragment extends Fragment {
 //                                        }
 //                                    Toast.makeText(getContext(),E.firstname + " " + E.lastname,Toast.LENGTH_SHORT).show();
                                         databaseReference.child("Etudiants").child(user.getUid()).removeValue();
-                                        databaseReference.child("Etudiants").child(user.getUid()).setValue(E);
+                                        databaseReference.child("Etudiants").child(user.getUid()).setValue(S);
                                         Toast.makeText(getContext(), "Modification réussie !", Toast.LENGTH_SHORT).show();
                                         Log.e(TAG, "onDataChange: hahwa sala modification");
                                         break;
