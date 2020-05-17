@@ -23,7 +23,6 @@ public class CoursesFragment extends Fragment {
     public static ApiInterface apiInterface;
 //    private EditText edtidcourse;
     private TextView txtvaffichcourse;
-    private static String base_url = "http://192.168.1.104/progc/";
 //    192.168.1.104
     @Nullable
     @Override
@@ -36,6 +35,7 @@ public class CoursesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        edtidcourse = view.findViewById(R.id.edtidcourse);
+        String base_url = "http://192.168.1.104/progc/";
         txtvaffichcourse = view.findViewById(R.id.txtvaffichcourse);
         String id;
 //        id = edtidcourse.getText().toString();
