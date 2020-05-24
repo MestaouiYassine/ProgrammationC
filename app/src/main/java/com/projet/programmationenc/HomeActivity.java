@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView txtvemail;
     private TextView txtvfullname;
     private NavigationView navigationView;
-    private BottomNavigationView bottomNavigationView;
+    public BottomNavigationView bottomNavigationView;
     private FirebaseUser user;
     public String retrievedFirstName;
     public String retrievedLastName;
@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new HomeFragment()).addToBackStack(null).commit();
                         break;
                     case R.id.courses:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new CoursesFragment()).addToBackStack(null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new MenuCoursesFragment()).addToBackStack(null).commit();
                         break;
                     case R.id.exercices:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ExercicesFragment()).addToBackStack(null).commit();
