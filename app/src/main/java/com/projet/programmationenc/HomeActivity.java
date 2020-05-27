@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +32,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
     private DrawerLayout drawer;
@@ -43,12 +55,18 @@ public class HomeActivity extends AppCompatActivity {
     public String retrievedLastName;
     public String retrievedPassword;
     public String retrievedAvatar;
-    private Student S;
     private ImageView imgvavatartopnagiv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+//        Fragment frg = null;
+//        frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
+//        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.detach(frg);
+//        ft.attach(frg);
+//        ft.commit();
 
 
         navigationView = findViewById(R.id.nvhome);
@@ -60,39 +78,43 @@ public class HomeActivity extends AppCompatActivity {
         txtvfullname = headerView.findViewById(R.id.txtvfullnamenavhead);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null) {
-            Toast.makeText(this,"User is signed in Pog",Toast.LENGTH_SHORT).show();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-            databaseReference.child("Etudiants").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: hahowa dkhel bach ijbed data mn realtime database");
-                        S = snapshot.getValue(Student.class);
-                        if(S.id.equals(user.getUid())) {
-                            retrievedFirstName = S.firstname;
-                            retrievedLastName = S.lastname;
-                            retrievedPassword = S.password;
-                            String fullname = retrievedFirstName + " " + retrievedLastName;
-                            txtvemail.setText(user.getEmail());
-                            txtvfullname.setText(fullname);
-                                retrievedAvatar = S.avatarUri;
-                                Glide.with(HomeActivity.this)
-                                        .load(Uri.parse(retrievedAvatar))
-                                        .apply(RequestOptions.fitCenterTransform())
-                                        .into(imgvavatartopnagiv);
-                                Log.e(TAG, "onDataChange: l9a avatar o zado f imgview dial top navig");
-                            break;
-                        }
-                    }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
+        String base_url = "http://192.168.1.104/progc/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        Call<Student> call = apiInterface.getStudent(user.getUid());
+        call.enqueue(new Callback<Student>() {
+            @Override
+            public void onResponse(Call<Student> call, Response<Student> response) {
+                if(!response.isSuccessful()) {
+                    Log.e(TAG, "onResponse: Code " + response.code());
+                    return;
                 }
-            });
-        }
+                Student student = response.body();
+                retrievedFirstName = student.getFirstName();
+                retrievedLastName = student.getLastName();
+                retrievedPassword = student.getPassword();
+                retrievedAvatar = student.getAvatar();
+
+                String fullname = retrievedFirstName + " " + retrievedLastName;
+                txtvemail.setText(user.getEmail());
+                txtvfullname.setText(fullname);
+                Glide.with(HomeActivity.this)
+                        .load(Uri.parse(retrievedAvatar))
+                        .apply(RequestOptions.fitCenterTransform())
+                        .into(imgvavatartopnagiv);
+
+            }
+
+            @Override
+            public void onFailure(Call<Student> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//Sets our toolbar as the actionbar
@@ -100,6 +122,15 @@ public class HomeActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(actionBarDrawerToggle);// Setting the actionbarToggle to drawer layout
         actionBarDrawerToggle.syncState();
+
+//        String state = getIntent().getStringExtra("fragedit");
+//
+//        if(!state.equals(null)) {
+//            if(state.equals("changepassword"))
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ChangePasswordFragment()).addToBackStack(null).commit();
+//            else
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new EditProfileFragment()).addToBackStack(null).commit();
+//        }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new HomeFragment()).commit();
         ShowBackButton(false);
@@ -201,4 +232,5 @@ public class HomeActivity extends AppCompatActivity {
             bottomNavigationView.setVisibility(View.VISIBLE);
         }
     }
+
 }

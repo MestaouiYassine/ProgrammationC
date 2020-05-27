@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedcours"
+    <ScrollView
         android:layout_width="382dp"
         android:layout_height="520dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:fadeScrollbars="false"
         app:layout_constraintBottom_toTopOf="@id/btncontinue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
             tools:layout_editor_absoluteX="411dp"
             tools:layout_editor_absoluteY="109dp" />
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
     <TextView
         android:id="@+id/txtvtitle"

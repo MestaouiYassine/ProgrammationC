@@ -19,6 +19,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
@@ -115,9 +123,39 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                Student S = new Student(user.getUid(),firstname,lastname,password1);
-                                DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
-                                dr.child("Etudiants").child(user.getUid()).setValue(S);
+                                String base_url = "http://192.168.1.104/progc/";
+
+//                                Gson gson = new GsonBuilder()
+//                                        .setLenient()
+//                                        .create();
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(base_url)
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+                                Call<Student> call = apiInterface.insertStudent(user.getUid(),firstname,lastname,password1,"android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
+
+                                call.enqueue(new Callback<Student>() {
+                                    @Override
+                                    public void onResponse(Call<Student> call, Response<Student> response) {
+                                        if(!response.isSuccessful()) {
+                                            Log.e(TAG, "onResponse: Code " + response.code());
+//                                            Toast.makeText(RegisterActivity.this,"Code : " + response.code(),Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+                                        Log.e(TAG, "onResponse: " + "Data in mysql");
+//                                        Student student = response.body();
+//                                        Toast.makeText(RegisterActivity.this,"Data is in mysql now" + student.getFirstname(),Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Student> call, Throwable t) {
+                                        Log.e(TAG, "onFailure: " + t.getMessage());
+//                                        Toast.makeText(RegisterActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                                    }
+                                });
 
                                 user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

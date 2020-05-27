@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class BaseCFragment extends Fragment {
-    private Button btnpremierprogc,btnbackslashn,btntypevar,btntypecar,btnputchar,btnlireclav,btntypebase,btnspeciform,btnop,btnconstant;
+    private RelativeLayout btnpremierprogc,btnbackslashn,btntypevar,btntypecar,btnputchar,btnlireclav,btntypebase,btnspeciform,btnop,btnconstant;
     private String id;
     @Nullable
     @Override

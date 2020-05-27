@@ -46,15 +46,15 @@
 
     <TextView
         android:id="@+id/txtvcondit"
-        android:layout_width="198dp"
-        android:layout_height="61dp"
+        android:layout_width="172dp"
+        android:layout_height="80dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/semibold"
-        android:text="Structures conditionnelles et répétitives"
+        android:text="Les structures conditionnelles et les boucles"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"

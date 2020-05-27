@@ -2,6 +2,7 @@ package com.projet.programmationenc;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -29,7 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class EditProfileFragment extends Fragment {
+//    private final int code = 1;
     private static final String TAG = "EditProfileFragment";
     private FirebaseUser user;
     private String firstnameedit,lastnameedit;
@@ -38,8 +47,7 @@ public class EditProfileFragment extends Fragment {
     private TextView txtvchangeavatar;
     private Button btnconfirmedit;
     private ImageButton btnremoveavatar;
-    private Student S;
-    private DatabaseReference databaseReference;
+//    private DatabaseReference databaseReference;
     Uri imgavataruri;
     @Nullable
     @Override
@@ -51,7 +59,7 @@ public class EditProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+//        databaseReference = FirebaseDatabase.getInstance().getReference();
         imgvavataredit = view.findViewById(R.id.imgvavataredit);
         edtlastnameedit = view.findViewById(R.id.edtlastnameedit);
         edtfirstnameedit = view.findViewById(R.id.edtfirstnameedit);
@@ -87,31 +95,11 @@ public class EditProfileFragment extends Fragment {
         btnremoveavatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseReference.child("Etudiants").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Log.e(TAG, "onDataChange: hahwa dkhel bach i7eyed lavatar");
-                            S = snapshot.getValue(Student.class);
-                            if(S.id.equals(user.getUid())) {
-                                imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
-//                                E.setAvatar("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
-//                                databaseReference.child("Etudiants").child(user.getUid()).removeValue();
-//                                databaseReference.child("Etudiants").child(user.getUid()).setValue(S);
-                                Glide.with(getActivity())
-                                        .load(imgavataruri)
-                                        .apply(RequestOptions.fitCenterTransform())
-                                        .into(imgvavataredit);
-                                break;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
+                        Glide.with(getActivity())
+                                .load(imgavataruri)
+                                .apply(RequestOptions.fitCenterTransform())
+                                .into(imgvavataredit);
             }
         });
 
@@ -137,43 +125,88 @@ public class EditProfileFragment extends Fragment {
                     return;
                 }
                 else {
-                    databaseReference.child("Etudiants").addListenerForSingleValueEvent(new ValueEventListener() {
+                    String base_url = "http://192.168.1.104/progc/";
+
+//                                Gson gson = new GsonBuilder()
+//                                        .setLenient()
+//                                        .create();
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(base_url)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+                    Call<Student> call = apiInterface.updateStudent(user.getUid(),firstnameedit,lastnameedit,imgavataruri.toString());
+
+                    call.enqueue(new Callback<Student>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Log.e(TAG, "onDataChange: hahwa dkhel bach i modifier data f realtime database");
-                                    S = snapshot.getValue(Student.class);
-                                    if (S.id.equals(user.getUid())) {
-                                        S.setFirstname(firstnameedit);
-                                        S.setLastname(lastnameedit);
-//                                        if (imgavataruri != null) {
-                                            S.setAvatar(imgavataruri.toString());
-                                            Log.e(TAG, "onDataChange: hahwa l9a avatar o zado l Etudiant");
-//                                        }
-//                                        else {
-//                                            E.setAvatar("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
-//                                        }
-//                                    Toast.makeText(getContext(),E.firstname + " " + E.lastname,Toast.LENGTH_SHORT).show();
-                                        databaseReference.child("Etudiants").child(user.getUid()).removeValue();
-                                        databaseReference.child("Etudiants").child(user.getUid()).setValue(S);
-                                        Toast.makeText(getContext(), "Modification réussie !", Toast.LENGTH_SHORT).show();
-                                        Log.e(TAG, "onDataChange: hahwa sala modification");
-                                        break;
-                                    }
+                        public void onResponse(Call<Student> call, Response<Student> response) {
+                            if(!response.isSuccessful()) {
+                                Log.e(TAG, "onResponse: Code " + response.code());
+                                return;
                             }
+                            Log.e(TAG, "onResponse: " + "Data updates");
+                            Toast.makeText(getContext(),"Modification réussie !",Toast.LENGTH_SHORT).show();
+
+                            getActivity().finish();
+                            getActivity().overridePendingTransition(0, 0);
+                            startActivity(getActivity().getIntent());
+                            getActivity().overridePendingTransition(0, 0);
+//                            refreshFragmentUI(getActivity().getSupportFragmentManager().findFragmentByTag("fragedit"));
+
+//                            Fragment frg = getActivity().getSupportFragmentManager().findFragmentByTag("fragedit");
+//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+//                                    .beginTransaction();
+//                            if (Build.VERSION.SDK_INT >= 26) {
+//                                transaction.setReorderingAllowed(false);
+//                            }
+//                            transaction.detach(frg).attach
+//                                    (frg).commit();
+
+//                            Fragment frg = null;
+//                            frg = getActivity().getSupportFragmentManager().findFragmentByTag("fragedit");
+//                            final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                            ft.detach(frg);
+//                            ft.attach(frg);
+//                            ft.commit();
+
+//                            Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
+//                            if (currentFragment instanceof EditProfileFragment) {
+//                                getActivity().getSupportFragmentManager().beginTransaction().detach(currentFragment);
+//                                getActivity().getSupportFragmentManager().beginTransaction().attach(currentFragment);
+//                                getActivity().getSupportFragmentManager().beginTransaction().commit();
+//                            }
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        public void onFailure(Call<Student> call, Throwable t) {
+                            Log.e(TAG, "onFailure: " + t.getMessage());
                         }
                     });
-
                 }
             }
         });
 
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//            // Refresh your fragment here
+//            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+//            Log.i("IsRefresh", "Yes");
+//        }
+//    }
+
+//    public void refreshFragmentUI(Fragment fragment) {
+//        getActivity().getSupportFragmentManager()
+//                .beginTransaction()
+//                .detach(fragment)
+//                .attach(fragment)
+//                .commit();
+//    }
 
     private void openImageFile() {
         CropImage.activity()
@@ -183,7 +216,7 @@ public class EditProfileFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
@@ -195,6 +228,14 @@ public class EditProfileFragment extends Fragment {
                         .into(imgvavataredit);
             }
         }
+
+//        if(requestCode == 1) {
+//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            if (Build.VERSION.SDK_INT >= 26) {
+//                ft.setReorderingAllowed(false);
+//            }
+//            ft.detach(this).attach(this).commit();
+//        }
     }
 
 }

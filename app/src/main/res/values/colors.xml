@@ -11,4 +11,10 @@
     <color name="lightgray">#DDDEE0</color>
     <color name="hintgray">#898a8b</color>
     <color name="red">#FF0000</color>
+    <color name ="darkgray">#546f7a</color>
+    <color name ="lightwhite">#fafafa</color>
+    <color name ="backgroundgray">#eeeeee</color>
+    <color name ="lightgreen">#8bc24a</color>
+    <color name ="grayround">#dfdfdf</color>
+    <color name="grayinside">#8d8d8d</color>
 </resources>

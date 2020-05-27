@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CoursesFragment extends Fragment {
-    public static ApiInterface apiInterface;
+//    public static ApiInterface apiInterface;
 //    private EditText edtidcourse;
     private TextView txtvtitle,txtvcourse;
     private Button btncontinue;
@@ -43,14 +43,14 @@ public class CoursesFragment extends Fragment {
 //        id = edtidcourse.getText().toString();
 //        id = "C7";
 
-        Bundle bundle = this.getArguments();
+//        Bundle bundle = this.getArguments();
         String id = getArguments().getString("id");
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiInterface = retrofit.create(ApiInterface.class);
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
         Call<Course> call = apiInterface.getCourse(id);
         call.enqueue(new Callback<Course>() {
             @Override
@@ -77,26 +77,7 @@ public class CoursesFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-//        Call<List<Course>> call = apiInterface.getCourse(id);
-//        call.enqueue(new Callback<List<Course>>() {
-//            @Override
-//            public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
-//                if(!response.isSuccessful()) {
-//                    txtvaffichcourse.setText("Code : " + response.code());
-//                    return;
-//                }
-//                List<Course> courses = response.body();
-//
-//                for(Course course : courses) {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Course>> call, Throwable t) {
-//                txtvaffichcourse.setText(t.getMessage());
-//            }
-//        });
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.projet.programmationenc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,13 +26,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ChangePasswordFragment extends Fragment {
     private static final String TAG = "ChangePasswordFragment";
     private EditText edtpassword1change,edtpassword2change;
     private Button btnconfirmchange;
     private String password1change,password2change;
     private FirebaseUser user;
-    private DatabaseReference databaseReference;
+//    private DatabaseReference databaseReference;
     private Student S;
 
     @Nullable
@@ -45,7 +52,7 @@ public class ChangePasswordFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+//        databaseReference = FirebaseDatabase.getInstance().getReference();
         edtpassword1change = view.findViewById(R.id.edtpassword1change);
         edtpassword2change = view.findViewById(R.id.edtpassword2change);
         btnconfirmchange = view.findViewById(R.id.btnconfirmchange);
@@ -90,26 +97,45 @@ public class ChangePasswordFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Log.e(TAG, "onComplete: Password updates successfully");
-                                    databaseReference.child("Etudiants").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    String base_url = "http://192.168.1.104/progc/";
+
+//                                Gson gson = new GsonBuilder()
+//                                        .setLenient()
+//                                        .create();
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(base_url)
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
+
+                                    ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+                                    Call<Student> call = apiInterface.changePassword(user.getUid(),password1change);
+
+                                    call.enqueue(new Callback<Student>() {
                                         @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                                S = snapshot.getValue(Student.class);
-                                                if(S.id.equals(user.getUid())) {
-                                                    S.setPassword(password1change);
-                                                    databaseReference.child("Etudiants").child(user.getUid()).removeValue();
-                                                    databaseReference.child("Etudiants").child(user.getUid()).setValue(S);
-                                                    Toast.makeText(getContext(),"Changement reussi du mot de passe",Toast.LENGTH_SHORT).show();
-                                                    break;
-                                                }
+                                        public void onResponse(Call<Student> call, Response<Student> response) {
+                                            if(!response.isSuccessful()) {
+                                                Log.e(TAG, "onResponse: Code " + response.code());
+                                                return;
                                             }
+                                            Log.e(TAG, "onResponse: " + "password changed");
+                                            Toast.makeText(getContext(),"Changement du mot de passe réussi !",Toast.LENGTH_SHORT).show();
+
+                                            getActivity().finish();
+                                            getActivity().overridePendingTransition(0, 0);
+                                            startActivity(getActivity().getIntent());
+                                            getActivity().overridePendingTransition(0, 0);
+//                                            Intent intent = getActivity().getIntent();
+//                                            intent.putExtra("fragedit","changepassword");
+//                                            startActivity(intent);
                                         }
 
                                         @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                        public void onFailure(Call<Student> call, Throwable t) {
+                                            Log.e(TAG, "onFailure: " + t.getMessage());
                                         }
                                     });
+
                                 }
                             });
                         }

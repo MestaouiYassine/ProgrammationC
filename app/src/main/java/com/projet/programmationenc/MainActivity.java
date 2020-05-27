@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (user != null && user.isEmailVerified()) {
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
     }
