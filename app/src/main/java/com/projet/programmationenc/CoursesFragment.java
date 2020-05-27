@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +41,10 @@ public class CoursesFragment extends Fragment {
         txtvtitle = view.findViewById(R.id.txtvtitle);
         txtvcourse = view.findViewById(R.id.txtvcourse);
         btncontinue = view.findViewById(R.id.btncontinue);
+
+//        ArrayList<String> completedBasic = getArguments().getStringArrayList("list");
+//        Bundle bundle = new Bundle();
+//        bundle.putStringArrayList("list",completedBasic);
 //        String id;
 //        id = edtidcourse.getText().toString();
 //        id = "C7";

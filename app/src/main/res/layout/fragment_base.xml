@@ -55,11 +55,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvpremierprogc"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/premierprogc"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -113,11 +114,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvbackslashn"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/backslashn"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:gravity="center"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
@@ -170,11 +172,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvtypevar"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/typevar"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -227,11 +230,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvtypecar"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/typecar"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -284,11 +288,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvputchar"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/putchar"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -341,11 +346,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvlireclav"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/lireclav"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -398,11 +404,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvtypebase"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/typebase"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -455,11 +462,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvspeciform"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/speciform"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -512,11 +520,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvop"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/op"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"
@@ -569,11 +578,12 @@
             android:translationZ="5dp"/>
 
         <TextView
+            android:id="@+id/txtvconstant"
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignBottom="@id/constant"
-            android:text="Uncomplet"
+            android:text="Incomplet"
             android:fontFamily="@font/regular"
             android:textSize="15sp"
             android:textColor="@color/white"

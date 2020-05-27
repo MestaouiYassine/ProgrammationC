@@ -3,10 +3,10 @@ package com.projet.programmationenc;
 import android.net.Uri;
 
 import java.util.Date;
+import java.util.List;
 
 public class Student {
-    private String studentID,firstName,lastName,password,avatar;
-    private String[] completedCourses;
+    private String studentID,firstName,lastName,pass,avatar,completedBasic,completedCondLoop,completedFuncArrPoint,completedStrings,completedEnumStruct,completedFiles;
 
 //    public Student() {}
 //
@@ -47,15 +47,35 @@ public class Student {
         return lastName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
     public String getAvatar() {
         return avatar;
     }
 
-    public String[] getCompletedCourses() {
-        return completedCourses;
+    public String getCompletedBasic() {
+        return completedBasic;
+    }
+
+    public String getCompletedCondLoop() {
+        return completedCondLoop;
+    }
+
+    public String getCompletedFuncArrPoint() {
+        return completedFuncArrPoint;
+    }
+
+    public String getCompletedStrings() {
+        return completedStrings;
+    }
+
+    public String getCompletedEnumStruct() {
+        return completedEnumStruct;
+    }
+
+    public String getCompletedFiles() {
+        return completedFiles;
     }
 }

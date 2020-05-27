@@ -32,6 +32,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -55,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     public String retrievedLastName;
     public String retrievedPassword;
     public String retrievedAvatar;
+    public List<String>  retrievedCompletedBasic = new ArrayList<>();
     private ImageView imgvavatartopnagiv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +100,18 @@ public class HomeActivity extends AppCompatActivity {
                 Student student = response.body();
                 retrievedFirstName = student.getFirstName();
                 retrievedLastName = student.getLastName();
-                retrievedPassword = student.getPassword();
+                retrievedPassword = student.getPass();
                 retrievedAvatar = student.getAvatar();
+                if(student.getCompletedBasic() != null) {
+                    String string = student.getCompletedBasic();
+                    String[] tstring = string.split("-");
+                    retrievedCompletedBasic.addAll(Arrays.asList(tstring));
+//                    retrievedCompletedBasic = Arrays.asList(tstring);
+//                    String[] retrievedStringBasic = student.getCompletedBasic();
+//                Log.e(TAG, "onResponse: homeactivity retrievedStringBasic 0" + retrievedStringBasic[0]);
+//                    retrievedCompletedBasic = student.getCompletedBasic();
+//                    retrievedCompletedBasic = Arrays.asList(retrievedStringBasic);
+                }
 
                 String fullname = retrievedFirstName + " " + retrievedLastName;
                 txtvemail.setText(user.getEmail());

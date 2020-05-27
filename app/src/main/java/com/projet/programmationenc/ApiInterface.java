@@ -22,7 +22,7 @@ public interface ApiInterface {
             @Field("studentID") String studentID,
             @Field("firstName") String firstName,
             @Field("lastName") String lastName,
-            @Field("password") String password,
+            @Field("pass") String password,
             @Field("avatar") String avatar
     );
 
@@ -39,8 +39,17 @@ public interface ApiInterface {
     @POST("changepassword.php")
     Call<Student> changePassword(
             @Field("studentID") String studentID,
-            @Field("password") String password
+            @Field("pass") String password
     );
 
+    @FormUrlEncoded
+    @POST("basic.php")
+    Call<Student> updateBasic(
+            @Field("studentID") String studentID,
+            @Field("completedBasic") String completedBasic
+    );
+
+//    @GET("getbasic.php")
+//    Call<Student> getBasic(@Query("courseID") String courseID);
 //    Call<List<Course>> getCourse(@Query("courseID") String id);
 }

@@ -17,4 +17,5 @@
     <color name ="lightgreen">#8bc24a</color>
     <color name ="grayround">#dfdfdf</color>
     <color name="grayinside">#8d8d8d</color>
+    <color name ="graylock">#868686</color>
 </resources>
