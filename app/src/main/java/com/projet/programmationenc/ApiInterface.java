@@ -70,6 +70,19 @@ public interface ApiInterface {
             @Field("completedStrings") String completedStrings
     );
 
+    @FormUrlEncoded
+    @POST("structs.php")
+    Call<Student> updateEnumStruct(
+            @Field("studentID") String studentID,
+            @Field("completedEnumStruct") String completedEnumStruct
+    );
+
+    @FormUrlEncoded
+    @POST("files.php")
+    Call<Student> updateFiles(
+            @Field("studentID") String studentID,
+            @Field("completedFiles") String completedFiles
+    );
 //    @GET("getbasic.php")
 //    Call<Student> getBasic(@Query("courseID") String courseID);
 //    Call<List<Course>> getCourse(@Query("courseID") String id);

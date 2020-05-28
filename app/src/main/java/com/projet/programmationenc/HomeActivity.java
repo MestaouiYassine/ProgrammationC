@@ -62,6 +62,8 @@ public class HomeActivity extends AppCompatActivity {
     public List<String> retrievedCompletedCondLoop = new ArrayList<>();
     public List<String> retrievedCompletedFuncArrPoint = new ArrayList<>();
     public List<String> retrievedCompletedStrings = new ArrayList<>();
+    public List<String> retrievedCompletedEnumStruct = new ArrayList<>();
+    public List<String> retrievedCompletedFiles = new ArrayList<>();
     private ImageView imgvavatartopnagiv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,16 @@ public class HomeActivity extends AppCompatActivity {
                     String string = student.getCompletedStrings();
                     String[] tstring = string.split("-");
                     retrievedCompletedStrings.addAll(Arrays.asList(tstring));
+                }
+                if(student.getCompletedEnumStruct() != null) {
+                    String string = student.getCompletedEnumStruct();
+                    String[] tstring = string.split("-");
+                    retrievedCompletedEnumStruct.addAll(Arrays.asList(tstring));
+                }
+                if(student.getCompletedFiles() != null) {
+                    String string = student.getCompletedFiles();
+                    String[] tstring = string.split("-");
+                    retrievedCompletedFiles.addAll(Arrays.asList(tstring));
                 }
 
                 String fullname = retrievedFirstName + " " + retrievedLastName;

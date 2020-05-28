@@ -69,14 +69,14 @@ public class EditProfileFragment extends Fragment {
 
         edtfirstnameedit.setText(((HomeActivity) getActivity()).retrievedFirstName);
         edtlastnameedit.setText(((HomeActivity) getActivity()).retrievedLastName);
-//        if(((HomeActivity) getActivity()).retrievedAvatar != null) {
+        if(((HomeActivity) getActivity()).retrievedAvatar != null) {
         imgavataruri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
             Glide.with(this)
                     .load(imgavataruri)
                     .apply(RequestOptions.fitCenterTransform())
                     .into(imgvavataredit);
 
-//        }
+        }
 
         imgvavataredit.setOnClickListener(new View.OnClickListener() {
             @Override

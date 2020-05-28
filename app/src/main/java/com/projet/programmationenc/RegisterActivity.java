@@ -164,6 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             Log.d(TAG, "Email sent.");
                                             Toast.makeText(RegisterActivity.this,"Inscription réussie, une demande de validation vous a été envoyée à l'adresse " + email,Toast.LENGTH_LONG).show();
+                                            FirebaseAuth.getInstance().signOut();
                                             startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                                         }
                                     }
