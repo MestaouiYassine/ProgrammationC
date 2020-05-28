@@ -49,6 +49,27 @@ public interface ApiInterface {
             @Field("completedBasic") String completedBasic
     );
 
+    @FormUrlEncoded
+    @POST("condloop.php")
+    Call<Student> updateCondLoop(
+            @Field("studentID") String studentID,
+            @Field("completedCondLoop") String completedCondLoop
+    );
+
+    @FormUrlEncoded
+    @POST("funcarray.php")
+    Call<Student> updateFuncArrPoint(
+            @Field("studentID") String studentID,
+            @Field("completedFuncArrPoint") String completedFuncArrPoint
+    );
+
+    @FormUrlEncoded
+    @POST("strings.php")
+    Call<Student> updateStrings(
+            @Field("studentID") String studentID,
+            @Field("completedStrings") String completedStrings
+    );
+
 //    @GET("getbasic.php")
 //    Call<Student> getBasic(@Query("courseID") String courseID);
 //    Call<List<Course>> getCourse(@Query("courseID") String id);

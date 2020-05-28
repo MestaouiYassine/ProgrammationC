@@ -27,8 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MenuCoursesFragment extends Fragment {
     private static final String TAG = "MenuCoursesFragment";
-    private ImageButton btnbasec,btncondit;
-    private TextView txtvbasec,txtvcondit;
+    private ImageButton btnbasec,btncondit,btnfunctarray,btnstrings,btnstruct,btnfile;
+    private TextView txtvbasec,txtvcondit,txtvfunctarray,txtvstrings,txtvstruct,txtvfile;
 //    private FirebaseUser user;
 //    public static List<String> completedBasic = new ArrayList<>();
     @Nullable
@@ -45,9 +45,17 @@ public class MenuCoursesFragment extends Fragment {
 
         btnbasec = view.findViewById(R.id.btnbasec);
         btncondit = view.findViewById(R.id.btncondit);
+        btnfunctarray = view.findViewById(R.id.btnfunctarray);
+        btnstrings = view.findViewById(R.id.btnstrings);
+        btnstruct = view.findViewById(R.id.btnstruct);
+        btnfile = view.findViewById(R.id.btnfile);
 
         txtvbasec = view.findViewById(R.id.txtvbasec);
         txtvcondit = view.findViewById(R.id.txtvcondit);
+        txtvfunctarray = view.findViewById(R.id.txtvfunctarray);
+        txtvstrings = view.findViewById(R.id.txtvstrings);
+        txtvstruct = view.findViewById(R.id.txtvstruct);
+        txtvfile = view.findViewById(R.id.txtvfile);
 
 //        String[] basicCourses = new String[completedBasic.size()];
 //        completedBasic.toArray(basicCourses);
@@ -111,6 +119,34 @@ public class MenuCoursesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ConditFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        btnfunctarray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new FunctFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        txtvfunctarray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new FunctFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        btnstrings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new StringsFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        txtvstrings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new StringsFragment()).addToBackStack(null).commit();
             }
         });
     }

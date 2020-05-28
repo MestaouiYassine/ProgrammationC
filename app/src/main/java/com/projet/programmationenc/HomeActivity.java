@@ -58,7 +58,10 @@ public class HomeActivity extends AppCompatActivity {
     public String retrievedLastName;
     public String retrievedPassword;
     public String retrievedAvatar;
-    public List<String>  retrievedCompletedBasic = new ArrayList<>();
+    public List<String> retrievedCompletedBasic = new ArrayList<>();
+    public List<String> retrievedCompletedCondLoop = new ArrayList<>();
+    public List<String> retrievedCompletedFuncArrPoint = new ArrayList<>();
+    public List<String> retrievedCompletedStrings = new ArrayList<>();
     private ImageView imgvavatartopnagiv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,21 @@ public class HomeActivity extends AppCompatActivity {
 //                Log.e(TAG, "onResponse: homeactivity retrievedStringBasic 0" + retrievedStringBasic[0]);
 //                    retrievedCompletedBasic = student.getCompletedBasic();
 //                    retrievedCompletedBasic = Arrays.asList(retrievedStringBasic);
+                }
+                if(student.getCompletedCondLoop() != null) {
+                    String string = student.getCompletedCondLoop();
+                    String[] tstring = string.split("-");
+                    retrievedCompletedCondLoop.addAll(Arrays.asList(tstring));
+                }
+                if(student.getCompletedFuncArrPoint() != null) {
+                    String string = student.getCompletedFuncArrPoint();
+                    String[] tstring = string.split("-");
+                    retrievedCompletedFuncArrPoint.addAll(Arrays.asList(tstring));
+                }
+                if(student.getCompletedStrings() != null) {
+                    String string = student.getCompletedStrings();
+                    String[] tstring = string.split("-");
+                    retrievedCompletedStrings.addAll(Arrays.asList(tstring));
                 }
 
                 String fullname = retrievedFirstName + " " + retrievedLastName;
