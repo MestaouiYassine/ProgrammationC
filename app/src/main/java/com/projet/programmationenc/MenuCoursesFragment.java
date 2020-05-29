@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MenuCoursesFragment extends Fragment {
     private static final String TAG = "MenuCoursesFragment";
     private ImageButton btnbasec,btncondit,btnfunctarray,btnstrings,btnstruct,btnfile;
-//    private TextView txtvbasec,txtvcondit,txtvfunctarray,txtvstrings,txtvstruct,txtvfile;
+    private TextView txtvbasec,txtvcondit,txtvfunctarray,txtvstrings,txtvstruct,txtvfile;
 //    private FirebaseUser user;
 //    public static List<String> completedBasic = new ArrayList<>();
     @Nullable
@@ -54,12 +54,12 @@ public class MenuCoursesFragment extends Fragment {
         btnstruct = view.findViewById(R.id.btnstruct);
         btnfile = view.findViewById(R.id.btnfile);
 
-//        txtvbasec = view.findViewById(R.id.txtvbasec);
-//        txtvcondit = view.findViewById(R.id.txtvcondit);
-//        txtvfunctarray = view.findViewById(R.id.txtvfunctarray);
-//        txtvstrings = view.findViewById(R.id.txtvstrings);
-//        txtvstruct = view.findViewById(R.id.txtvstruct);
-//        txtvfile = view.findViewById(R.id.txtvfile);
+        txtvbasec = view.findViewById(R.id.txtvbasec);
+        txtvcondit = view.findViewById(R.id.txtvcondit);
+        txtvfunctarray = view.findViewById(R.id.txtvfunctarray);
+        txtvstrings = view.findViewById(R.id.txtvstrings);
+        txtvstruct = view.findViewById(R.id.txtvstruct);
+        txtvfile = view.findViewById(R.id.txtvfile);
 
 //        Drawable unwrappedDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.roundeddarkgraybutton);
 //        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
@@ -139,12 +139,12 @@ public class MenuCoursesFragment extends Fragment {
             }
         });
 
-//        txtvbasec.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new BaseCFragment()).addToBackStack(null).commit();
-//            }
-//        });
+        txtvbasec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new BaseCFragment()).addToBackStack(null).commit();
+            }
+        });
 
         btncondit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,12 +153,12 @@ public class MenuCoursesFragment extends Fragment {
             }
         });
 
-//        txtvcondit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ConditFragment()).addToBackStack(null).commit();
-//            }
-//        });
+        txtvcondit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ConditFragment()).addToBackStack(null).commit();
+            }
+        });
 
         btnfunctarray.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,12 +167,12 @@ public class MenuCoursesFragment extends Fragment {
             }
         });
 
-//        txtvfunctarray.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new FunctFragment()).addToBackStack(null).commit();
-//            }
-//        });
+        txtvfunctarray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new FunctFragment()).addToBackStack(null).commit();
+            }
+        });
 
         btnstrings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,12 +181,12 @@ public class MenuCoursesFragment extends Fragment {
             }
         });
 
-//        txtvstrings.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new StringsFragment()).addToBackStack(null).commit();
-//            }
-//        });
+        txtvstrings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new StringsFragment()).addToBackStack(null).commit();
+            }
+        });
 
         btnstruct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,12 +195,12 @@ public class MenuCoursesFragment extends Fragment {
             }
         });
 
-//        txtvstruct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new StructFragment()).addToBackStack(null).commit();
-//            }
-//        });
+        txtvstruct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new StructFragment()).addToBackStack(null).commit();
+            }
+        });
 
         btnfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,12 +209,12 @@ public class MenuCoursesFragment extends Fragment {
             }
         });
 
-//        txtvfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new FileFragment()).addToBackStack(null).commit();
-//            }
-//        });
+        txtvfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new FileFragment()).addToBackStack(null).commit();
+            }
+        });
 
 
 //        DrawableCompat.setTint(wrappedDrawable, getResources().getColor(R.color.darkgray));
@@ -232,28 +232,28 @@ public class MenuCoursesFragment extends Fragment {
             btncondit.setImageDrawable(getResources().getDrawable(R.drawable.ic_all_inclusive_white_34dp));
 
             btncondit.setClickable(true);
-//            txtvcondit.setClickable(true);
+            txtvcondit.setClickable(true);
 
             btnfunctarray.setClickable(false);
-//            txtvfunctarray.setClickable(false);
+            txtvfunctarray.setClickable(false);
             btnstrings.setClickable(false);
-//            txtvstrings.setClickable(false);
+            txtvstrings.setClickable(false);
             btnstruct.setClickable(false);
-//            txtvstruct.setClickable(false);
+            txtvstruct.setClickable(false);
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
         else {
             btncondit.setClickable(false);
-//            txtvcondit.setClickable(false);
+            txtvcondit.setClickable(false);
             btnfunctarray.setClickable(false);
-//            txtvfunctarray.setClickable(false);
+            txtvfunctarray.setClickable(false);
             btnstrings.setClickable(false);
-//            txtvstrings.setClickable(false);
+            txtvstrings.setClickable(false);
             btnstruct.setClickable(false);
-//            txtvstruct.setClickable(false);
+            txtvstruct.setClickable(false);
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
 
         if(completedCondLoop.size() == 6) {
@@ -266,24 +266,24 @@ public class MenuCoursesFragment extends Fragment {
             btnfunctarray.setImageDrawable(getResources().getDrawable(R.drawable.ic_build_white_34dp));
 
             btnfunctarray.setClickable(true);
-//            txtvfunctarray.setClickable(true);
+            txtvfunctarray.setClickable(true);
 
             btnstrings.setClickable(false);
-//            txtvstrings.setClickable(false);
+            txtvstrings.setClickable(false);
             btnstruct.setClickable(false);
-//            txtvstruct.setClickable(false);
+            txtvstruct.setClickable(false);
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
         else {
             btnfunctarray.setClickable(false);
-//            txtvfunctarray.setClickable(false);
+            txtvfunctarray.setClickable(false);
             btnstrings.setClickable(false);
-//            txtvstrings.setClickable(false);
+            txtvstrings.setClickable(false);
             btnstruct.setClickable(false);
-//            txtvstruct.setClickable(false);
+            txtvstruct.setClickable(false);
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
 
         if(completedFunctArrPoint.size() == 6) {
@@ -296,20 +296,20 @@ public class MenuCoursesFragment extends Fragment {
             btnstrings.setImageDrawable(getResources().getDrawable(R.drawable.ic_widgets_white_34dp));
 
             btnstrings.setClickable(true);
-//            txtvstrings.setClickable(true);
+            txtvstrings.setClickable(true);
 
             btnstruct.setClickable(false);
-//            txtvstruct.setClickable(false);
+            txtvstruct.setClickable(false);
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
         else {
             btnstrings.setClickable(false);
-//            txtvstrings.setClickable(false);
+            txtvstrings.setClickable(false);
             btnstruct.setClickable(false);
-//            txtvstruct.setClickable(false);
+            txtvstruct.setClickable(false);
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
 
         if(completedStrings.size() == 3) {
@@ -322,16 +322,16 @@ public class MenuCoursesFragment extends Fragment {
             btnstruct.setImageDrawable(getResources().getDrawable(R.drawable.ic_device_hub_white_34dp));
 
             btnstruct.setClickable(true);
-//            txtvstruct.setClickable(true);
+            txtvstruct.setClickable(true);
 
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
         else {
             btnstruct.setClickable(false);
-//            txtvstruct.setClickable(false);
+            txtvstruct.setClickable(false);
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
 
         if(completedEnumStruct.size() == 3) {
@@ -344,11 +344,11 @@ public class MenuCoursesFragment extends Fragment {
             btnfile.setImageDrawable(getResources().getDrawable(R.drawable.ic_description_white_34dp));
 
             btnfile.setClickable(true);
-//            txtvfile.setClickable(true);
+            txtvfile.setClickable(true);
         }
         else {
             btnfile.setClickable(false);
-//            txtvfile.setClickable(false);
+            txtvfile.setClickable(false);
         }
 
         if(completedFiles.size() == 2) {
