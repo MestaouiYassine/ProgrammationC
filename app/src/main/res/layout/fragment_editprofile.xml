@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,33 +19,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtlastnameedit"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Nom"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/hintgray"
+        app:boxStrokeColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtvchangeavatar" />
+        app:layout_constraintTop_toBottomOf="@id/txtvchangeavatar">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtfirstnameedit"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Prénom"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/hintgray"
+        app:boxStrokeColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtlastnameedit" />
+        app:layout_constraintTop_toBottomOf="@id/edtlastnameedit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prénom"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnconfirmedit"
@@ -54,8 +61,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button"
-        android:foreground="?android:attr/selectableItemBackground"
         android:fontFamily="@font/regular"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="Confirmer"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -69,13 +76,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Changer l'avatar"
-        android:fontFamily="@font/bold"
-        android:textSize="15sp"
-        android:textColor="@color/blue"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:fontFamily="@font/bold"
+        android:text="Changer l'avatar"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgvavataredit" />

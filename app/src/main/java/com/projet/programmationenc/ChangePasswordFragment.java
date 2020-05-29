@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChangePasswordFragment extends Fragment {
     private static final String TAG = "ChangePasswordFragment";
-    private EditText edtpassword1change,edtpassword2change;
+    private TextInputLayout edtpassword1change,edtpassword2change;
     private Button btnconfirmchange;
     private String password1change,password2change;
     private FirebaseUser user;
@@ -60,8 +61,8 @@ public class ChangePasswordFragment extends Fragment {
         btnconfirmchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                password1change = edtpassword1change.getText().toString();
-                password2change = edtpassword2change.getText().toString();
+                password1change = edtpassword1change.getEditText().getText().toString();
+                password2change = edtpassword2change.getEditText().getText().toString();
                 boolean flag = true;
 
                 if(password2change.isEmpty()) {

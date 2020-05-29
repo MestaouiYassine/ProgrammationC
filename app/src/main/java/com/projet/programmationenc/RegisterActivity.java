@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
-    private EditText edtemail,edtfirstname,edtlastname,edtpassword1,edtpassword2;
+    private TextInputLayout edtemail,edtfirstname,edtlastname,edtpassword1,edtpassword2;
     private Button btnregister,btnreturn;
     private ProgressBar progressBar;
     private String email,firstname,lastname,password1,password2;
@@ -62,11 +63,11 @@ public class RegisterActivity extends AppCompatActivity {
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = edtemail.getText().toString().trim();
-                firstname = edtfirstname.getText().toString();
-                lastname = edtlastname.getText().toString();
-                password1 = edtpassword1.getText().toString();
-                password2 = edtpassword2.getText().toString();
+                email = edtemail.getEditText().getText().toString().trim();
+                firstname = edtfirstname.getEditText().getText().toString();
+                lastname = edtlastname.getEditText().getText().toString();
+                password1 = edtpassword1.getEditText().getText().toString();
+                password2 = edtpassword2.getEditText().getText().toString();
 
                 final String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,6}";
                 boolean flag = true;

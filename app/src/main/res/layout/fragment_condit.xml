@@ -1,363 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fadeScrollbars="false"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:fadeScrollbars="false">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backgroundgray">
 
         <RelativeLayout
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@color/lightwhite"
             android:id="@+id/btnifelse"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:background="@color/lightwhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:clickable="false"
                 android:id="@+id/ifelse"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:text="La structure if else"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:textAllCaps="false"
+                android:clickable="false"
                 android:fontFamily="@font/regular"
-                android:textSize="19sp"
-                android:textColor="@color/black"
                 android:gravity="start"
-                android:paddingTop="40dp"
                 android:paddingStart="13dp"
-                android:paddingEnd="13dp"/>
+                android:paddingTop="40dp"
+                android:paddingEnd="13dp"
+                android:text="La structure if else"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
 
             <TextView
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/ifelse"
                 android:layout_alignEnd="@id/ifelse"
                 android:layout_marginEnd="8dp"
-                android:text="1/6"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
-                android:translationZ="5dp"/>
+                android:clickable="false"
+                android:fontFamily="@font/regular"
+                android:text="1/6"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
 
             <TextView
                 android:id="@+id/txtvifelse"
-                android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_alignBottom="@id/ifelse"
-                android:text="Incomplet"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/white"
                 android:background="@color/darkgray"
+                android:clickable="false"
+                android:fontFamily="@font/regular"
                 android:gravity="center"
-                android:translationZ="5dp"/>
+                android:text="Incomplet"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@color/lightwhite"
             android:id="@+id/btnoplog"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/lightwhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <Button
-                android:clickable="false"
                 android:id="@+id/oplog"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
+                android:clickable="false"
                 android:fontFamily="@font/regular"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start"
                 android:paddingStart="13dp"
-                android:paddingEnd="13dp"
                 android:paddingTop="40dp"
+                android:paddingEnd="13dp"
                 android:text="Les opérateurs logiques"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="19sp" />
 
             <TextView
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/oplog"
                 android:layout_alignEnd="@id/oplog"
                 android:layout_marginEnd="8dp"
-                android:text="2/6"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
-                android:translationZ="5dp"/>
+                android:clickable="false"
+                android:fontFamily="@font/regular"
+                android:text="2/6"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
 
             <TextView
                 android:id="@+id/txtvoplog"
-                android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_alignBottom="@id/oplog"
-                android:text="Incomplet"
-                android:gravity="center"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/white"
                 android:background="@color/darkgray"
-                android:translationZ="5dp"/>
+                android:clickable="false"
+                android:fontFamily="@font/regular"
+                android:gravity="center"
+                android:text="Incomplet"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@color/lightwhite"
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/btnswitch"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:background="@color/lightwhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnifelse">
+
             <Button
-                android:clickable="false"
                 android:id="@+id/swwitch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="La structure cas"
                 android:background="@android:color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:textAllCaps="false"
+                android:clickable="false"
                 android:fontFamily="@font/regular"
-                android:textSize="19sp"
-                android:textColor="@color/black"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start"
-                android:paddingTop="40dp"
                 android:paddingStart="13dp"
-                android:paddingEnd="13dp" />
+                android:paddingTop="40dp"
+                android:paddingEnd="13dp"
+                android:text="La structure cas"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
 
             <TextView
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/swwitch"
                 android:layout_alignEnd="@id/swwitch"
                 android:layout_marginEnd="8dp"
-                android:text="3/6"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
-                android:translationZ="5dp"/>
+                android:clickable="false"
+                android:fontFamily="@font/regular"
+                android:text="3/6"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
 
             <TextView
                 android:id="@+id/txtvswitch"
-                android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_alignBottom="@id/swwitch"
-                android:text="Incomplet"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/white"
                 android:background="@color/darkgray"
+                android:clickable="false"
+                android:fontFamily="@font/regular"
                 android:gravity="center"
-                android:translationZ="5dp"/>
+                android:text="Incomplet"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@color/lightwhite"
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/btnwhile"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/lightwhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnoplog">
+
             <Button
-                android:clickable="false"
                 android:id="@+id/wwhile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="La structure while"
                 android:background="@android:color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:textAllCaps="false"
+                android:clickable="false"
                 android:fontFamily="@font/regular"
-                android:textSize="19sp"
-                android:textColor="@color/black"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start"
-                android:paddingTop="40dp"
                 android:paddingStart="13dp"
-                android:paddingEnd="13dp" />
+                android:paddingTop="40dp"
+                android:paddingEnd="13dp"
+                android:text="La structure while"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
 
             <TextView
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/wwhile"
                 android:layout_alignEnd="@id/wwhile"
                 android:layout_marginEnd="8dp"
-                android:text="4/6"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
-                android:translationZ="5dp"/>
+                android:clickable="false"
+                android:fontFamily="@font/regular"
+                android:text="4/6"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
 
             <TextView
                 android:id="@+id/txtvwhile"
-                android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_alignBottom="@id/wwhile"
-                android:text="Incomplet"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/white"
                 android:background="@color/darkgray"
+                android:clickable="false"
+                android:fontFamily="@font/regular"
                 android:gravity="center"
-                android:translationZ="5dp"/>
+                android:text="Incomplet"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@color/lightwhite"
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/btndowhile"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:background="@color/lightwhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnswitch">
+
             <Button
-                android:clickable="false"
                 android:id="@+id/dowhile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="La structure do while"
                 android:background="@android:color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:textAllCaps="false"
+                android:clickable="false"
                 android:fontFamily="@font/regular"
-                android:textSize="19sp"
-                android:textColor="@color/black"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start"
-                android:paddingTop="40dp"
                 android:paddingStart="13dp"
-                android:paddingEnd="13dp" />
+                android:paddingTop="40dp"
+                android:paddingEnd="13dp"
+                android:text="La structure do while"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
 
             <TextView
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/dowhile"
                 android:layout_alignEnd="@id/dowhile"
                 android:layout_marginEnd="8dp"
-                android:text="5/6"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
-                android:translationZ="5dp"/>
+                android:clickable="false"
+                android:fontFamily="@font/regular"
+                android:text="5/6"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
 
             <TextView
                 android:id="@+id/txtvdowhile"
-                android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_alignBottom="@id/dowhile"
-                android:text="Incomplet"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/white"
                 android:background="@color/darkgray"
+                android:clickable="false"
+                android:fontFamily="@font/regular"
                 android:gravity="center"
-                android:translationZ="5dp"/>
+                android:text="Incomplet"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@color/lightwhite"
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/btnfor"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/lightwhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnwhile">
+
             <Button
-                android:clickable="false"
                 android:id="@+id/ffor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="La structure for"
                 android:background="@android:color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:textAllCaps="false"
+                android:clickable="false"
                 android:fontFamily="@font/regular"
-                android:textSize="19sp"
-                android:textColor="@color/black"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start"
-                android:paddingTop="40dp"
                 android:paddingStart="13dp"
-                android:paddingEnd="13dp" />
+                android:paddingTop="40dp"
+                android:paddingEnd="13dp"
+                android:text="La structure for"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
 
             <TextView
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/ffor"
                 android:layout_alignEnd="@id/ffor"
                 android:layout_marginEnd="8dp"
-                android:text="6/6"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
-                android:translationZ="5dp"/>
+                android:clickable="false"
+                android:fontFamily="@font/regular"
+                android:text="6/6"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
 
             <TextView
                 android:id="@+id/txtvfor"
-                android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_alignBottom="@id/ffor"
-                android:text="Incomplet"
-                android:fontFamily="@font/regular"
-                android:textSize="15sp"
-                android:textColor="@color/white"
                 android:background="@color/darkgray"
+                android:clickable="false"
+                android:fontFamily="@font/regular"
                 android:gravity="center"
-                android:translationZ="5dp"/>
+                android:text="Incomplet"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:translationZ="5dp" />
         </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

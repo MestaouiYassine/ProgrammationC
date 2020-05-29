@@ -1,181 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backgroundgray">
+    android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/btnbasec"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/roundedgraybutton"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_code_grray_34dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundgray">
 
-    <TextView
-        android:id="@+id/txtvbasec"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/semibold"
-        android:text="Les bases du langage C"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnbasec" />
+        <ImageButton
+            android:id="@+id/btnbasec"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/roundedgraybutton"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_code_grray_34dp" />
 
-    <ImageButton
-        android:id="@+id/btncondit"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/roundedgraybutton"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtvbasec"
-        app:srcCompat="@drawable/ic_all_inclusive_grray_34dp" />
+        <TextView
+            android:id="@+id/txtvbasec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/semibold"
+            android:text="Les bases du langage C"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnbasec" />
 
-    <TextView
-        android:id="@+id/txtvcondit"
-        android:layout_width="168dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/semibold"
-        android:text="Les structures conditionnelles et les boucles"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btncondit" />
+        <ImageButton
+            android:id="@+id/btncondit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/roundedgraybutton"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvbasec"
+            app:srcCompat="@drawable/ic_all_inclusive_grray_34dp" />
 
-    <ImageButton
-        android:id="@+id/btnfunctarray"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="72dp"
-        android:background="@drawable/roundedgraybutton"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtvbasec"
-        app:srcCompat="@drawable/ic_build_grray_34dp" />
+        <TextView
+            android:id="@+id/txtvcondit"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/semibold"
+            android:text="Les structures conditionnelles et les boucles"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btncondit" />
 
-    <TextView
-        android:id="@+id/txtvfunctarray"
-        android:layout_width="177dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/semibold"
-        android:text="Les fonctions, les tableaux et les pointeurs"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnfunctarray" />
+        <ImageButton
+            android:id="@+id/btnfunctarray"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="72dp"
+            android:background="@drawable/roundedgraybutton"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvbasec"
+            app:srcCompat="@drawable/ic_build_grray_34dp" />
 
-    <ImageButton
-        android:id="@+id/btnstrings"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/roundedgraybutton"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtvcondit"
-        app:srcCompat="@drawable/ic_widgets_grray_34dp" />
+        <TextView
+            android:id="@+id/txtvfunctarray"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/semibold"
+            android:text="Les fonctions, les tableaux et les pointeurs"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnfunctarray" />
 
-    <TextView
-        android:id="@+id/txtvstrings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/semibold"
-        android:text="Les chaînes de caractères"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnstrings" />
+        <ImageButton
+            android:id="@+id/btnstrings"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/roundedgraybutton"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvcondit"
+            app:srcCompat="@drawable/ic_widgets_grray_34dp" />
 
-    <ImageButton
-        android:id="@+id/btnstruct"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/roundedgraybutton"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtvstrings"
-        app:srcCompat="@drawable/ic_device_hub_grray_34dp" />
+        <TextView
+            android:id="@+id/txtvstrings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/semibold"
+            android:text="Les chaînes de caractères"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnstrings" />
 
-    <TextView
-        android:id="@+id/txtvstruct"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/semibold"
-        android:text="Les structures et les énumérations"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnstruct" />
+        <ImageButton
+            android:id="@+id/btnstruct"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/roundedgraybutton"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvstrings"
+            app:srcCompat="@drawable/ic_device_hub_grray_34dp" />
 
-    <ImageButton
-        android:id="@+id/btnfile"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="72dp"
-        android:background="@drawable/roundedgraybutton"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtvstrings"
-        app:srcCompat="@drawable/ic_description_grray_34dp" />
+        <TextView
+            android:id="@+id/txtvstruct"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/semibold"
+            android:text="Les structures et les énumérations"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnstruct" />
 
-    <TextView
-        android:id="@+id/txtvfile"
-        android:layout_width="116dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/semibold"
-        android:text="Les fichiers"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnfile" />
+        <ImageButton
+            android:id="@+id/btnfile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="72dp"
+            android:background="@drawable/roundedgraybutton"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvstrings"
+            app:srcCompat="@drawable/ic_description_grray_34dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtvfile"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/semibold"
+            android:text="Les fichiers"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnfile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

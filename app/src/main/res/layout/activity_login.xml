@@ -1,52 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtemaillogin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="148dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Adresse email"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/hintgray"
+        app:boxStrokeColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adresse email"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtpasswordlogin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Mot de passe"
-        android:inputType="textPassword"
-        android:textColorHint="@color/hintgray"
+        app:boxStrokeColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtemaillogin" />
+        app:layout_constraintTop_toBottomOf="@id/edtemaillogin"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mot de passe"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnsigninlogin"
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
-        android:text="Connexion"
         android:background="@drawable/button"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:textAllCaps="false"
         android:fontFamily="@font/regular"
-        android:textSize="19sp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Connexion"
+        android:textAllCaps="false"
         android:textColor="@color/white"
+        android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtpasswordlogin" />
@@ -56,13 +63,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Mot de passe oublié ?"
-        android:fontFamily="@font/semibold"
-        android:textColor="@color/black"
-        android:textSize="15sp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:fontFamily="@font/semibold"
+        android:text="Mot de passe oublié ?"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnsigninlogin" />
@@ -98,32 +105,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/bold"
         android:text="Inscrivez-vous."
         android:textColor="@color/blue"
         android:textSize="15sp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         app:layout_constraintBaseline_toBaselineOf="@id/textView2"
         app:layout_constraintStart_toEndOf="@id/textView2" />
 
 
     <Button
         android:id="@+id/btnreturnlogin"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="101dp"
         android:layout_height="30dp"
-        android:text=""
-        android:textAllCaps="false"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/buttonback"
         android:foreground="?android:attr/selectableItemBackground"
+        android:text=""
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="60dp" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

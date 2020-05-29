@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button btnreturn,btnsignin;
     private TextView txtvsignup,txtvforgotten;
-    private EditText edtemail,edtpassword;
+    private TextInputLayout edtemail,edtpassword;
     private ProgressBar progressBar;
 
     @Override
@@ -103,8 +104,8 @@ public class LoginActivity extends AppCompatActivity {
         btnsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = edtemail.getText().toString();
-                String password = edtpassword.getText().toString();
+                String email = edtemail.getEditText().getText().toString();
+                String password = edtpassword.getEditText().getText().toString();
 
                 final String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,6}";
                 boolean flag = true;

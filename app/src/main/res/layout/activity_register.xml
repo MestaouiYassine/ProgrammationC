@@ -6,92 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtemailregist"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="148dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Adresse e-mail"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/hintgray"
+        app:boxStrokeColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/edtlastnameregist"
-        android:layout_width="300dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Nom"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/hintgray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtemailregist" />
-
-    <EditText
-        android:id="@+id/edtfirstnameregist"
-        android:layout_width="300dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Prénom"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/hintgray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtlastnameregist" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adresse e-mail"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtilpassword1regist"
+        android:id="@+id/edtlastnameregist"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/input_field_txtil"
-        android:hint=" "
-        app:passwordToggleEnabled="true"
-        app:passwordToggleDrawable="@drawable/show_password_selector"
+        app:boxStrokeColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtfirstnameregist">
+        app:layout_constraintTop_toBottomOf="@id/edtemailregist">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtfirstnameregist"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:boxStrokeColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtlastnameregist">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prénom"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtpassword1regist"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:boxStrokeColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtfirstnameregist"
+        app:passwordToggleEnabled="true">
 
         <EditText
-            android:id="@+id/edtpassword1regist"
             android:layout_width="match_parent"
-            android:layout_height="22dp"
-            android:background="@drawable/input_field"
-            android:ems="10"
+            android:layout_height="wrap_content"
             android:hint="Mot de passe"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtilpassword2regist"
+        android:id="@+id/edtpassword2regist"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textColorHint="@color/black"
-        android:background="@drawable/input_field_txtil"
-        android:hint=" "
-        app:passwordToggleEnabled="true"
-        app:passwordToggleDrawable="@drawable/show_password_selector"
+        app:boxStrokeColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtilpassword1regist">
+        app:layout_constraintTop_toBottomOf="@id/edtpassword1regist"
+        app:passwordToggleEnabled="true">
 
         <EditText
-            android:id="@+id/edtpassword2regist"
             android:layout_width="match_parent"
-            android:layout_height="22dp"
-            android:background="@drawable/input_field"
-            android:ems="10"
+            android:layout_height="wrap_content"
             android:hint="Retaper le mot de passe"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,15 +104,15 @@
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button"
-        android:foreground="?android:attr/selectableItemBackground"
         android:fontFamily="@font/regular"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="S'enregistrer"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtilpassword2regist" />
+        app:layout_constraintTop_toBottomOf="@id/edtpassword2regist" />
 
     <ProgressBar
         android:id="@+id/progressBarregister"
@@ -126,16 +128,16 @@
 
     <Button
         android:id="@+id/btnreturnregist"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="101dp"
         android:layout_height="30dp"
-        android:text=""
-        android:textAllCaps="false"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/buttonback"
         android:foreground="?android:attr/selectableItemBackground"
+        android:text=""
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="60dp" />
 

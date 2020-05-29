@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,7 +44,7 @@ public class EditProfileFragment extends Fragment {
     private FirebaseUser user;
     private String firstnameedit,lastnameedit;
     private ImageView imgvavataredit;
-    private EditText edtlastnameedit,edtfirstnameedit;
+    private TextInputLayout edtlastnameedit,edtfirstnameedit;
     private TextView txtvchangeavatar;
     private Button btnconfirmedit;
     private ImageButton btnremoveavatar;
@@ -67,8 +68,8 @@ public class EditProfileFragment extends Fragment {
         btnremoveavatar = view.findViewById(R.id.btnremoveavatar);
         txtvchangeavatar = view.findViewById(R.id.txtvchangeavatar);
 
-        edtfirstnameedit.setText(((HomeActivity) getActivity()).retrievedFirstName);
-        edtlastnameedit.setText(((HomeActivity) getActivity()).retrievedLastName);
+        edtfirstnameedit.getEditText().setText(((HomeActivity) getActivity()).retrievedFirstName);
+        edtlastnameedit.getEditText().setText(((HomeActivity) getActivity()).retrievedLastName);
         if(((HomeActivity) getActivity()).retrievedAvatar != null) {
         imgavataruri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
             Glide.with(this)
@@ -106,8 +107,8 @@ public class EditProfileFragment extends Fragment {
         btnconfirmedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firstnameedit = edtfirstnameedit.getText().toString();
-                lastnameedit = edtlastnameedit.getText().toString();
+                firstnameedit = edtfirstnameedit.getEditText().getText().toString();
+                lastnameedit = edtlastnameedit.getEditText().getText().toString();
                 final String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,6}";
                 boolean flag = true;
 
