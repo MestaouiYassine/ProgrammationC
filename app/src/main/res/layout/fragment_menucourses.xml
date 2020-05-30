@@ -177,5 +177,131 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnfile" />
 
+        <ProgressBar
+            android:id="@+id/pbbasec"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressTint="@color/darkgray"
+            android:max="10"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvbasec" />
+
+        <TextView
+            android:id="@+id/txtvprogrbasec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/pbbasec"
+            app:layout_constraintTop_toBottomOf="@id/txtvbasec" />
+
+        <ProgressBar
+            android:id="@+id/pbcondit"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressTint="@color/darkgray"
+            android:max="06"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@id/txtvprogrcondit"
+            app:layout_constraintTop_toBottomOf="@id/txtvcondit" />
+
+        <TextView
+            android:id="@+id/txtvprogrcondit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvcondit" />
+
+        <ProgressBar
+            android:id="@+id/pbfunctarray"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressTint="@color/darkgray"
+            android:max="06"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvfunctarray" />
+
+        <TextView
+            android:id="@+id/txtvprogrfunctarray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/pbfunctarray"
+            app:layout_constraintTop_toBottomOf="@id/txtvfunctarray" />
+
+        <ProgressBar
+            android:id="@+id/pbstrings"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressTint="@color/darkgray"
+            android:max="03"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvstrings" />
+
+        <TextView
+            android:id="@+id/txtvprogrstrings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/pbstrings"
+            app:layout_constraintTop_toBottomOf="@id/txtvstrings" />
+
+        <ProgressBar
+            android:id="@+id/pbstruct"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressTint="@color/darkgray"
+            android:max="03"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@id/txtvprogrstruct"
+            app:layout_constraintTop_toBottomOf="@id/txtvstruct" />
+
+        <TextView
+            android:id="@+id/txtvprogrstruct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvstruct" />
+
+        <ProgressBar
+            android:id="@+id/pbfile"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressTint="@color/darkgray"
+            android:max="02"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvfile" />
+
+        <TextView
+            android:id="@+id/txtvprogrfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/pbfile"
+            app:layout_constraintTop_toBottomOf="@id/txtvfile" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

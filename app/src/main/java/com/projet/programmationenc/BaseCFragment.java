@@ -36,7 +36,7 @@ public class BaseCFragment extends Fragment {
     private FirebaseUser user;
 //    private List<String> completedBasic = new ArrayList<>();
 //    private String[] completedBasic = new String[10];
-    public static List<String> completedBasic = new ArrayList<>();
+    public static List<String> completedBasic;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

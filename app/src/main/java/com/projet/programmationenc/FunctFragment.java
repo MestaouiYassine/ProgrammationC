@@ -30,7 +30,7 @@ public class FunctFragment extends Fragment {
     private TextView txtvfonction1,txtvfonction2,txtvtab1dim,txtvtabndim,txtvpointers1,txtvpointers2;
     private String id;
     private FirebaseUser user;
-    public static List<String> completedFuncArrPoint = new ArrayList<>();
+    public static List<String> completedFuncArrPoint;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

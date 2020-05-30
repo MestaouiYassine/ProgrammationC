@@ -28,7 +28,7 @@ public class StructFragment extends Fragment {
     private static final String TAG = "StructFragment";
     private RelativeLayout btnenum,btnsstruct,btnstructtab;
     private TextView txtvenum,txtvsstruct,txtvstructtab;
-    public static List<String> completedEnumStruct = new ArrayList<>();
+    public static List<String> completedEnumStruct;
     private String id;
     private FirebaseUser user;
 

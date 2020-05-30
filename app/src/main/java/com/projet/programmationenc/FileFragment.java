@@ -28,7 +28,7 @@ public class FileFragment extends Fragment {
     private static final String TAG = "FileFragment";
     private RelativeLayout btnfile1,btnfile2;
     private TextView txtvfile1,txtvfile2;
-    public static List<String> completedFiles = new ArrayList<>();
+    public static List<String> completedFiles;
     private String id;
     private FirebaseUser user;
     @Nullable

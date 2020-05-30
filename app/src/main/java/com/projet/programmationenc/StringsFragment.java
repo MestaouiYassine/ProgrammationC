@@ -30,7 +30,7 @@ public class StringsFragment extends Fragment {
     private TextView txtvstring1,txtvstring2,txtvstring3;
     private String id;
     private FirebaseUser user;
-    public static List<String> completedStrings = new ArrayList<>();
+    public static List<String> completedStrings;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

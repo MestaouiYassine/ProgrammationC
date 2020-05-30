@@ -76,6 +76,12 @@ public class HomeActivity extends AppCompatActivity {
 //        ft.detach(frg);
 //        ft.attach(frg);
 //        ft.commit();
+        BaseCFragment.completedBasic  = new ArrayList<>();
+        ConditFragment.completedCondLoop = new ArrayList<>();
+        FunctFragment.completedFuncArrPoint = new ArrayList<>();
+        StringsFragment.completedStrings = new ArrayList<>();
+        StructFragment.completedEnumStruct = new ArrayList<>();
+        FileFragment.completedFiles = new ArrayList<>();
 
 
         navigationView = findViewById(R.id.nvhome);
@@ -160,6 +166,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//Sets our toolbar as the actionbar
         drawer = findViewById(R.id.drawer_layout);
@@ -220,6 +228,12 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ContactFragment()).addToBackStack(null).commit();
                         break;
                     case R.id.signout:
+                        BaseCFragment.completedBasic = null;
+                        ConditFragment.completedCondLoop = null;
+                        FunctFragment.completedFuncArrPoint = null;
+                        StringsFragment.completedStrings = null;
+                        StructFragment.completedEnumStruct = null;
+                        FileFragment.completedFiles = null;
                         FirebaseAuth.getInstance().signOut();
                         finish();
                         break;

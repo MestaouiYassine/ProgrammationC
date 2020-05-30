@@ -31,7 +31,7 @@ public class ConditFragment extends Fragment {
     private TextView txtvifelse,txtvoplog,txtvswitch,txtvwhile,txtvdowhile,txtvfor;
     private String id;
     private FirebaseUser user;
-    public static List<String> completedCondLoop = new ArrayList<>();
+    public static List<String> completedCondLoop;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
