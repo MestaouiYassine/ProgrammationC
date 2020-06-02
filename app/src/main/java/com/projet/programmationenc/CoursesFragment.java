@@ -36,20 +36,13 @@ public class CoursesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
-//        edtidcourse = view.findViewById(R.id.edtidcourse);
+
         String base_url = "http://192.168.1.104/progc/";
+
         txtvtitle = view.findViewById(R.id.txtvtitle);
         txtvcourse = view.findViewById(R.id.txtvcourse);
         btncontinue = view.findViewById(R.id.btncontinue);
 
-//        ArrayList<String> completedBasic = getArguments().getStringArrayList("list");
-//        Bundle bundle = new Bundle();
-//        bundle.putStringArrayList("list",completedBasic);
-//        String id;
-//        id = edtidcourse.getText().toString();
-//        id = "C7";
-
-//        Bundle bundle = this.getArguments();
         String id = getArguments().getString("id");
 
         Retrofit retrofit = new Retrofit.Builder()
