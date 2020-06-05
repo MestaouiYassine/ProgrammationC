@@ -19,6 +19,9 @@ public interface ApiInterface {
     @GET("quiz.php")
     Call<List<Quiz>> getQuiz(@Query("category") String category);
 
+    @GET("exercices.php")
+    Call<Exercice> getExercice(@Query("exerciceID") String exerciceID);
+
     @FormUrlEncoded
     @POST("insert.php")
     Call<Student> insertStudent(

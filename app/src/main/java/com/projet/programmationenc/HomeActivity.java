@@ -65,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
     public List<String> retrievedCompletedEnumStruct = new ArrayList<>();
     public List<String> retrievedCompletedFiles = new ArrayList<>();
     private ImageView imgvavatartopnagiv;
+    public final String base_url = "http://192.168.1.105/progc/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +95,6 @@ public class HomeActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        String base_url = "http://192.168.1.104/progc/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)
                 .addConverterFactory(GsonConverterFactory.create())

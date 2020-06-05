@@ -37,7 +37,7 @@ public class CoursesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 
-        String base_url = "http://192.168.1.104/progc/";
+        String base_url = ((HomeActivity) getActivity()).base_url;
 
         txtvtitle = view.findViewById(R.id.txtvtitle);
         txtvcourse = view.findViewById(R.id.txtvcourse);

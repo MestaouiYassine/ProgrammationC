@@ -43,6 +43,8 @@ public class FunctFragment extends Fragment {
 
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
+        String base_url = ((HomeActivity) getActivity()).base_url;
+
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(((HomeActivity) getActivity()).retrievedCompletedFuncArrPoint.isEmpty()) {
@@ -104,7 +106,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("fonction1")) {
                     completedFuncArrPoint.add("fonction1");
-                    updateFuncArrPointCourse();
+                    updateFuncArrPointCourse(base_url);
                 }
                 id = "fonction1";
                 Bundle bundle = new Bundle();
@@ -120,7 +122,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("fonction2")) {
                     completedFuncArrPoint.add("fonction2");
-                    updateFuncArrPointCourse();
+                    updateFuncArrPointCourse(base_url);
                 }
                 id = "fonction2";
                 Bundle bundle = new Bundle();
@@ -136,7 +138,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("tab1dim")) {
                     completedFuncArrPoint.add("tab1dim");
-                    updateFuncArrPointCourse();
+                    updateFuncArrPointCourse(base_url);
                 }
                 id = "tab1dim";
                 Bundle bundle = new Bundle();
@@ -152,7 +154,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("tabndim")) {
                     completedFuncArrPoint.add("tabndim");
-                    updateFuncArrPointCourse();
+                    updateFuncArrPointCourse(base_url);
                 }
                 id = "tabndim";
                 Bundle bundle = new Bundle();
@@ -168,7 +170,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("pointers1")) {
                     completedFuncArrPoint.add("pointers1");
-                    updateFuncArrPointCourse();
+                    updateFuncArrPointCourse(base_url);
                 }
                 id = "pointers1";
                 Bundle bundle = new Bundle();
@@ -184,7 +186,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("pointers2")) {
                     completedFuncArrPoint.add("pointers2");
-                    updateFuncArrPointCourse();
+                    updateFuncArrPointCourse(base_url);
                 }
                 id = "pointers2";
                 Bundle bundle = new Bundle();
@@ -298,7 +300,7 @@ public class FunctFragment extends Fragment {
         }
     }
 
-    private void updateFuncArrPointCourse() {
+    private void updateFuncArrPointCourse(String base_url) {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedFuncArrPoint) {
             if(!s.equals(completedFuncArrPoint.get(completedFuncArrPoint.size() - 1))) {
@@ -310,8 +312,6 @@ public class FunctFragment extends Fragment {
         }
 
         String completeBase = stringBuilder.toString();
-
-        String base_url = "http://192.168.1.104/progc/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)

@@ -52,7 +52,11 @@ public class ChangePasswordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String base_url = ((HomeActivity) getActivity()).base_url;
+
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+
 //        databaseReference = FirebaseDatabase.getInstance().getReference();
         edtpassword1change = view.findViewById(R.id.edtpassword1change);
         edtpassword2change = view.findViewById(R.id.edtpassword2change);
@@ -98,7 +102,6 @@ public class ChangePasswordFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Log.e(TAG, "onComplete: Password updates successfully");
-                                    String base_url = "http://192.168.1.104/progc/";
 
 //                                Gson gson = new GsonBuilder()
 //                                        .setLenient()

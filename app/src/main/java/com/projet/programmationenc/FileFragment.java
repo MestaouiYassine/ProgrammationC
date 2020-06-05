@@ -41,6 +41,8 @@ public class FileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String base_url = ((HomeActivity) getActivity()).base_url;
+
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -76,7 +78,7 @@ public class FileFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFiles.contains("file1")) {
                     completedFiles.add("file1");
-                    updateFileCourse();
+                    updateFileCourse(base_url);
                 }
                 id = "file1";
                 Bundle bundle = new Bundle();
@@ -92,7 +94,7 @@ public class FileFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFiles.contains("file2")) {
                     completedFiles.add("file2");
-                    updateFileCourse();
+                    updateFileCourse(base_url);
                 }
                 id = "file2";
                 Bundle bundle = new Bundle();
@@ -116,7 +118,7 @@ public class FileFragment extends Fragment {
         }
     }
 
-    private void updateFileCourse() {
+    private void updateFileCourse(String base_url) {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedFiles) {
             if(!s.equals(completedFiles.get(completedFiles.size() - 1))) {
@@ -129,7 +131,6 @@ public class FileFragment extends Fragment {
 
         String completeBase = stringBuilder.toString();
 
-        String base_url = "http://192.168.1.104/progc/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)

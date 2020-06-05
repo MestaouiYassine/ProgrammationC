@@ -20,6 +20,7 @@
             android:id="@+id/txtvcourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             tools:layout_editor_absoluteX="411dp"
             tools:layout_editor_absoluteY="109dp" />
 

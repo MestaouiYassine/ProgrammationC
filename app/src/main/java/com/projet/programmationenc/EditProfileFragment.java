@@ -59,6 +59,9 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        String base_url = ((HomeActivity) getActivity()).base_url;
+
         user = FirebaseAuth.getInstance().getCurrentUser();
 //        databaseReference = FirebaseDatabase.getInstance().getReference();
         imgvavataredit = view.findViewById(R.id.imgvavataredit);
@@ -126,7 +129,6 @@ public class EditProfileFragment extends Fragment {
                     return;
                 }
                 else {
-                    String base_url = "http://192.168.1.104/progc/";
 
 //                                Gson gson = new GsonBuilder()
 //                                        .setLenient()

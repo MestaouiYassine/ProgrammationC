@@ -42,6 +42,8 @@ public class StructFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String base_url = ((HomeActivity) getActivity()).base_url;
+
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -84,7 +86,7 @@ public class StructFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedEnumStruct.contains("enum")) {
                     completedEnumStruct.add("enum");
-                    updateEnumStructCourse();
+                    updateEnumStructCourse(base_url);
                 }
                 id = "enum";
                 Bundle bundle = new Bundle();
@@ -100,7 +102,7 @@ public class StructFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedEnumStruct.contains("struct")) {
                     completedEnumStruct.add("struct");
-                    updateEnumStructCourse();
+                    updateEnumStructCourse(base_url);
                 }
                 id = "struct";
                 Bundle bundle = new Bundle();
@@ -116,7 +118,7 @@ public class StructFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedEnumStruct.contains("structtab")) {
                     completedEnumStruct.add("structtab");
-                    updateEnumStructCourse();
+                    updateEnumStructCourse(base_url);
                 }
                 id = "structtab";
                 Bundle bundle = new Bundle();
@@ -153,7 +155,7 @@ public class StructFragment extends Fragment {
         }
     }
 
-    private void updateEnumStructCourse() {
+    private void updateEnumStructCourse(String base_url) {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedEnumStruct) {
             if(!s.equals(completedEnumStruct.get(completedEnumStruct.size() - 1))) {
@@ -165,8 +167,6 @@ public class StructFragment extends Fragment {
         }
 
         String completeBase = stringBuilder.toString();
-
-        String base_url = "http://192.168.1.104/progc/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)

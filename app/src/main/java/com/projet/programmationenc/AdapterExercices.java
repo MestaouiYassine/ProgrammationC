@@ -118,6 +118,32 @@ public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.View
             }
         });
 
+        holder.btnrvex1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Bundle bundle = new Bundle();
+                bundle.putString("extitle",currentItem.getmEx1());
+                ExFragment exFragment = new ExFragment();
+                exFragment.setArguments(bundle);
+
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,exFragment).addToBackStack(null).commit();
+            }
+        });
+
+        holder.btnrvex2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Bundle bundle = new Bundle();
+                bundle.putString("extitle",currentItem.getmEx2());
+                ExFragment exFragment = new ExFragment();
+                exFragment.setArguments(bundle);
+
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,exFragment).addToBackStack(null).commit();
+            }
+        });
+
     }
 
     private void setImageButton(ToggleButton button, boolean isSelected) {

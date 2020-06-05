@@ -50,6 +50,7 @@ public class BaseCFragment extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        String base_url = ((HomeActivity) getActivity()).base_url;
 
         if(((HomeActivity) getActivity()).retrievedCompletedBasic.isEmpty()) {
             Log.e(TAG, "onViewCreated: retrievedCompletedBasic is foking empty");
@@ -179,7 +180,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("premierprogc")) {
                     completedBasic.add("premierprogc");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "premierprogc";
                 Bundle bundle = new Bundle();
@@ -196,7 +197,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("backslashn")) {
                     completedBasic.add("backslashn");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "backslashn";
                 Bundle bundle = new Bundle();
@@ -212,7 +213,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("typevar")) {
                     completedBasic.add("typevar");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "typevar";
                 Bundle bundle = new Bundle();
@@ -228,7 +229,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("typecar")) {
                     completedBasic.add("typecar");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "typecar";
                 Bundle bundle = new Bundle();
@@ -244,7 +245,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("putchar")) {
                     completedBasic.add("putchar");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "putchar";
                 Bundle bundle = new Bundle();
@@ -260,7 +261,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("lireclav")) {
                     completedBasic.add("lireclav");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "lireclav";
                 Bundle bundle = new Bundle();
@@ -276,7 +277,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("typebase")) {
                     completedBasic.add("typebase");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "typebase";
                 Bundle bundle = new Bundle();
@@ -292,7 +293,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("speciform")) {
                     completedBasic.add("speciform");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "speciform";
                 Bundle bundle = new Bundle();
@@ -308,7 +309,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("op")) {
                     completedBasic.add("op");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "op";
                 Bundle bundle = new Bundle();
@@ -324,7 +325,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("constant")) {
                     completedBasic.add("constant");
-                    updateBaseCourse();
+                    updateBaseCourse(base_url);
                 }
                 id = "constant";
                 Bundle bundle = new Bundle();
@@ -671,7 +672,7 @@ public class BaseCFragment extends Fragment {
 
     }
 
-    private void updateBaseCourse() {
+    private void updateBaseCourse(String base_url) {
 //        String[] basicCourses = new String[completedBasic.size()];
 //        completedBasic.toArray(basicCourses);
         StringBuilder stringBuilder = new StringBuilder();
@@ -686,7 +687,6 @@ public class BaseCFragment extends Fragment {
 
         String completeBase = stringBuilder.toString();
 
-        String base_url = "http://192.168.1.104/progc/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)

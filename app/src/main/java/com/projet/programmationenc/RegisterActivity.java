@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                String base_url = "http://192.168.1.104/progc/";
+                                String base_url = "http://192.168.1.105/progc/";
 
 //                                Gson gson = new GsonBuilder()
 //                                        .setLenient()

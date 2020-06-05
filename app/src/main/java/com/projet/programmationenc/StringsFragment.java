@@ -41,6 +41,8 @@ public class StringsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String base_url = ((HomeActivity) getActivity()).base_url;
+
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -83,7 +85,7 @@ public class StringsFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedStrings.contains("string1")) {
                     completedStrings.add("string1");
-                    updateStringsCourse();
+                    updateStringsCourse(base_url);
                 }
                 id = "string1";
                 Bundle bundle = new Bundle();
@@ -99,7 +101,7 @@ public class StringsFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedStrings.contains("string2")) {
                     completedStrings.add("string2");
-                    updateStringsCourse();
+                    updateStringsCourse(base_url);
                 }
                 id = "string2";
                 Bundle bundle = new Bundle();
@@ -115,7 +117,7 @@ public class StringsFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedStrings.contains("string3")) {
                     completedStrings.add("string3");
-                    updateStringsCourse();
+                    updateStringsCourse(base_url);
                 }
                 id = "string3";
                 Bundle bundle = new Bundle();
@@ -153,7 +155,7 @@ public class StringsFragment extends Fragment {
 
     }
 
-    private void updateStringsCourse() {
+    private void updateStringsCourse(String base_url) {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedStrings) {
             if(!s.equals(completedStrings.get(completedStrings.size() - 1))) {
@@ -165,8 +167,6 @@ public class StringsFragment extends Fragment {
         }
 
         String completeBase = stringBuilder.toString();
-
-        String base_url = "http://192.168.1.104/progc/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)

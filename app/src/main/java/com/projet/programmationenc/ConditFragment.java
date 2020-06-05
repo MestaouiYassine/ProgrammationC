@@ -43,6 +43,8 @@ public class ConditFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
+        String base_url = ((HomeActivity) getActivity()).base_url;
+
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(((HomeActivity) getActivity()).retrievedCompletedCondLoop.isEmpty()) {
@@ -104,7 +106,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("ifelse")) {
                     completedCondLoop.add("ifelse");
-                    updateCondLoopCourse();
+                    updateCondLoopCourse(base_url);
                 }
                 id = "ifelse";
                 Bundle bundle = new Bundle();
@@ -120,7 +122,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("oplog")) {
                     completedCondLoop.add("oplog");
-                    updateCondLoopCourse();
+                    updateCondLoopCourse(base_url);
                 }
                 id = "oplog";
                 Bundle bundle = new Bundle();
@@ -136,7 +138,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("switch")) {
                     completedCondLoop.add("switch");
-                    updateCondLoopCourse();
+                    updateCondLoopCourse(base_url);
                 }
                 id = "switch";
                 Bundle bundle = new Bundle();
@@ -152,7 +154,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("while")) {
                     completedCondLoop.add("while");
-                    updateCondLoopCourse();
+                    updateCondLoopCourse(base_url);
                 }
                 id = "while";
                 Bundle bundle = new Bundle();
@@ -168,7 +170,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("dowhile")) {
                     completedCondLoop.add("dowhile");
-                    updateCondLoopCourse();
+                    updateCondLoopCourse(base_url);
                 }
                 id = "dowhile";
                 Bundle bundle = new Bundle();
@@ -184,7 +186,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("for")) {
                     completedCondLoop.add("for");
-                    updateCondLoopCourse();
+                    updateCondLoopCourse(base_url);
                 }
                 id = "for";
                 Bundle bundle = new Bundle();
@@ -298,7 +300,7 @@ public class ConditFragment extends Fragment {
         }
     }
 
-    private void updateCondLoopCourse() {
+    private void updateCondLoopCourse(String base_url) {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedCondLoop) {
             if(!s.equals(completedCondLoop.get(completedCondLoop.size() - 1))) {
@@ -310,8 +312,6 @@ public class ConditFragment extends Fragment {
         }
 
         String completeBase = stringBuilder.toString();
-
-        String base_url = "http://192.168.1.104/progc/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)
