@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir les espaces vides pour afficher le message 'Bonjour langage C' :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt1q1basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:maxLength="6"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView4"/>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='("Bonjour langage C")'
+        android:textColor="@color/lightgreen"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q1basec"
+        app:layout_constraintStart_toEndOf="@id/edt1q1basec" />
+
+    <EditText
+        android:id="@+id/edt2q1basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="1"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView8"
+        app:layout_constraintStart_toEndOf="@id/textView8" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir les espaces vides pour déclarer une variable s égale à la somme de a et b :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView8" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="int "
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView10" />
+
+    <EditText
+        android:id="@+id/edt1q2basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="1"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView11"
+        app:layout_constraintStart_toEndOf="@id/textView11"/>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" = a "
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q2basec"
+        app:layout_constraintStart_toEndOf="@id/edt1q2basec" />
+
+    <EditText
+        android:id="@+id/edt2q2basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="1"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView12"
+        app:layout_constraintStart_toEndOf="@id/textView12" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" b;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q2basec"
+        app:layout_constraintStart_toEndOf="@id/edt2q2basec" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:text="Remplir les espaces pour afficher la valeur de v :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        android:fontFamily="@font/bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView13" />
+
+    <EditText
+        android:id="@+id/edt1q3basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:maxLength="1"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView6"/>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="include &lt;stdio.h&gt;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q3basec"
+        app:layout_constraintStart_toEndOf="@id/edt1q3basec" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="int main() {\n  int v = 42135;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q3basec" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='  printf("%d",'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView14" />
+
+    <EditText
+        android:id="@+id/edt2q3basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="1"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView15"
+        app:layout_constraintStart_toEndOf="@id/textView15" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=");"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q3basec"
+        app:layout_constraintStart_toEndOf="@id/edt2q3basec" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="  return 0;\n}"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView15" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir les espaces pour lire deux variables et afficher leurs produit :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView17" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="#include &lt;stdio&gt;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView18" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="int "
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView19" />
+
+    <EditText
+        android:id="@+id/edt1q4basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="6"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView20"
+        app:layout_constraintStart_toEndOf="@id/textView20"/>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='{\n  int a,b;\n  printf("Donnez deux nombres :");'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView20" />
+
+    <EditText
+        android:id="@+id/edt2q4basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:maxLength="5"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView22"/>
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='("%d %d",'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q4basec"
+        app:layout_constraintStart_toEndOf="@id/edt2q4basec" />
+
+    <EditText
+        android:id="@+id/edt3q4basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="2"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView23"
+        app:layout_constraintStart_toEndOf="@id/textView23"/>
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=","
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt3q4basec"
+        app:layout_constraintStart_toEndOf="@id/edt3q4basec" />
+
+    <EditText
+        android:id="@+id/edt4q4basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="2"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView24"
+        app:layout_constraintStart_toEndOf="@id/textView24"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=");"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt4q4basec"
+        app:layout_constraintStart_toEndOf="@id/edt4q4basec" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='  printf("Leurs produit est %d",'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt2q4basec" />
+
+    <EditText
+        android:id="@+id/edt5q4basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="3"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView26"
+        app:layout_constraintStart_toEndOf="@id/textView26"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=");"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt5q4basec"
+        app:layout_constraintStart_toEndOf="@id/edt5q4basec"/>
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="  return 0;\n}"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView26"/>
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:text="Remplir les espaces pour déclarer une constante de deux façons :"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView27"/>
+
+    <EditText
+        android:id="@+id/edt1q5basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:maxLength="5"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView28"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" float pi = 3.14;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt1q5basec"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q5basec"/>
+
+    <EditText
+        android:id="@+id/edt2q5basec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLength="7"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q5basec"/>
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" n 50;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt2q5basec"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q5basec"/>
+
+    <Button
+        android:id="@+id/btnqzbasec"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/buttongreen"
+        android:fontFamily="@font/regular"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Vérifier"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView29"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

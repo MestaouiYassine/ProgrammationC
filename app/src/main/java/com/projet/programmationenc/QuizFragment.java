@@ -92,19 +92,19 @@ public class QuizFragment extends Fragment {
         String category;
         String title = getArguments().getString("title");
         switch (title) {
-            case "Quiz : Les bases du langage C":
+            case "Quiz 1 : Les bases du langage C":
                 category = "basec";
                 break;
-            case "Quiz : Les structures conditionelles et les boucles":
+            case "Quiz 1 : Les structures conditionelles et les boucles":
                 category = "condit";
                 break;
-            case "Quiz : Les fonctions, les tableaux et les pointeurs":
+            case "Quiz 1 : Les fonctions, les tableaux et les pointeurs":
                 category = "functarray";
                 break;
-            case "Quiz : Les chaînes de caractères":
+            case "Quiz 1 : Les chaînes de caractères":
                 category = "strings";
                 break;
-            case "Quiz : Les structures et les énumérations":
+            case "Quiz 1 : Les structures et les énumérations":
                 category = "struct";
                 break;
             default:

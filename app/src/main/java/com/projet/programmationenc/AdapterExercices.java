@@ -1,7 +1,6 @@
 package com.projet.programmationenc;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -34,7 +31,7 @@ public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.View
         public TextView txtvcvrv;
         public ToggleButton btnrvarrow;
         public LinearLayout llexpanded;
-        public Button btnrvquiz,btnrvex1,btnrvex2;
+        public Button btnrvquiz1,btnrvquiz2,btnrvex1,btnrvex2;
 
         public ViewHolderEx(@NonNull View itemView) {
             super(itemView);
@@ -42,7 +39,8 @@ public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.View
             txtvcvrv = itemView.findViewById(R.id.txtvcvrv);
             btnrvarrow = itemView.findViewById(R.id.btnrvarrow);
             llexpanded = itemView.findViewById(R.id.llexpanded);
-            btnrvquiz = itemView.findViewById(R.id.btnrvquiz);
+            btnrvquiz1 = itemView.findViewById(R.id.btnrvquiz1);
+            btnrvquiz2 = itemView.findViewById(R.id.btnrvquiz2);
             btnrvex1 = itemView.findViewById(R.id.btnrvex1);
             btnrvex2 = itemView.findViewById(R.id.btnrvex2);
         }
@@ -72,7 +70,8 @@ public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.View
 //        }
         holder.civcvrv.setImageResource(currentItem.getImageResource());
         holder.txtvcvrv.setText(currentItem.getmText());
-        holder.btnrvquiz.setText(currentItem.getmQuiz());
+        holder.btnrvquiz1.setText(currentItem.getmQuiz1());
+        holder.btnrvquiz2.setText(currentItem.getmQuiz2());
         holder.btnrvex1.setText(currentItem.getmEx1());
         holder.btnrvex2.setText(currentItem.getmEx2());
 //        holder.btnrvarrow.setBackgroundResource(currentItem.getButtonResource());
@@ -104,17 +103,25 @@ public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.View
             }
         });
 
-        holder.btnrvquiz.setOnClickListener(new View.OnClickListener() {
+        holder.btnrvquiz1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 Bundle bundle = new Bundle();
-                bundle.putString("title",currentItem.getmQuiz());
+                bundle.putString("title",currentItem.getmQuiz1());
                 QuizFragment quizFragment = new QuizFragment();
                 quizFragment.setArguments(bundle);
 
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,quizFragment).addToBackStack(null).commit();
 
+            }
+        });
+
+        holder.btnrvquiz2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizBaseCFragment()).addToBackStack(null).commit();
             }
         });
 

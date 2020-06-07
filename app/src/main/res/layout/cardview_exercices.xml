@@ -49,7 +49,6 @@
 
         <LinearLayout
             android:id="@+id/llexpanded"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
@@ -57,7 +56,16 @@
 
 
             <Button
-                android:id="@+id/btnrvquiz"
+                android:id="@+id/btnrvquiz1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:textAllCaps="false"
+                android:fontFamily="@font/regular"/>
+
+            <Button
+                android:id="@+id/btnrvquiz2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@android:color/transparent"

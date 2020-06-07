@@ -31,12 +31,12 @@ public class ExercicesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         List<CardViewExercices> cardViewExercicesList = new ArrayList<>();
-        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_code_grray_34dp,"Les bases du langage C","Quiz : Les bases du langage C", "Exercice 1 : Les bases du langage C", "Exercice 2 : Les bases du langage C",false));
-        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_all_inclusive_grray_34dp,"Les structures conditionelles et les boucles","Quiz : Les structures conditionelles et les boucles", "Exercice 1 : Les structures conditionelles et les boucles", "Exercice 2 : Les structures conditionelles et les boucles",false));
-        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_build_grray_34dp,"Les fonctions, les tableaux et les pointeurs","Quiz : Les fonctions, les tableaux et les pointeurs", "Exercice 1 : Les fonctions, les tableaux et les pointeurs", "Exercice 2 : Les fonctions, les tableaux et les pointeurs",false));
-        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_widgets_grray_34dp,"Les chaînes de caractères","Quiz : Les chaînes de caractères", "Exercice 1 : Les chaînes de caractères", "Exercice 2 : Les chaînes de caractères",false));
-        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_device_hub_grray_34dp,"Les structures et les énumérations","Quiz : Les structures et les énumérations", "Exercice 1 : Les structures et les énumérations", "Exercice 2 : Les structures et les énumérations",false));
-        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_description_grray_34dp,"Les fichiers","Quiz : Les fichiers", "Exercice 1 : Les fichiers", "Exercice 2 : Les fichiers",false));
+        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_code_grray_34dp,"Les bases du langage C","Quiz 1 : Les bases du langage C","Quiz 2 : Les bases du langage C", "Exercice 1 : Les bases du langage C", "Exercice 2 : Les bases du langage C",false));
+        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_all_inclusive_grray_34dp,"Les structures conditionelles et les boucles","Quiz 1 : Les structures conditionelles et les boucles","Quiz 2 : Les structures conditionelles et les boucles", "Exercice 1 : Les structures conditionelles et les boucles", "Exercice 2 : Les structures conditionelles et les boucles",false));
+        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_build_grray_34dp,"Les fonctions, les tableaux et les pointeurs","Quiz 1 : Les fonctions, les tableaux et les pointeurs","Quiz 2 : Les fonctions, les tableaux et les pointeurs", "Exercice 1 : Les fonctions, les tableaux et les pointeurs", "Exercice 2 : Les fonctions, les tableaux et les pointeurs",false));
+        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_widgets_grray_34dp,"Les chaînes de caractères","Quiz 1 : Les chaînes de caractères","Quiz 2 : Les chaînes de caractères", "Exercice 1 : Les chaînes de caractères", "Exercice 2 : Les chaînes de caractères",false));
+        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_device_hub_grray_34dp,"Les structures et les énumérations","Quiz 1 : Les structures et les énumérations","Quiz 2 : Les structures et les énumérations", "Exercice 1 : Les structures et les énumérations", "Exercice 2 : Les structures et les énumérations",false));
+        cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_description_grray_34dp,"Les fichiers","Quiz 1 : Les fichiers","Quiz 2 : Les fichiers", "Exercice 1 : Les fichiers", "Exercice 2 : Les fichiers",false));
 
         rvexercices = view.findViewById(R.id.rvexercices);
         rvexercices.setHasFixedSize(true);
