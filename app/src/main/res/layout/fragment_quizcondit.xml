@@ -1,6 +1,559 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false">
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir les espaces vides pour lire la variable age.\nEnsuite, afficher &quot;Adulte&quot; si l'age est supérieur à 17, si l'age est inférieur à 10, afficher &quot;Enfant&quot;."
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="int age;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView30" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='scanf("%d",'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView31" />
+
+    <EditText
+        android:id="@+id/edt1q1condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="2"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView32"
+        app:layout_constraintStart_toEndOf="@id/textView32"/>
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=");"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q1condit"
+        app:layout_constraintStart_toEndOf="@id/edt1q1condit" />
+
+    <EditText
+        android:id="@+id/edt2q1condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLength="2"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView32"/>
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(age > 17) {"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q1condit"
+        app:layout_constraintStart_toEndOf="@id/edt2q1condit" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='  printf("Adulte");\n}'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt2q1condit" />
+
+    <EditText
+        android:id="@+id/edt3q1condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLength="7"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView33" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="("
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt3q1condit"
+        app:layout_constraintStart_toEndOf="@id/edt3q1condit" />
+
+    <EditText
+        android:id="@+id/edt4q1condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="3"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView35"
+        app:layout_constraintStart_toEndOf="@id/textView35" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" &lt; 10) {"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt4q1condit"
+        app:layout_constraintStart_toEndOf="@id/edt4q1condit" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='  printf("Enfant");\n}'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt3q1condit" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir les espaces vides pour afficher les correspondants nombres en lettres en utilisant la structure switch :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView38" />
+
+    <EditText
+        android:id="@+id/edt1q2condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:maxLength="6"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView39" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(num) {"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q2condit"
+        app:layout_constraintStart_toEndOf="@id/edt1q2condit" />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='case 1:\n  printf("Un");\n  break;'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q2condit" />
+
+    <EditText
+        android:id="@+id/edt2q2condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLength="4"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView41" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 2:"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q2condit"
+        app:layout_constraintStart_toEndOf="@id/edt2q2condit" />
+
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='  printf("Deux");'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt2q2condit" />
+
+    <EditText
+        android:id="@+id/edt3q2condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLength="6"
+        android:textSize="13sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView43" />
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='case 3:\n  printf("Trois");\n  break;\n}'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt3q2condit" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir les espaces vides pour afficher Langage C 3 fois en utilisant la boucle while :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView45" />
+
+    <TextView
+        android:id="@+id/textView48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="int i = 0;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView47" />
+
+    <EditText
+        android:id="@+id/edt1q3condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="5"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView48" />
+
+    <TextView
+        android:id="@+id/textView49"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="("
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q3condit"
+        app:layout_constraintStart_toEndOf="@id/edt1q3condit" />
+
+    <EditText
+        android:id="@+id/edt2q3condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="3"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView49"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView49"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=") {"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt2q3condit"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q3condit"/>
+
+    <TextView
+        android:id="@+id/textView50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='  printf("Langage C");'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q3condit" />
+
+    <EditText
+        android:id="@+id/edt3q3condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="1"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView50" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="++;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt3q3condit"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt3q3condit"/>
+
+    <TextView
+        android:id="@+id/textView52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="}"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView51" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir les espaces vides pour afficher les nombres de 0 à 5 en utilisant la boucle do-while :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView52" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="int c = 0;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView53" />
+
+    <EditText
+        android:id="@+id/edt1q4condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="2"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView54" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" {"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt1q4condit"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q4condit"/>
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='  printf("%d",c);'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q4condit" />
+
+    <EditText
+        android:id="@+id/edt2q4condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="1"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView55" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="++;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt2q4condit"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q4condit"/>
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="} while(c &lt;= 5)"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt2q4condit" />
+
+    <EditText
+        android:id="@+id/edt3q4condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="1"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView56"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView56"/>
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:text="Remplir les espaces vides pour afficher les nombres de 1 à 10 en utilisant la boucle for :"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView56" />
+
+    <EditText
+        android:id="@+id/edt1q5condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="3"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView57" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(int i = 0; i"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q5condit"
+        app:layout_constraintStart_toEndOf="@id/edt1q5condit" />
+
+    <EditText
+        android:id="@+id/edt2q5condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="1"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView58"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView58"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 10; i++) {"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt2q5condit"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q5condit"/>
+
+    <TextView
+        android:id="@+id/textView59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text='printf("%d",'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q5condit" />
+
+    <EditText
+        android:id="@+id/edt3q5condit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="3"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView59"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView59"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=");"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt3q5condit"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt3q5condit"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="}"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView59"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
