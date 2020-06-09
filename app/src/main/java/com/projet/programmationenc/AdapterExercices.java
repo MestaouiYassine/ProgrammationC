@@ -140,6 +140,10 @@ public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.View
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizStructFragment()).addToBackStack(null).commit();
                 }
+                else {
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizFileFragment()).addToBackStack(null).commit();
+                }
             }
         });
 

@@ -31,7 +31,7 @@ public class QuizFragment extends Fragment {
     private RadioGroup rgq1,rgq2,rgq3,rgq4,rgq5;
     private RadioButton rbq1rp1,rbq1rp2,rbq1rp3,rbq1rp4,rbq2rp1,rbq2rp2,rbq2rp3,rbq2rp4,rbq3rp1,rbq3rp2,rbq3rp3,rbq3rp4,rbq4rp1,rbq4rp2,rbq4rp3,rbq4rp4,rbq5rp1,rbq5rp2,rbq5rp3,rbq5rp4;
     private String rep1,rep2,rep3,rep4,rep5;
-    private Button btnqzcheck;
+    private Button btnqzcheck,btnqzshow;
     private int result = 0;
     @Nullable
     @Override
@@ -88,6 +88,7 @@ public class QuizFragment extends Fragment {
         rbq5rp4 = view.findViewById(R.id.rbq5rp4);
 
         btnqzcheck = view.findViewById(R.id.btnqzcheck);
+        btnqzshow = view.findViewById(R.id.btnqzshow);
 
         String category;
         String title = getArguments().getString("title");
@@ -235,9 +236,9 @@ public class QuizFragment extends Fragment {
                                 if(!r.getText().equals(rep1) && r.getId() == rgq1.getCheckedRadioButtonId()) {
                                     r.setTextColor(getResources().getColor(R.color.red));
                                 }
-                                if(r.getText().equals(rep1)) {
-                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
-                                }
+//                                if(r.getText().equals(rep1)) {
+//                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
+//                                }
                             }
 
 
@@ -252,9 +253,9 @@ public class QuizFragment extends Fragment {
                                 if(!r.getText().equals(rep2) && r.getId() == rgq2.getCheckedRadioButtonId()) {
                                     r.setTextColor(getResources().getColor(R.color.red));
                                 }
-                                if(r.getText().equals(rep2)) {
-                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
-                                }
+//                                if(r.getText().equals(rep2)) {
+//                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
+//                                }
                             }
 
 
@@ -269,9 +270,9 @@ public class QuizFragment extends Fragment {
                                 if(!r.getText().equals(rep3) && r.getId() == rgq3.getCheckedRadioButtonId()) {
                                     r.setTextColor(getResources().getColor(R.color.red));
                                 }
-                                if(r.getText().equals(rep3)) {
-                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
-                                }
+//                                if(r.getText().equals(rep3)) {
+//                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
+//                                }
                             }
 
 
@@ -286,9 +287,9 @@ public class QuizFragment extends Fragment {
                                 if(!r.getText().equals(rep4) && r.getId() == rgq4.getCheckedRadioButtonId()) {
                                     r.setTextColor(getResources().getColor(R.color.red));
                                 }
-                                if(r.getText().equals(rep4)) {
-                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
-                                }
+//                                if(r.getText().equals(rep4)) {
+//                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
+//                                }
                             }
 
 
@@ -303,14 +304,21 @@ public class QuizFragment extends Fragment {
                                 if(!r.getText().equals(rep5) && r.getId() == rgq5.getCheckedRadioButtonId()) {
                                     r.setTextColor(getResources().getColor(R.color.red));
                                 }
-                                if(r.getText().equals(rep5)) {
-                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
-                                }
+//                                if(r.getText().equals(rep5)) {
+//                                    r.setTextColor(getResources().getColor(R.color.lightgreen));
+//                                }
                             }
 
                             txtvqzresult.setVisibility(View.VISIBLE);
 
-                            txtvqzresult.setText("Votre résultat est : " + result + "/5");
+                            txtvqzresult.setText("Résultat : " + result + "/5");
+
+                            if(result == 5) {
+                                txtvqzresult.setTextColor(getResources().getColor(R.color.lightgreen));
+                            }
+                            else {
+                                txtvqzresult.setTextColor(getResources().getColor(R.color.red));
+                            }
 
                             if(result == 5) {
                                 btnqzcheck.setText("Continuer");
@@ -319,6 +327,8 @@ public class QuizFragment extends Fragment {
                             else {
                                 btnqzcheck.setText("Réessayer");
                                 btnqzcheck.setBackground(getResources().getDrawable(R.drawable.buttonred));
+
+                                btnqzshow.setVisibility(View.VISIBLE);
                             }
                         }
                     }
@@ -340,6 +350,51 @@ public class QuizFragment extends Fragment {
                             fragTransaction.detach(currentFragment);
                             fragTransaction.attach(currentFragment);
                             fragTransaction.commit();
+                        }
+                    }
+                }
+            });
+
+            btnqzshow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for(RadioButton r : rg1) {
+                        if(r.getText().equals(rep1)) {
+                            r.setChecked(true);
+                            r.setTextColor(getResources().getColor(R.color.lightgreen));
+                            break;
+                        }
+                    }
+
+                    for(RadioButton r : rg2) {
+                        if(r.getText().equals(rep2)) {
+                            r.setChecked(true);
+                            r.setTextColor(getResources().getColor(R.color.lightgreen));
+                            break;
+                        }
+                    }
+
+                    for(RadioButton r : rg3) {
+                        if(r.getText().equals(rep3)) {
+                            r.setChecked(true);
+                            r.setTextColor(getResources().getColor(R.color.lightgreen));
+                            break;
+                        }
+                    }
+
+                    for(RadioButton r : rg4) {
+                        if(r.getText().equals(rep4)) {
+                            r.setChecked(true);
+                            r.setTextColor(getResources().getColor(R.color.lightgreen));
+                            break;
+                        }
+                    }
+
+                    for(RadioButton r : rg5) {
+                        if(r.getText().equals(rep5)) {
+                            r.setChecked(true);
+                            r.setTextColor(getResources().getColor(R.color.lightgreen));
+                            break;
                         }
                     }
                 }

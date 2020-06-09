@@ -33,6 +33,10 @@
         android:gravity="center_horizontal"
         android:maxLength="4"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt1q2struct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView94"/>
 
@@ -70,6 +74,10 @@
         android:gravity="center_horizontal"
         android:maxLength="4"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt2q2struct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView96"/>
 
@@ -90,6 +98,10 @@
         android:gravity="center_horizontal"
         android:maxLength="1"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt1q3struct"
         app:layout_constraintStart_toEndOf="@id/textView97"
         app:layout_constraintBaseline_toBaselineOf="@id/textView97"/>
 
@@ -117,6 +129,10 @@
         android:gravity="center_horizontal"
         android:maxLength="6"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt2q3struct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView98"/>
 
@@ -158,6 +174,10 @@
         android:gravity="center_horizontal"
         android:maxLength="1"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt1q4struct"
         app:layout_constraintStart_toEndOf="@id/textView100"
         app:layout_constraintBaseline_toBaselineOf="@id/textView100"/>
 
@@ -185,6 +205,10 @@
         android:gravity="center_horizontal"
         android:maxLength="6"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt2q4struct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView101"/>
 
@@ -205,6 +229,10 @@
         android:gravity="center_horizontal"
         android:maxLength="1"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt1q5struct"
         app:layout_constraintStart_toEndOf="@id/textView102"
         app:layout_constraintBaseline_toBaselineOf="@id/textView102"/>
 
@@ -232,6 +260,10 @@
         android:gravity="center_horizontal"
         android:maxLength="6"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt2q5struct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView103"/>
 
@@ -252,6 +284,10 @@
         android:gravity="center_horizontal"
         android:maxLength="3"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edt3q5struct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edt1q5struct"/>
 
@@ -282,6 +318,9 @@
         android:gravity="center_horizontal"
         android:maxLength="1"
         android:textSize="13sp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toEndOf="@id/textView104"
         app:layout_constraintBaseline_toBaselineOf="@id/textView104"/>
 
