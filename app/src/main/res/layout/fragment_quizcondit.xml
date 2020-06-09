@@ -51,7 +51,7 @@
         android:id="@+id/edt1q1condit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLength="2"
+        android:maxLength="4"
         android:textSize="13sp"
         android:gravity="center_horizontal"
         app:layout_constraintBaseline_toBaselineOf="@id/textView32"
@@ -148,7 +148,7 @@
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt3q1condit" />
+        app:layout_constraintTop_toBottomOf="@id/edt3q1condit" />
 
     <TextView
         android:id="@+id/textView39"

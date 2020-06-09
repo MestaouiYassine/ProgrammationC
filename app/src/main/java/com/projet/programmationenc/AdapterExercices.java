@@ -120,8 +120,26 @@ public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.View
         holder.btnrvquiz2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizBaseCFragment()).addToBackStack(null).commit();
+                if(currentItem.getmQuiz2().equals("Quiz 2 : Les bases du langage C")) {
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizBaseCFragment()).addToBackStack(null).commit();
+                }
+                else if(currentItem.getmQuiz2().equals("Quiz 2 : Les structures conditionelles et les boucles")) {
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizConditFragment()).addToBackStack(null).commit();
+                }
+                else if(currentItem.getmQuiz2().equals("Quiz 2 : Les fonctions, les tableaux et les pointeurs")) {
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizFuncArrayFragment()).addToBackStack(null).commit();
+                }
+                else if(currentItem.getmQuiz2().equals("Quiz 2 : Les chaînes de caractères")) {
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizStringsFragment()).addToBackStack(null).commit();
+                }
+                else if(currentItem.getmQuiz2().equals("Quiz 2 : Les structures et les énumérations")) {
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new QuizStructFragment()).addToBackStack(null).commit();
+                }
             }
         });
 

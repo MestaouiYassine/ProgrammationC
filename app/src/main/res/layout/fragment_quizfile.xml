@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView106"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:text="Remplir l'espace vide avec le nom de la fonction utilisée pour ouvrir les fichiers :"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/edt1q1file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="5"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView106"/>
+
+    <TextView
+        android:id="@+id/textView107"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Remplir les espaces vides pour ouvrir le fichier en mode écriture :"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q1file"/>
+
+    <TextView
+        android:id="@+id/textView108"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="FILE* ptr = "
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView107"/>
+
+    <EditText
+        android:id="@+id/edt1q2file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="5"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView108"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView108"/>
+
+    <TextView
+        android:id="@+id/textView109"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='("fich.txt","'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q2file"
+        app:layout_constraintStart_toEndOf="@id/edt1q2file" />
+
+    <EditText
+        android:id="@+id/edt2q2file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="1"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView109"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView109"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='");'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q2file"
+        app:layout_constraintStart_toEndOf="@id/edt2q2file" />
+
+    <TextView
+        android:id="@+id/textView110"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Remplir les espaces pour écrire dans un fichier déjà ouvert en mode écriture :"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt2q2file"/>
+    
+    <TextView
+        android:id="@+id/textView111"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:text="int x = 10;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView110"/>
+
+    <EditText
+        android:id="@+id/edt1q3file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="7"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView111"/>
+
+    <TextView
+        android:id="@+id/textView112"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='(ptr,"%d",'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q3file"
+        app:layout_constraintStart_toEndOf="@id/edt1q3file" />
+
+    <EditText
+        android:id="@+id/edt2q3file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="1"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView112"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView112"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=");"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt2q3file"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q3file"/>
+
+    <TextView
+        android:id="@+id/textView113"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Remplir les espaces pour lire dans un fichier déjà ouvert en mode lecture :"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt2q3file"/>
+
+    <TextView
+        android:id="@+id/textView114"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:text="int nombre;"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView113"/>
+
+    <EditText
+        android:id="@+id/edt1q4file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="6"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView114"/>
+
+    <TextView
+        android:id="@+id/textView115"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='(ptr,"%d",'
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q4file"
+        app:layout_constraintStart_toEndOf="@id/edt1q4file" />
+
+    <EditText
+        android:id="@+id/edt2q4file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLength="2"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/textView115"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView115"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=");"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt2q4file"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt2q4file"/>
+
+    <TextView
+        android:id="@+id/textView116"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Remplir l'espace vide avec le nom de la fonction utilisée pour fermer les fichiers :"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt2q4file"/>
+
+    <EditText
+        android:id="@+id/edt1q5file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:maxLength="6"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView116"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(ptr);"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/edt1q5file"
+        app:layout_constraintBaseline_toBaselineOf="@id/edt1q5file"/>
+
+    <Button
+        android:id="@+id/btnqzfile"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/buttongreen"
+        android:fontFamily="@font/regular"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Vérifier"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q5file"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
