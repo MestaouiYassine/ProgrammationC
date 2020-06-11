@@ -1,5 +1,6 @@
 package com.projet.programmationenc;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,15 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizStructFragment extends Fragment {
     private EditText edt1q1struct,edt1q2struct,edt2q2struct,edt1q3struct,edt2q3struct,edt1q4struct,edt2q4struct,edt1q5struct,edt2q5struct,edt3q5struct;
-    private Button btnqzstruct;
+    private Button btnqzstruct,btnqzstructshow;
+    private TextView txtvqzstruct;
+    private int result = 0;
+    private List<EditText> listedtstruct = new ArrayList<>();
+    private boolean solutionshown = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +58,11 @@ public class QuizStructFragment extends Fragment {
         edt3q5struct = view.findViewById(R.id.edt3q5struct);
 
         btnqzstruct = view.findViewById(R.id.btnqzstruct);
+        btnqzstructshow = view.findViewById(R.id.btnqzstructshow);
+
+        txtvqzstruct = view.findViewById(R.id.txtvqzstruct);
+
+        listedtstruct.add(edt1q1struct);listedtstruct.add(edt1q2struct);listedtstruct.add(edt2q2struct);listedtstruct.add(edt1q3struct);listedtstruct.add(edt2q3struct);listedtstruct.add(edt1q4struct);listedtstruct.add(edt2q4struct);listedtstruct.add(edt1q5struct);listedtstruct.add(edt2q5struct);listedtstruct.add(edt3q5struct);
 
         edt1q1struct.addTextChangedListener(new TextWatcher() {
             @Override
@@ -490,86 +507,213 @@ public class QuizStructFragment extends Fragment {
         btnqzstruct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(edt1q1struct.getText().toString().isEmpty() || edt1q2struct.getText().toString().isEmpty() || edt2q2struct.getText().toString().isEmpty() || edt1q3struct.getText().toString().isEmpty() || edt2q3struct.getText().toString().isEmpty() || edt1q4struct.getText().toString().isEmpty() || edt2q4struct.getText().toString().isEmpty() || edt1q5struct.getText().toString().isEmpty() || edt2q5struct.getText().toString().isEmpty() || edt3q5struct.getText().toString().isEmpty()) {
-                    Toast.makeText(getContext(),"Veuillez remplir tous les espaces",Toast.LENGTH_SHORT).show();
+                if(result == 0 && btnqzstruct.getText().equals("Vérifier")) {
+                    if (edt1q1struct.getText().toString().isEmpty() || edt1q2struct.getText().toString().isEmpty() || edt2q2struct.getText().toString().isEmpty() || edt1q3struct.getText().toString().isEmpty() || edt2q3struct.getText().toString().isEmpty() || edt1q4struct.getText().toString().isEmpty() || edt2q4struct.getText().toString().isEmpty() || edt1q5struct.getText().toString().isEmpty() || edt2q5struct.getText().toString().isEmpty() || edt3q5struct.getText().toString().isEmpty()) {
+                        Toast.makeText(getContext(), "Veuillez remplir tous les espaces", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Question1
+                        if (edt1q1struct.getText().toString().equals("enum")) {
+                            edt1q1struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q1struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q1struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q1struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question2
+                        if (edt1q2struct.getText().toString().equals("enum")) {
+                            edt1q2struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q2struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q2struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q2struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q2struct.getText().toString().equals(";")) {
+                            edt2q2struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q2struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q2struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q2struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question3
+                        if (edt1q3struct.getText().toString().equals("struct")) {
+                            edt1q3struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q3struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q3struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q3struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q3struct.getText().toString().equals(";")) {
+                            edt2q3struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q3struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q3struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q3struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question4
+                        if (edt1q4struct.getText().toString().equals("struct")) {
+                            edt1q4struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q4struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q4struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q4struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q4struct.getText().toString().equals(";")) {
+                            edt2q4struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q4struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q4struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q4struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question5
+                        if (edt1q5struct.getText().toString().equals("struct")) {
+                            edt1q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q5struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q5struct.getText().toString().equals("for")) {
+                            edt2q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q5struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt3q5struct.getText().toString().equals(".")) {
+                            edt3q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt3q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt3q5struct.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt3q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        txtvqzstruct.setVisibility(View.VISIBLE);
+                        txtvqzstruct.setText("Résultat : " + result + "/10");
+
+                        if(result == 10) {
+                            btnqzstruct.setText("Continuer");
+                            btnqzstruct.setBackground(getResources().getDrawable(R.drawable.button));
+
+                            txtvqzstruct.setTextColor(getResources().getColor(R.color.lightgreen));
+
+                            for (EditText e : listedtstruct) {
+                                e.setFocusable(false);
+                                e.setEnabled(false);
+                                e.setCursorVisible(false);
+                                e.setKeyListener(null);
+                                e.setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }
+                        else {
+                            btnqzstruct.setText("Réessayer");
+                            btnqzstruct.setBackground(getResources().getDrawable(R.drawable.buttonred));
+                            btnqzstructshow.setVisibility(View.VISIBLE);
+
+                            txtvqzstruct.setTextColor(getResources().getColor(R.color.red));
+
+                            for(EditText e : listedtstruct) {
+                                e.setFocusable(false);
+                                e.setEnabled(false);
+                                e.setCursorVisible(false);
+                                e.setKeyListener(null);
+                                e.setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }
+
+                    }
+                }
+                else if(result == 10 || solutionshown) {
+                    getActivity().onBackPressed();
                 }
                 else {
-                    //Question1
-                    if(edt1q1struct.getText().toString().equals("enum")) {
-                        edt1q1struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q1struct.setTextColor(getResources().getColor(R.color.red));
+                    for(EditText e : listedtstruct) {
+                        e.setText("");
                     }
 
-                    //Question2
-                    if(edt1q2struct.getText().toString().equals("enum")) {
-                        edt1q2struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q2struct.setTextColor(getResources().getColor(R.color.red));
-                    }
+                    result = 0;
 
-                    if(edt2q2struct.getText().toString().equals(";")) {
-                        edt2q2struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                    Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
+                    if (currentFragment instanceof QuizStructFragment) {
+                        FragmentTransaction fragTransaction =   getActivity().getSupportFragmentManager().beginTransaction();
+                        fragTransaction.detach(currentFragment);
+                        fragTransaction.attach(currentFragment);
+                        fragTransaction.commit();
                     }
-                    else {
-                        edt2q2struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    //Question3
-                    if(edt1q3struct.getText().toString().equals("struct")) {
-                        edt1q3struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q3struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    if(edt2q3struct.getText().toString().equals(";")) {
-                        edt2q3struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt2q3struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    //Question4
-                    if(edt1q4struct.getText().toString().equals("struct")) {
-                        edt1q4struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q4struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    if(edt2q4struct.getText().toString().equals(";")) {
-                        edt2q4struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt2q4struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    //Question5
-                    if(edt1q5struct.getText().toString().equals("struct")) {
-                        edt1q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q5struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    if(edt2q5struct.getText().toString().equals("for")) {
-                        edt2q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt2q5struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    if(edt3q5struct.getText().toString().equals(".")) {
-                        edt3q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt3q5struct.setTextColor(getResources().getColor(R.color.red));
-                    }
-
                 }
+            }
+        });
+
+        btnqzstructshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                solutionshown = true;
+                btnqzstruct.setText("Continuer");
+                btnqzstruct.setBackground(getResources().getDrawable(R.drawable.button));
+                txtvqzstruct.setVisibility(View.GONE);
+                //Question1
+                edt1q1struct.setText("enum");
+                edt1q1struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q1struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question2
+                edt1q2struct.setText("enum");
+                edt1q2struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q2struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q2struct.setText(";");
+                edt2q2struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q2struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question3
+                edt1q3struct.setText("struct");
+                edt1q3struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q3struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q3struct.setText(";");
+                edt2q3struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q3struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question4
+                edt1q4struct.setText("struct");
+                edt1q4struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q4struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q4struct.setText(";");
+                edt2q4struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q4struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question5
+                edt1q5struct.setText("struct");
+                edt1q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q5struct.setText("for");
+                edt2q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt3q5struct.setText(".");
+                edt3q5struct.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt3q5struct.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
             }
         });
     }

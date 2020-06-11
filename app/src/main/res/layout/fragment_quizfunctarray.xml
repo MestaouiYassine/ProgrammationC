@@ -37,6 +37,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q1funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView60" />
 
@@ -61,6 +64,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q2funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView61"
         app:layout_constraintBaseline_toBaselineOf="@id/textView61"/>
 
@@ -122,6 +128,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q2funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView64"
         app:layout_constraintBaseline_toBaselineOf="@id/textView64"/>
 
@@ -148,6 +157,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q3funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView65" />
 
@@ -210,6 +222,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q3functarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView68" />
 
@@ -244,6 +259,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q4funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView69"
         app:layout_constraintBaseline_toBaselineOf="@id/textView69"/>
 
@@ -316,6 +334,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q4funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView73"
         app:layout_constraintBaseline_toBaselineOf="@id/textView73"/>
 
@@ -340,6 +361,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt3q4funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView74"
         app:layout_constraintBaseline_toBaselineOf="@id/textView74"/>
 
@@ -364,6 +388,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q5funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView73" />
 
@@ -414,6 +441,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q5funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView76"
         app:layout_constraintBaseline_toBaselineOf="@id/textView76"/>
 
@@ -460,6 +490,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q6funcarray"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView78" />
 
@@ -521,6 +554,9 @@
         android:maxLines="1"
         android:inputType="text"
         android:imeOptions="actionDone"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView81" />
@@ -542,6 +578,39 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edt1q6funcarray"/>
+
+    <TextView
+        android:id="@+id/txtvqzfuncarray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt1q6funcarray"/>
+
+    <Button
+        android:id="@+id/btnqzfuncarrayshow"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/buttonpurple"
+        android:fontFamily="@font/regular"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Afficher la solution"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/btnqzfuncarray"
+        app:layout_constraintTop_toBottomOf="@id/edt1q6funcarray"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

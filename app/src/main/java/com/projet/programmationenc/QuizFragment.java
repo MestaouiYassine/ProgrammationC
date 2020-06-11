@@ -310,26 +310,32 @@ public class QuizFragment extends Fragment {
                             }
 
                             txtvqzresult.setVisibility(View.VISIBLE);
-
                             txtvqzresult.setText("Résultat : " + result + "/5");
-
-                            if(result == 5) {
-                                txtvqzresult.setTextColor(getResources().getColor(R.color.lightgreen));
-                            }
-                            else {
-                                txtvqzresult.setTextColor(getResources().getColor(R.color.red));
-                            }
 
                             if(result == 5) {
                                 btnqzcheck.setText("Continuer");
                                 btnqzcheck.setBackground(getResources().getDrawable(R.drawable.button));
+
+                                txtvqzresult.setTextColor(getResources().getColor(R.color.lightgreen));
                             }
                             else {
                                 btnqzcheck.setText("Réessayer");
                                 btnqzcheck.setBackground(getResources().getDrawable(R.drawable.buttonred));
-
                                 btnqzshow.setVisibility(View.VISIBLE);
+
+                                txtvqzresult.setTextColor(getResources().getColor(R.color.red));
                             }
+
+//                            if(result == 5) {
+//                                btnqzcheck.setText("Continuer");
+//                                btnqzcheck.setBackground(getResources().getDrawable(R.drawable.button));
+//                            }
+//                            else {
+//                                btnqzcheck.setText("Réessayer");
+//                                btnqzcheck.setBackground(getResources().getDrawable(R.drawable.buttonred));
+//
+//                                btnqzshow.setVisibility(View.VISIBLE);
+//                            }
                         }
                     }
                     else if(result == 5) {

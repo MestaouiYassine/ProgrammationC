@@ -38,6 +38,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt1q2strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView82"/>
 
@@ -78,6 +81,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt2q2strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView83"/>
 
@@ -112,6 +118,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt1q3strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toEndOf="@id/textView84"
             app:layout_constraintBaseline_toBaselineOf="@id/textView84"/>
 
@@ -152,6 +161,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt2q3strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView85"/>
 
@@ -176,6 +188,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt1q4strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toEndOf="@id/textView86"
             app:layout_constraintBaseline_toBaselineOf="@id/textView86"/>
 
@@ -215,6 +230,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt2q4strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView87"/>
 
@@ -250,6 +268,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt1q5strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toEndOf="@id/textView89"
             app:layout_constraintBaseline_toBaselineOf="@id/textView89"/>
 
@@ -311,6 +332,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:nextFocusForward="@id/edt2q5strings"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toEndOf="@id/textView92"
             app:layout_constraintBaseline_toBaselineOf="@id/textView92"/>
 
@@ -334,6 +358,9 @@
             android:maxLines="1"
             android:inputType="text"
             android:imeOptions="actionDone"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/purple"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt1q5strings"/>
 
@@ -364,6 +391,39 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView93"/>
+
+        <TextView
+            android:id="@+id/txtvqzstrings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/bold"
+            android:textSize="13sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView93"/>
+
+        <Button
+            android:id="@+id/btnqzstringsshow"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/buttonpurple"
+            android:fontFamily="@font/regular"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Afficher la solution"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/btnqzstrings"
+            app:layout_constraintTop_toBottomOf="@id/textView93"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

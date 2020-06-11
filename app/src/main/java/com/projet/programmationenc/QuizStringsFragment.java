@@ -1,5 +1,6 @@
 package com.projet.programmationenc;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,15 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizStringsFragment extends Fragment {
     private EditText edt1q1strings,edt1q2strings,edt2q2strings,edt1q3strings,edt2q3strings,edt1q4strings,edt2q4strings,edt1q5strings,edt2q5strings;
-    private Button btnqzstrings;
+    private Button btnqzstrings,btnqzstringsshow;
+    private TextView txtvqzstrings;
+    private int result = 0;
+    private List<EditText> listedtstrings = new ArrayList<>();
+    private boolean solutionshown = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +58,11 @@ public class QuizStringsFragment extends Fragment {
         edt2q5strings = view.findViewById(R.id.edt2q5strings);
 
         btnqzstrings = view.findViewById(R.id.btnqzstrings);
+        btnqzstringsshow = view.findViewById(R.id.btnqzstringsshow);
+
+        txtvqzstrings = view.findViewById(R.id.txtvqzstrings);
+
+        listedtstrings.add(edt1q1strings);listedtstrings.add(edt1q2strings);listedtstrings.add(edt2q2strings);listedtstrings.add(edt1q3strings);listedtstrings.add(edt2q3strings);listedtstrings.add(edt1q4strings);listedtstrings.add(edt2q4strings);listedtstrings.add(edt1q5strings);listedtstrings.add(edt2q5strings);
 
         edt1q1strings.addTextChangedListener(new TextWatcher() {
             @Override
@@ -418,78 +436,199 @@ public class QuizStringsFragment extends Fragment {
         btnqzstrings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(edt1q1strings.getText().toString().isEmpty() || edt1q2strings.getText().toString().isEmpty() || edt2q2strings.getText().toString().isEmpty() || edt1q3strings.getText().toString().isEmpty() || edt2q3strings.getText().toString().isEmpty() || edt1q4strings.getText().toString().isEmpty() || edt2q4strings.getText().toString().isEmpty() || edt1q5strings.getText().toString().isEmpty() || edt2q5strings.getText().toString().isEmpty()) {
-                    Toast.makeText(getContext(),"Veuillez remplir tous les espaces",Toast.LENGTH_SHORT).show();
+                if(result == 0 && btnqzstrings.getText().equals("Vérifier")) {
+                    if (edt1q1strings.getText().toString().isEmpty() || edt1q2strings.getText().toString().isEmpty() || edt2q2strings.getText().toString().isEmpty() || edt1q3strings.getText().toString().isEmpty() || edt2q3strings.getText().toString().isEmpty() || edt1q4strings.getText().toString().isEmpty() || edt2q4strings.getText().toString().isEmpty() || edt1q5strings.getText().toString().isEmpty() || edt2q5strings.getText().toString().isEmpty()) {
+                        Toast.makeText(getContext(), "Veuillez remplir tous les espaces", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Question1
+                        if (edt1q1strings.getText().toString().equals("char")) {
+                            edt1q1strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q1strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q1strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q1strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question2
+                        if (edt1q2strings.getText().toString().equals("char")) {
+                            edt1q2strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q2strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q2strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q2strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q2strings.getText().toString().equals("str")) {
+                            edt2q2strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q2strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q2strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q2strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question3
+                        if (edt1q3strings.getText().toString().equals("#")) {
+                            edt1q3strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q3strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q3strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q3strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q3strings.getText().toString().equals("string")) {
+                            edt2q3strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q3strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q3strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q3strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question4
+                        if (edt1q4strings.getText().toString().equals("char*")) {
+                            edt1q4strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q4strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q4strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q4strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q4strings.getText().toString().equals("x[3]")) {
+                            edt2q4strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q4strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q4strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q4strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        //Question5
+                        if (edt1q5strings.getText().toString().equals("strcat")) {
+                            edt1q5strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt1q5strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt1q5strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt1q5strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        if (edt2q5strings.getText().toString().equals("puts")) {
+                            edt2q5strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                            DrawableCompat.setTint(edt2q5strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+                            result++;
+                        } else {
+                            edt2q5strings.setTextColor(getResources().getColor(R.color.red));
+                            DrawableCompat.setTint(edt2q5strings.getBackground(), ContextCompat.getColor(getContext(), R.color.red));
+                        }
+
+                        txtvqzstrings.setVisibility(View.VISIBLE);
+                        txtvqzstrings.setText("Résultat : " + result + "/9");
+
+                        if(result == 9) {
+                            btnqzstrings.setText("Continuer");
+                            btnqzstrings.setBackground(getResources().getDrawable(R.drawable.button));
+
+                            txtvqzstrings.setTextColor(getResources().getColor(R.color.lightgreen));
+
+                            for (EditText e : listedtstrings) {
+                                e.setFocusable(false);
+                                e.setEnabled(false);
+                                e.setCursorVisible(false);
+                                e.setKeyListener(null);
+                                e.setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }
+                        else {
+                            btnqzstrings.setText("Réessayer");
+                            btnqzstrings.setBackground(getResources().getDrawable(R.drawable.buttonred));
+                            btnqzstringsshow.setVisibility(View.VISIBLE);
+
+                            txtvqzstrings.setTextColor(getResources().getColor(R.color.red));
+
+                            for(EditText e : listedtstrings) {
+                                e.setFocusable(false);
+                                e.setEnabled(false);
+                                e.setCursorVisible(false);
+                                e.setKeyListener(null);
+                                e.setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }
+                    }
+                }
+                else if(result == 9 || solutionshown) {
+                    getActivity().onBackPressed();
                 }
                 else {
-                    //Question1
-                    if(edt1q1strings.getText().toString().equals("char")) {
-                        edt1q1strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q1strings.setTextColor(getResources().getColor(R.color.red));
+                    for(EditText e : listedtstrings) {
+                        e.setText("");
                     }
 
-                    //Question2
-                    if(edt1q2strings.getText().toString().equals("char")) {
-                        edt1q2strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q2strings.setTextColor(getResources().getColor(R.color.red));
-                    }
+                    result = 0;
 
-                    if(edt2q2strings.getText().toString().equals("str")) {
-                        edt2q2strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt2q2strings.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    //Question3
-                    if(edt1q3strings.getText().toString().equals("#")) {
-                        edt1q3strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q3strings.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    if(edt2q3strings.getText().toString().equals("string")) {
-                        edt2q3strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt2q3strings.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    //Question4
-                    if(edt1q4strings.getText().toString().equals("char*")) {
-                        edt1q4strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q4strings.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    if(edt2q4strings.getText().toString().equals("x[3]")) {
-                        edt2q4strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt2q4strings.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    //Question5
-                    if(edt1q5strings.getText().toString().equals("strcat")) {
-                        edt1q5strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt1q5strings.setTextColor(getResources().getColor(R.color.red));
-                    }
-
-                    if(edt2q5strings.getText().toString().equals("puts")) {
-                        edt2q5strings.setTextColor(getResources().getColor(R.color.lightgreen));
-                    }
-                    else {
-                        edt2q5strings.setTextColor(getResources().getColor(R.color.red));
+                    Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
+                    if (currentFragment instanceof QuizStringsFragment) {
+                        FragmentTransaction fragTransaction =   getActivity().getSupportFragmentManager().beginTransaction();
+                        fragTransaction.detach(currentFragment);
+                        fragTransaction.attach(currentFragment);
+                        fragTransaction.commit();
                     }
                 }
+            }
+        });
+
+        btnqzstringsshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                solutionshown = true;
+                btnqzstrings.setText("Continuer");
+                btnqzstrings.setBackground(getResources().getDrawable(R.drawable.button));
+                txtvqzstrings.setVisibility(View.GONE);
+                //Question1
+                edt1q1strings.setText("char");
+                edt1q1strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q1strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question2
+                edt1q2strings.setText("char");
+                edt1q2strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q2strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q2strings.setText("str");
+                edt2q2strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q2strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question3
+                edt1q3strings.setText("#");
+                edt1q3strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q3strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q3strings.setText("string");
+                edt2q3strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q3strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question4
+                edt1q4strings.setText("char*");
+                edt1q4strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q4strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q4strings.setText("x[3]");
+                edt2q4strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q4strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                //Question5
+                edt1q5strings.setText("strcat");
+                edt1q5strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt1q5strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
+                edt2q5strings.setText("puts");
+                edt2q5strings.setTextColor(getResources().getColor(R.color.lightgreen));
+                DrawableCompat.setTint(edt2q5strings.getBackground(), ContextCompat.getColor(getContext(), R.color.lightgreen));
+
             }
         });
     }

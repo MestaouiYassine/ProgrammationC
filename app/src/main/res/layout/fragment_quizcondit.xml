@@ -17,7 +17,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/bold"
-        android:text="Remplir les espaces vides pour lire la variable age.\nEnsuite, afficher &quot;Adulte&quot; si l'age est supérieur à 17, si l'age est inférieur à 10, afficher &quot;Enfant&quot;."
+        android:text="Remplir les espaces vides pour lire la variable age.\nEnsuite, afficher &quot;Adulte&quot; si l'age est supérieur à 17, si l'age est inférieur à 10, afficher &quot;Enfant&quot; :"
         android:textColor="@color/blue"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +58,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q1condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintBaseline_toBaselineOf="@id/textView32"
         app:layout_constraintStart_toEndOf="@id/textView32"/>
 
@@ -83,6 +86,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt3q1condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView32"/>
 
@@ -119,6 +125,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt4q1condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView33" />
 
@@ -143,6 +152,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q2condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintBaseline_toBaselineOf="@id/textView35"
         app:layout_constraintStart_toEndOf="@id/textView35" />
 
@@ -194,6 +206,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q2condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView39" />
 
@@ -230,6 +245,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt3q2condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView41" />
 
@@ -266,6 +284,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q3condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView43" />
 
@@ -319,6 +340,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q3condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView48" />
 
@@ -343,6 +367,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt3q3condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView49"
         app:layout_constraintBaseline_toBaselineOf="@id/textView49"/>
 
@@ -378,6 +405,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q4condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView50" />
 
@@ -441,6 +471,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q4condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView54" />
 
@@ -476,6 +509,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt3q4condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView55" />
 
@@ -510,6 +546,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt1q5condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView56"
         app:layout_constraintBaseline_toBaselineOf="@id/textView56"/>
 
@@ -540,6 +579,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt2q5condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView57" />
 
@@ -564,6 +606,9 @@
         android:inputType="text"
         android:imeOptions="actionNext"
         android:nextFocusForward="@id/edt3q5condit"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView58"
         app:layout_constraintBaseline_toBaselineOf="@id/textView58"/>
 
@@ -597,6 +642,9 @@
         android:maxLines="1"
         android:inputType="text"
         android:imeOptions="actionDone"
+        android:textColor="@color/purple"
+        android:fontFamily="@font/bold"
+        android:backgroundTint="@color/purple"
         app:layout_constraintStart_toEndOf="@id/textView59"
         app:layout_constraintBaseline_toBaselineOf="@id/textView59"/>
 
@@ -636,6 +684,40 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView25"/>
+
+    <TextView
+        android:id="@+id/txtvqzconditresult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/bold"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView25"/>
+
+
+    <Button
+        android:id="@+id/btnqzconditshow"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/buttonpurple"
+        android:fontFamily="@font/regular"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Afficher la solution"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/btnqzcondit"
+        app:layout_constraintTop_toBottomOf="@id/textView25"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
