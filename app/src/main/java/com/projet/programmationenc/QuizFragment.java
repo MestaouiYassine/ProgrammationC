@@ -33,6 +33,7 @@ public class QuizFragment extends Fragment {
     private String rep1,rep2,rep3,rep4,rep5;
     private Button btnqzcheck,btnqzshow;
     private int result = 0;
+    private boolean solutionshown = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -338,7 +339,7 @@ public class QuizFragment extends Fragment {
 //                            }
                         }
                     }
-                    else if(result == 5) {
+                    else if(result == 5 || solutionshown) {
                         getActivity().onBackPressed();
                     }
                     else {
@@ -364,6 +365,10 @@ public class QuizFragment extends Fragment {
             btnqzshow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    solutionshown = true;
+                    btnqzcheck.setText("Continuer");
+                    btnqzcheck.setBackground(getResources().getDrawable(R.drawable.button));
+                    txtvqzresult.setVisibility(View.GONE);
                     for(RadioButton r : rg1) {
                         if(r.getText().equals(rep1)) {
                             r.setChecked(true);
