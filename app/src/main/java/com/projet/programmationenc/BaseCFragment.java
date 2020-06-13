@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,9 +40,9 @@ public class BaseCFragment extends Fragment {
     private TextView txtvpremierprogc,txtvbackslashn,txtvtypevar,txtvtypecar,txtvputchar,txtvlireclav,txtvtypebase,txtvspeciform,txtvop,txtvconstant;
     private String id;
     private FirebaseUser user;
-//    private List<String> completedBasic = new ArrayList<>();
-//    private String[] completedBasic = new String[10];
+    private DatabaseReference databaseReference;
     public static List<String> completedBasic;
+    private Student S;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,48 +55,16 @@ public class BaseCFragment extends Fragment {
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        String base_url = ((HomeActivity) getActivity()).base_url;
 
         if(((HomeActivity) getActivity()).retrievedCompletedBasic.isEmpty()) {
-            Log.e(TAG, "onViewCreated: retrievedCompletedBasic is foking empty");
+            Log.e(TAG, "onViewCreated: retrievedCompletedBasic is empty");
         }
         else {
             completedBasic = ((HomeActivity) getActivity()).retrievedCompletedBasic;
         }
 
-
-
-//        String[] basicCourses = new String[completedBasic.size()];
-//        completedBasic.toArray(basicCourses);
-//
-//        String base_url = "http://192.168.1.104/progc/";
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(base_url)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-//        Call<Student> call = apiInterface.updateBasic(user.getUid(),basicCourses);
-//
-//        call.enqueue(new Callback<Student>() {
-//            @Override
-//            public void onResponse(Call<Student> call, Response<Student> response) {
-//                if(!response.isSuccessful()) {
-//                    Log.e(TAG, "onResponse: Code " + response.code());
-//                    return;
-//                }
-//                Log.e(TAG, "onResponse: " + "basicCourses in mysql");
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Student> call, Throwable t) {
-//                Log.e(TAG, "onFailure: " + t.getMessage());
-//            }
-//        });
 
         btnpremierprogc = view.findViewById(R.id.btnpremierprogc);
         btnbackslashn = view.findViewById(R.id.btnbackslashn);
@@ -113,16 +87,7 @@ public class BaseCFragment extends Fragment {
         txtvspeciform = view.findViewById(R.id.txtvspeciform);
         txtvop = view.findViewById(R.id.txtvop);
         txtvconstant = view.findViewById(R.id.txtvconstant);
-//        completedBasic = getArguments().getStringArrayList("list");
-//        if(((HomeActivity) getActivity()).retrievedCompletedBasic != null) {
-//            completedBasic = Arrays.asList(((HomeActivity) getActivity()).retrievedCompletedBasic);
-//            completedBasic = ((HomeActivity) getActivity()).retrievedCompletedBasic;
-//        }
-//        else
-//        {
-//            completedBasic = new ArrayList<>();
-//            completedBasic = new String[10];
-//        }
+
 
         if(completedBasic.contains("premierprogc")) {
             txtvpremierprogc.setText("Complet");
@@ -180,7 +145,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("premierprogc")) {
                     completedBasic.add("premierprogc");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "premierprogc";
                 Bundle bundle = new Bundle();
@@ -197,7 +162,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("backslashn")) {
                     completedBasic.add("backslashn");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "backslashn";
                 Bundle bundle = new Bundle();
@@ -213,7 +178,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("typevar")) {
                     completedBasic.add("typevar");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "typevar";
                 Bundle bundle = new Bundle();
@@ -229,7 +194,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("typecar")) {
                     completedBasic.add("typecar");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "typecar";
                 Bundle bundle = new Bundle();
@@ -245,7 +210,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("putchar")) {
                     completedBasic.add("putchar");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "putchar";
                 Bundle bundle = new Bundle();
@@ -261,7 +226,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("lireclav")) {
                     completedBasic.add("lireclav");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "lireclav";
                 Bundle bundle = new Bundle();
@@ -277,7 +242,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("typebase")) {
                     completedBasic.add("typebase");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "typebase";
                 Bundle bundle = new Bundle();
@@ -293,7 +258,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("speciform")) {
                     completedBasic.add("speciform");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "speciform";
                 Bundle bundle = new Bundle();
@@ -309,7 +274,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("op")) {
                     completedBasic.add("op");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "op";
                 Bundle bundle = new Bundle();
@@ -325,7 +290,7 @@ public class BaseCFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedBasic.contains("constant")) {
                     completedBasic.add("constant");
-                    updateBaseCourse(base_url);
+                    updateBaseCourse();
                 }
                 id = "constant";
                 Bundle bundle = new Bundle();
@@ -666,15 +631,10 @@ public class BaseCFragment extends Fragment {
             txtvconstant.setBackgroundColor(getResources().getColor(R.color.grayround));
             txtvconstant.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_lock_graylock_24dp,0);
         }
-//        else if(completedBasic.size() == 9 && completedBasic.contains("op")) {
-//
-//        }
 
     }
 
-    private void updateBaseCourse(String base_url) {
-//        String[] basicCourses = new String[completedBasic.size()];
-//        completedBasic.toArray(basicCourses);
+    private void updateBaseCourse() {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedBasic) {
             if(!s.equals(completedBasic.get(completedBasic.size() - 1))) {
@@ -687,30 +647,20 @@ public class BaseCFragment extends Fragment {
 
         String completeBase = stringBuilder.toString();
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Student> call = apiInterface.updateBasic(user.getUid(),completeBase);
-
-        call.enqueue(new Callback<Student>() {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onResponse(Call<Student> call, Response<Student> response) {
-                if(!response.isSuccessful()) {
-                    Log.e(TAG, "onResponse: Code " + response.code());
-                    return;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                        S = dataSnapshot.getValue(Student.class);
+                        S.setCompletedBasic(completeBase);
+                        databaseReference.child("Students").child(user.getUid()).child("completedBasic").setValue(S.getCompletedBasic());
+                        Log.e(TAG, "onDataChange: CompletedBasic modification done : " + S.getCompletedBasic());
                 }
-                Log.e(TAG, "onResponse: " + "basicCourses in mysql");
-
-
             }
 
             @Override
-            public void onFailure(Call<Student> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
             }
         });
     }

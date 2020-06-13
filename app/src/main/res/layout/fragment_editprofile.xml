@@ -71,6 +71,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtfirstnameedit" />
 
+    <ProgressBar
+        android:id="@+id/progressBareditprofile"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnconfirmedit" />
+
     <TextView
         android:id="@+id/txtvchangeavatar"
         android:layout_width="wrap_content"

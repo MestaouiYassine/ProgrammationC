@@ -36,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnregister,btnreturn;
     private ProgressBar progressBar;
     private String email,firstname,lastname,password1,password2;
+    private DatabaseReference databaseReference;
+    private Student S;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarregister);
 
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,39 +127,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                String base_url = "http://192.168.1.105/progc/";
-
-//                                Gson gson = new GsonBuilder()
-//                                        .setLenient()
-//                                        .create();
-
-                                Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl(base_url)
-                                        .addConverterFactory(GsonConverterFactory.create())
-                                        .build();
-
-                                ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-                                Call<Student> call = apiInterface.insertStudent(user.getUid(),firstname,lastname,password1,"android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
-
-                                call.enqueue(new Callback<Student>() {
-                                    @Override
-                                    public void onResponse(Call<Student> call, Response<Student> response) {
-                                        if(!response.isSuccessful()) {
-                                            Log.e(TAG, "onResponse: Code " + response.code());
-//                                            Toast.makeText(RegisterActivity.this,"Code : " + response.code(),Toast.LENGTH_LONG).show();
-                                            return;
-                                        }
-                                        Log.e(TAG, "onResponse: " + "Data in mysql");
-//                                        Student student = response.body();
-//                                        Toast.makeText(RegisterActivity.this,"Data is in mysql now" + student.getFirstname(),Toast.LENGTH_LONG).show();
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<Student> call, Throwable t) {
-                                        Log.e(TAG, "onFailure: " + t.getMessage());
-//                                        Toast.makeText(RegisterActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
-                                    }
-                                });
+                                S = new Student(user.getUid(),firstname,lastname,password1,"android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
+                                databaseReference.child("Students").child(user.getUid()).setValue(S);
 
                                 user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

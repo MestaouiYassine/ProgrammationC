@@ -14,6 +14,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +36,8 @@ public class FileFragment extends Fragment {
     public static List<String> completedFiles;
     private String id;
     private FirebaseUser user;
+    private DatabaseReference databaseReference;
+    private Student S;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,11 +48,10 @@ public class FileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String base_url = ((HomeActivity) getActivity()).base_url;
-
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         if(((HomeActivity) getActivity()).retrievedCompletedFiles.isEmpty()) {
             Log.e(TAG, "onViewCreated: retrievedCompletedFiles is foking empty");
@@ -78,7 +84,7 @@ public class FileFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFiles.contains("file1")) {
                     completedFiles.add("file1");
-                    updateFileCourse(base_url);
+                    updateFileCourse();
                 }
                 id = "file1";
                 Bundle bundle = new Bundle();
@@ -94,7 +100,7 @@ public class FileFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFiles.contains("file2")) {
                     completedFiles.add("file2");
-                    updateFileCourse(base_url);
+                    updateFileCourse();
                 }
                 id = "file2";
                 Bundle bundle = new Bundle();
@@ -118,7 +124,7 @@ public class FileFragment extends Fragment {
         }
     }
 
-    private void updateFileCourse(String base_url) {
+    private void updateFileCourse() {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedFiles) {
             if(!s.equals(completedFiles.get(completedFiles.size() - 1))) {
@@ -129,33 +135,24 @@ public class FileFragment extends Fragment {
             }
         }
 
-        String completeBase = stringBuilder.toString();
+        String completeFiles = stringBuilder.toString();
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Student> call = apiInterface.updateFiles(user.getUid(),completeBase);
-
-        call.enqueue(new Callback<Student>() {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onResponse(Call<Student> call, Response<Student> response) {
-                if(!response.isSuccessful()) {
-                    Log.e(TAG, "onResponse: Code " + response.code());
-                    return;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    S.setCompletedFiles(completeFiles);
+                    databaseReference.child("Students").child(user.getUid()).child("completedFiles").setValue(S.getCompletedFiles());
+                    Log.e(TAG, "onDataChange: CompletedFiles modification done : " + S.getCompletedFiles());
                 }
-                Log.e(TAG, "onResponse: " + "fileCourse in mysql");
-
-
             }
 
             @Override
-            public void onFailure(Call<Student> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
             }
         });
+
     }
 }

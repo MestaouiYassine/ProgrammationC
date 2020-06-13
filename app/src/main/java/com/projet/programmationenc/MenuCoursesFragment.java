@@ -78,46 +78,6 @@ public class MenuCoursesFragment extends Fragment {
         pbfile = view.findViewById(R.id.pbfile);
 
 
-//        Drawable unwrappedDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.roundeddarkgraybutton);
-//        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-
-//        String[] basicCourses = new String[completedBasic.size()];
-//        completedBasic.toArray(basicCourses);
-//
-//        String base_url = "http://192.168.1.104/progc/";
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(base_url)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-//        Call<Student> call = apiInterface.updateBasic(user.getUid(),basicCourses);
-//
-//        call.enqueue(new Callback<Student>() {
-//            @Override
-//            public void onResponse(Call<Student> call, Response<Student> response) {
-//                if(!response.isSuccessful()) {
-//                    Log.e(TAG, "onResponse: Code " + response.code());
-//                    return;
-//                }
-//                Log.e(TAG, "onResponse: " + "basicCourses in mysql");
-//
-//                getActivity().finish();
-//                getActivity().overridePendingTransition(0, 0);
-//                startActivity(getActivity().getIntent());
-//                getActivity().overridePendingTransition(0, 0);
-////                                            Intent intent = getActivity().getIntent();
-////                                            intent.putExtra("fragedit","changepassword");
-////                                            startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Student> call, Throwable t) {
-//                Log.e(TAG, "onFailure: " + t.getMessage());
-//            }
-//        });
-
         List<String> completedBasic = ((HomeActivity) getActivity()).retrievedCompletedBasic;
         if(!BaseCFragment.completedBasic.isEmpty()) {
             completedBasic = BaseCFragment.completedBasic;

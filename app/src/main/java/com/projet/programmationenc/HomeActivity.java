@@ -67,13 +67,15 @@ public class HomeActivity extends AppCompatActivity {
     public List<String> retrievedCompletedEnumStruct = new ArrayList<>();
     public List<String> retrievedCompletedFiles = new ArrayList<>();
     private ImageView imgvavatartopnagiv;
-    public final String base_url = "http://192.168.1.105/progc/";
+    private DatabaseReference databaseReference;
+    private Student S;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        BaseCFragment.completedBasic  = new ArrayList<>();
+        BaseCFragment.completedBasic = new ArrayList<>();
         ConditFragment.completedCondLoop = new ArrayList<>();
         FunctFragment.completedFuncArrPoint = new ArrayList<>();
         StringsFragment.completedStrings = new ArrayList<>();
@@ -90,74 +92,10 @@ public class HomeActivity extends AppCompatActivity {
         txtvfullname = headerView.findViewById(R.id.txtvfullnamenavhead);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Student> call = apiInterface.getStudent(user.getUid());
-        call.enqueue(new Callback<Student>() {
-            @Override
-            public void onResponse(Call<Student> call, Response<Student> response) {
-                if(!response.isSuccessful()) {
-                    Log.e(TAG, "onResponse: Code " + response.code());
-                    return;
-                }
-                Student student = response.body();
-                retrievedFirstName = student.getFirstName();
-                retrievedLastName = student.getLastName();
-                retrievedPassword = student.getPass();
-                retrievedAvatar = student.getAvatar();
-                if(student.getCompletedBasic() != null) {
-                    String string = student.getCompletedBasic();
-                    String[] tstring = string.split("-");
-                    retrievedCompletedBasic.addAll(Arrays.asList(tstring));
-                }
-                if(student.getCompletedCondLoop() != null) {
-                    String string = student.getCompletedCondLoop();
-                    String[] tstring = string.split("-");
-                    retrievedCompletedCondLoop.addAll(Arrays.asList(tstring));
-                }
-                if(student.getCompletedFuncArrPoint() != null) {
-                    String string = student.getCompletedFuncArrPoint();
-                    String[] tstring = string.split("-");
-                    retrievedCompletedFuncArrPoint.addAll(Arrays.asList(tstring));
-                }
-                if(student.getCompletedStrings() != null) {
-                    String string = student.getCompletedStrings();
-                    String[] tstring = string.split("-");
-                    retrievedCompletedStrings.addAll(Arrays.asList(tstring));
-                }
-                if(student.getCompletedEnumStruct() != null) {
-                    String string = student.getCompletedEnumStruct();
-                    String[] tstring = string.split("-");
-                    retrievedCompletedEnumStruct.addAll(Arrays.asList(tstring));
-                }
-                if(student.getCompletedFiles() != null) {
-                    String string = student.getCompletedFiles();
-                    String[] tstring = string.split("-");
-                    retrievedCompletedFiles.addAll(Arrays.asList(tstring));
-                }
-
-                String fullname = retrievedFirstName + " " + retrievedLastName;
-                txtvemail.setText(user.getEmail());
-                txtvfullname.setText(fullname);
-                Uri uri = Uri.parse(retrievedAvatar);
-                Glide.with(HomeActivity.this)
-                        .load(uri)
-                        .apply(RequestOptions.fitCenterTransform())
-                        .into(imgvavatartopnagiv);
-            }
-
-            @Override
-            public void onFailure(Call<Student> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
-            }
-        });
-
-
-
+        RetrieveStudentData();
+        RetrieveStudentInfo();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//Sets our toolbar as the actionbar
@@ -165,15 +103,6 @@ public class HomeActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(actionBarDrawerToggle);// Setting the actionbarToggle to drawer layout
         actionBarDrawerToggle.syncState();
-
-//        String state = getIntent().getStringExtra("fragedit");
-//
-//        if(!state.equals(null)) {
-//            if(state.equals("changepassword"))
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ChangePasswordFragment()).addToBackStack(null).commit();
-//            else
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new EditProfileFragment()).addToBackStack(null).commit();
-//        }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new HomeFragment()).commit();
         ShowBackButton(false);
@@ -238,6 +167,81 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void RetrieveStudentInfo() {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    retrievedPassword = S.getPass();
+                    if (!S.getCompletedBasic().equals("null")) {
+                        String string = S.getCompletedBasic();
+                        String[] tstring = string.split("-");
+                        retrievedCompletedBasic.addAll(Arrays.asList(tstring));
+                    }
+                    if (!S.getCompletedCondLoop().equals("null")) {
+                        String string = S.getCompletedCondLoop();
+                        String[] tstring = string.split("-");
+                        retrievedCompletedCondLoop.addAll(Arrays.asList(tstring));
+                    }
+                    if (!S.getCompletedFuncArrPoint().equals("null")) {
+                        String string = S.getCompletedFuncArrPoint();
+                        String[] tstring = string.split("-");
+                        retrievedCompletedFuncArrPoint.addAll(Arrays.asList(tstring));
+                    }
+                    if (!S.getCompletedStrings().equals("null")) {
+                        String string = S.getCompletedStrings();
+                        String[] tstring = string.split("-");
+                        retrievedCompletedStrings.addAll(Arrays.asList(tstring));
+                    }
+                    if (!S.getCompletedEnumStruct().equals("null")) {
+                        String string = S.getCompletedEnumStruct();
+                        String[] tstring = string.split("-");
+                        retrievedCompletedEnumStruct.addAll(Arrays.asList(tstring));
+                    }
+                    if (!S.getCompletedFiles().equals("null")) {
+                        String string = S.getCompletedFiles();
+                        String[] tstring = string.split("-");
+                        retrievedCompletedFiles.addAll(Arrays.asList(tstring));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    public void RetrieveStudentData() {
+        databaseReference.child("Students").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    retrievedFirstName = S.getFirstName();
+                    retrievedLastName = S.getLastName();
+                    retrievedAvatar = S.getAvatar();
+
+                    String fullname = retrievedFirstName + " " + retrievedLastName;
+                    txtvemail.setText(user.getEmail());
+                    txtvfullname.setText(fullname);
+                    Uri uri = Uri.parse(retrievedAvatar);
+                    Glide.with(HomeActivity.this)
+                            .load(uri)
+                            .apply(RequestOptions.fitCenterTransform())
+                            .into(imgvavatartopnagiv);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+            }
+        });
+    }
+
     public void ShowBackButton(Boolean show) {
         if (show) {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -272,8 +276,7 @@ public class HomeActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager.getBackStackEntryCount() > 0) {
                 fragmentManager.popBackStack();
-            }
-            else { //when the navigation drawer is closed we will close the current activity
+            } else { //when the navigation drawer is closed we will close the current activity
 //                super.onBackPressed();
                 this.moveTaskToBack(true);
             }

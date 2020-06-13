@@ -14,6 +14,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +36,8 @@ public class FunctFragment extends Fragment {
     private String id;
     private FirebaseUser user;
     public static List<String> completedFuncArrPoint;
+    private DatabaseReference databaseReference;
+    private Student S;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,12 +50,11 @@ public class FunctFragment extends Fragment {
 
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
-        String base_url = ((HomeActivity) getActivity()).base_url;
-
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         if(((HomeActivity) getActivity()).retrievedCompletedFuncArrPoint.isEmpty()) {
-            Log.e(TAG, "onViewCreated: retrievedCompletedFuncArrPoint is foking empty");
+            Log.e(TAG, "onViewCreated: retrievedCompletedFuncArrPoint is empty");
         }
         else {
             completedFuncArrPoint = ((HomeActivity) getActivity()).retrievedCompletedFuncArrPoint;
@@ -106,7 +112,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("fonction1")) {
                     completedFuncArrPoint.add("fonction1");
-                    updateFuncArrPointCourse(base_url);
+                    updateFuncArrPointCourse();
                 }
                 id = "fonction1";
                 Bundle bundle = new Bundle();
@@ -122,7 +128,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("fonction2")) {
                     completedFuncArrPoint.add("fonction2");
-                    updateFuncArrPointCourse(base_url);
+                    updateFuncArrPointCourse();
                 }
                 id = "fonction2";
                 Bundle bundle = new Bundle();
@@ -138,7 +144,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("tab1dim")) {
                     completedFuncArrPoint.add("tab1dim");
-                    updateFuncArrPointCourse(base_url);
+                    updateFuncArrPointCourse();
                 }
                 id = "tab1dim";
                 Bundle bundle = new Bundle();
@@ -154,7 +160,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("tabndim")) {
                     completedFuncArrPoint.add("tabndim");
-                    updateFuncArrPointCourse(base_url);
+                    updateFuncArrPointCourse();
                 }
                 id = "tabndim";
                 Bundle bundle = new Bundle();
@@ -170,7 +176,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("pointers1")) {
                     completedFuncArrPoint.add("pointers1");
-                    updateFuncArrPointCourse(base_url);
+                    updateFuncArrPointCourse();
                 }
                 id = "pointers1";
                 Bundle bundle = new Bundle();
@@ -186,7 +192,7 @@ public class FunctFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedFuncArrPoint.contains("pointers2")) {
                     completedFuncArrPoint.add("pointers2");
-                    updateFuncArrPointCourse(base_url);
+                    updateFuncArrPointCourse();
                 }
                 id = "pointers2";
                 Bundle bundle = new Bundle();
@@ -300,7 +306,7 @@ public class FunctFragment extends Fragment {
         }
     }
 
-    private void updateFuncArrPointCourse(String base_url) {
+    private void updateFuncArrPointCourse() {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedFuncArrPoint) {
             if(!s.equals(completedFuncArrPoint.get(completedFuncArrPoint.size() - 1))) {
@@ -311,32 +317,24 @@ public class FunctFragment extends Fragment {
             }
         }
 
-        String completeBase = stringBuilder.toString();
+        String completeFunct = stringBuilder.toString();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Student> call = apiInterface.updateFuncArrPoint(user.getUid(),completeBase);
-
-        call.enqueue(new Callback<Student>() {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onResponse(Call<Student> call, Response<Student> response) {
-                if(!response.isSuccessful()) {
-                    Log.e(TAG, "onResponse: Code " + response.code());
-                    return;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    S.setCompletedFuncArrPoint(completeFunct);
+                    databaseReference.child("Students").child(user.getUid()).child("completedFuncArrPoint").setValue(S.getCompletedFuncArrPoint());
+                    Log.e(TAG, "onDataChange: CompletedFuncArrPoint modification done : " + S.getCompletedFuncArrPoint());
                 }
-                Log.e(TAG, "onResponse: " + "funcArrayPointCourses in mysql");
-
-
             }
 
             @Override
-            public void onFailure(Call<Student> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
             }
         });
+
     }
 }

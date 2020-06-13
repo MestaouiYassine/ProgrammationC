@@ -20,11 +20,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CoursesFragment extends Fragment {
-//    public static ApiInterface apiInterface;
-//    private EditText edtidcourse;
     private TextView txtvtitle,txtvcourse;
     private Button btncontinue;
-//    192.168.1.104
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +34,6 @@ public class CoursesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 
-        String base_url = ((HomeActivity) getActivity()).base_url;
 
         txtvtitle = view.findViewById(R.id.txtvtitle);
         txtvcourse = view.findViewById(R.id.txtvcourse);
@@ -46,7 +42,7 @@ public class CoursesFragment extends Fragment {
         String id = getArguments().getString("id");
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
+                .baseUrl("http://192.168.1.105/progc/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
@@ -72,7 +68,6 @@ public class CoursesFragment extends Fragment {
         btncontinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new BaseCFragment()).commit();
                 getActivity().onBackPressed();
             }
         });

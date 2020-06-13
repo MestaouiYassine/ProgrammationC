@@ -35,26 +35,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChangePasswordFragment extends Fragment {
     private static final String TAG = "ChangePasswordFragment";
-    private TextInputLayout edtpassword1change,edtpassword2change;
+    private TextInputLayout edtpassword1change, edtpassword2change;
     private Button btnconfirmchange;
-    private String password1change,password2change;
+    private String password1change, password2change;
     private FirebaseUser user;
-//    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
     private Student S;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_changepassword,container,false);
+        return inflater.inflate(R.layout.fragment_changepassword, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String base_url = ((HomeActivity) getActivity()).base_url;
-
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
 //        databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -69,31 +68,28 @@ public class ChangePasswordFragment extends Fragment {
                 password2change = edtpassword2change.getEditText().getText().toString();
                 boolean flag = true;
 
-                if(password2change.isEmpty()) {
+                if (password2change.isEmpty()) {
                     edtpassword2change.setError("Veuillez retaper le mot de passe.");
                     flag = false;
                 }
 
-                if(password1change.isEmpty()) {
+                if (password1change.isEmpty()) {
                     edtpassword1change.setError("Veuillez saisir le mot de passe.");
                     flag = false;
-                }
-                else if(password1change.length() < 6) {
+                } else if (password1change.length() < 6) {
                     edtpassword1change.setError("Le mot de passe doit contenir au moins 6 caractères.");
                     flag = false;
-                }
-                else {
-                    if(!password1change.equals(password2change)) {
-                        Toast.makeText(getContext(),"Les deux mots de passes ne sont pas identiques.",Toast.LENGTH_SHORT).show();
+                } else {
+                    if (!password1change.equals(password2change)) {
+                        Toast.makeText(getContext(), "Les deux mots de passes ne sont pas identiques.", Toast.LENGTH_SHORT).show();
                         flag = false;
                     }
                 }
 
-                if(!flag) {
+                if (!flag) {
                     return;
-                }
-                else {
-                    AuthCredential authCredential = EmailAuthProvider.getCredential(user.getEmail(),((HomeActivity) getActivity()).retrievedPassword);
+                } else {
+                    AuthCredential authCredential = EmailAuthProvider.getCredential(user.getEmail(), ((HomeActivity) getActivity()).retrievedPassword);
                     user.reauthenticate(authCredential).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -101,50 +97,33 @@ public class ChangePasswordFragment extends Fragment {
                             user.updatePassword(password1change).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Log.e(TAG, "onComplete: Password updates successfully");
+                                    Log.e(TAG, "onComplete: Password updated successfully");
 
-//                                Gson gson = new GsonBuilder()
-//                                        .setLenient()
-//                                        .create();
-
-                                    Retrofit retrofit = new Retrofit.Builder()
-                                            .baseUrl(base_url)
-                                            .addConverterFactory(GsonConverterFactory.create())
-                                            .build();
-
-                                    ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-                                    Call<Student> call = apiInterface.changePassword(user.getUid(),password1change);
-
-                                    call.enqueue(new Callback<Student>() {
-                                        @Override
-                                        public void onResponse(Call<Student> call, Response<Student> response) {
-                                            if(!response.isSuccessful()) {
-                                                Log.e(TAG, "onResponse: Code " + response.code());
-                                                return;
-                                            }
-                                            Log.e(TAG, "onResponse: " + "password changed");
-                                            Toast.makeText(getContext(),"Changement du mot de passe réussi !",Toast.LENGTH_SHORT).show();
-
-                                            getActivity().finish();
-                                            getActivity().overridePendingTransition(0, 0);
-                                            startActivity(getActivity().getIntent());
-                                            getActivity().overridePendingTransition(0, 0);
-//                                            Intent intent = getActivity().getIntent();
-//                                            intent.putExtra("fragedit","changepassword");
-//                                            startActivity(intent);
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<Student> call, Throwable t) {
-                                            Log.e(TAG, "onFailure: " + t.getMessage());
-                                        }
-                                    });
-
+                                    ChangeStudentPassword();
                                 }
                             });
                         }
                     });
                 }
+            }
+        });
+    }
+
+    public void ChangeStudentPassword() {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    S.setPass(password1change);
+                    databaseReference.child("Students").child(user.getUid()).child("pass").setValue(S.getPass());
+                    Toast.makeText(getContext(), "Changement réussi du mot de passe", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }

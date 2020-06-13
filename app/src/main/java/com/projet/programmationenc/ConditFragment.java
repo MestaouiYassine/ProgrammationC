@@ -15,6 +15,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,8 @@ public class ConditFragment extends Fragment {
     private String id;
     private FirebaseUser user;
     public static List<String> completedCondLoop;
+    private DatabaseReference databaseReference;
+    private Student S;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,12 +50,12 @@ public class ConditFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
-        String base_url = ((HomeActivity) getActivity()).base_url;
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         if(((HomeActivity) getActivity()).retrievedCompletedCondLoop.isEmpty()) {
-            Log.e(TAG, "onViewCreated: retrievedCompletedCondLoop is foking empty");
+            Log.e(TAG, "onViewCreated: retrievedCompletedCondLoop is  empty");
         }
         else {
             completedCondLoop = ((HomeActivity) getActivity()).retrievedCompletedCondLoop;
@@ -106,7 +113,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("ifelse")) {
                     completedCondLoop.add("ifelse");
-                    updateCondLoopCourse(base_url);
+                    updateCondLoopCourse();
                 }
                 id = "ifelse";
                 Bundle bundle = new Bundle();
@@ -122,7 +129,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("oplog")) {
                     completedCondLoop.add("oplog");
-                    updateCondLoopCourse(base_url);
+                    updateCondLoopCourse();
                 }
                 id = "oplog";
                 Bundle bundle = new Bundle();
@@ -138,7 +145,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("switch")) {
                     completedCondLoop.add("switch");
-                    updateCondLoopCourse(base_url);
+                    updateCondLoopCourse();
                 }
                 id = "switch";
                 Bundle bundle = new Bundle();
@@ -154,7 +161,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("while")) {
                     completedCondLoop.add("while");
-                    updateCondLoopCourse(base_url);
+                    updateCondLoopCourse();
                 }
                 id = "while";
                 Bundle bundle = new Bundle();
@@ -170,7 +177,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("dowhile")) {
                     completedCondLoop.add("dowhile");
-                    updateCondLoopCourse(base_url);
+                    updateCondLoopCourse();
                 }
                 id = "dowhile";
                 Bundle bundle = new Bundle();
@@ -186,7 +193,7 @@ public class ConditFragment extends Fragment {
             public void onClick(View v) {
                 if(!completedCondLoop.contains("for")) {
                     completedCondLoop.add("for");
-                    updateCondLoopCourse(base_url);
+                    updateCondLoopCourse();
                 }
                 id = "for";
                 Bundle bundle = new Bundle();
@@ -300,7 +307,7 @@ public class ConditFragment extends Fragment {
         }
     }
 
-    private void updateCondLoopCourse(String base_url) {
+    private void updateCondLoopCourse() {
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : completedCondLoop) {
             if(!s.equals(completedCondLoop.get(completedCondLoop.size() - 1))) {
@@ -311,32 +318,24 @@ public class ConditFragment extends Fragment {
             }
         }
 
-        String completeBase = stringBuilder.toString();
+        String completeCondit= stringBuilder.toString();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Student> call = apiInterface.updateCondLoop(user.getUid(),completeBase);
-
-        call.enqueue(new Callback<Student>() {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onResponse(Call<Student> call, Response<Student> response) {
-                if(!response.isSuccessful()) {
-                    Log.e(TAG, "onResponse: Code " + response.code());
-                    return;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    S.setCompletedCondLoop(completeCondit);
+                    databaseReference.child("Students").child(user.getUid()).child("completedCondLoop").setValue(S.getCompletedCondLoop());
+                    Log.e(TAG, "onDataChange: CompletedCondit modification done : " + S.getCompletedCondLoop());
                 }
-                Log.e(TAG, "onResponse: " + "condLoopCourses in mysql");
-
-
             }
 
             @Override
-            public void onFailure(Call<Student> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
             }
         });
+
     }
 }

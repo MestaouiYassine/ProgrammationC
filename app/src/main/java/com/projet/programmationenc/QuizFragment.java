@@ -44,8 +44,6 @@ public class QuizFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String base_url = ((HomeActivity) getActivity()).base_url;
-
         ((HomeActivity) getActivity()).ShowBackButton(true);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 
@@ -116,7 +114,7 @@ public class QuizFragment extends Fragment {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
+                .baseUrl("http://192.168.1.105/progc/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
