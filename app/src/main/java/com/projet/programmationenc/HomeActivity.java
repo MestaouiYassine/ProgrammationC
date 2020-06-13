@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,12 +73,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        Fragment frg = null;
-//        frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
-//        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.detach(frg);
-//        ft.attach(frg);
-//        ft.commit();
         BaseCFragment.completedBasic  = new ArrayList<>();
         ConditFragment.completedCondLoop = new ArrayList<>();
         FunctFragment.completedFuncArrPoint = new ArrayList<>();
@@ -117,11 +113,6 @@ public class HomeActivity extends AppCompatActivity {
                     String string = student.getCompletedBasic();
                     String[] tstring = string.split("-");
                     retrievedCompletedBasic.addAll(Arrays.asList(tstring));
-//                    retrievedCompletedBasic = Arrays.asList(tstring);
-//                    String[] retrievedStringBasic = student.getCompletedBasic();
-//                Log.e(TAG, "onResponse: homeactivity retrievedStringBasic 0" + retrievedStringBasic[0]);
-//                    retrievedCompletedBasic = student.getCompletedBasic();
-//                    retrievedCompletedBasic = Arrays.asList(retrievedStringBasic);
                 }
                 if(student.getCompletedCondLoop() != null) {
                     String string = student.getCompletedCondLoop();
@@ -152,11 +143,11 @@ public class HomeActivity extends AppCompatActivity {
                 String fullname = retrievedFirstName + " " + retrievedLastName;
                 txtvemail.setText(user.getEmail());
                 txtvfullname.setText(fullname);
+                Uri uri = Uri.parse(retrievedAvatar);
                 Glide.with(HomeActivity.this)
-                        .load(Uri.parse(retrievedAvatar))
+                        .load(uri)
                         .apply(RequestOptions.fitCenterTransform())
                         .into(imgvavatartopnagiv);
-
             }
 
             @Override

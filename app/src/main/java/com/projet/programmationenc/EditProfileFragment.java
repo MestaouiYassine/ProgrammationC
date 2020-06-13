@@ -1,9 +1,13 @@
 package com.projet.programmationenc;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +26,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +37,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,8 +61,10 @@ public class EditProfileFragment extends Fragment {
     private TextView txtvchangeavatar;
     private Button btnconfirmedit;
     private ImageButton btnremoveavatar;
+//    private Bitmap bitmap;
 //    private DatabaseReference databaseReference;
-    Uri imgavataruri;
+    private Uri imgavataruri,downloadedUri;
+    private StorageReference storageReference;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +76,8 @@ public class EditProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         String base_url = ((HomeActivity) getActivity()).base_url;
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 //        databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -74,7 +91,7 @@ public class EditProfileFragment extends Fragment {
         edtfirstnameedit.getEditText().setText(((HomeActivity) getActivity()).retrievedFirstName);
         edtlastnameedit.getEditText().setText(((HomeActivity) getActivity()).retrievedLastName);
         if(((HomeActivity) getActivity()).retrievedAvatar != null) {
-        imgavataruri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
+            Uri imgavataruri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
             Glide.with(this)
                     .load(imgavataruri)
                     .apply(RequestOptions.fitCenterTransform())
@@ -100,10 +117,15 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
-                        Glide.with(getActivity())
-                                .load(imgavataruri)
-                                .apply(RequestOptions.fitCenterTransform())
-                                .into(imgvavataredit);
+                Glide.with(getActivity())
+                        .load(imgavataruri)
+                        .apply(RequestOptions.fitCenterTransform())
+                        .into(imgvavataredit);
+
+//                Glide.with(getActivity())
+//                                .load(bitmap)
+//                                .apply(RequestOptions.fitCenterTransform())
+//                                .into(imgvavataredit);
             }
         });
 
@@ -130,86 +152,80 @@ public class EditProfileFragment extends Fragment {
                 }
                 else {
 
-//                                Gson gson = new GsonBuilder()
-//                                        .setLenient()
-//                                        .create();
+//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG ,100, baos);
+//                    byte[] b = baos.toByteArray();
+//                    String temp= Base64.encodeToString(b, Base64.DEFAULT);
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(base_url)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-
-                    ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-                    Call<Student> call = apiInterface.updateStudent(user.getUid(),firstnameedit,lastnameedit,imgavataruri.toString());
-
-                    call.enqueue(new Callback<Student>() {
+//                    try {
+//                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), imgavataruri);
+//                        Log.e(TAG, "onClick: dkhol l try catch bitmap");
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+                    StorageReference ref = storageReference.child("students_avatars/"+imgavataruri.getLastPathSegment());
+                    ref.putFile(imgavataruri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onResponse(Call<Student> call, Response<Student> response) {
-                            if(!response.isSuccessful()) {
-                                Log.e(TAG, "onResponse: Code " + response.code());
-                                return;
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        Task<Uri> downloadedUri = taskSnapshot.getStorage().getDownloadUrl();
+                            Log.e(TAG, "onSuccess: image uploaded");
+                            if (taskSnapshot.getMetadata() != null) {
+                                if (taskSnapshot.getMetadata().getReference() != null) {
+                                    Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            Retrofit retrofit = new Retrofit.Builder()
+                                                    .baseUrl(base_url)
+                                                    .addConverterFactory(GsonConverterFactory.create())
+                                                    .build();
+
+                                            ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+                                            Call<Student> call = apiInterface.updateStudent(user.getUid(),firstnameedit,lastnameedit,uri.toString());
+
+                                            call.enqueue(new Callback<Student>() {
+                                                @Override
+                                                public void onResponse(Call<Student> call, Response<Student> response) {
+                                                    if(!response.isSuccessful()) {
+                                                        Log.e(TAG, "onResponse: Code " + response.code());
+                                                        return;
+                                                    }
+                                                    Log.e(TAG, "onResponse: " + "Data updates");
+                                                    Toast.makeText(getContext(),"Modification réussie !",Toast.LENGTH_SHORT).show();
+
+//                                                    getActivity().finish();
+//                                                    getActivity().overridePendingTransition(0, 0);
+//                                                    startActivity(getActivity().getIntent());
+//                                                    getActivity().overridePendingTransition(0, 0);
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Student> call, Throwable t) {
+                                                    Log.e(TAG, "onFailure: " + t.getMessage());
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
                             }
-                            Log.e(TAG, "onResponse: " + "Data updates");
-                            Toast.makeText(getContext(),"Modification réussie !",Toast.LENGTH_SHORT).show();
-
-                            getActivity().finish();
-                            getActivity().overridePendingTransition(0, 0);
-                            startActivity(getActivity().getIntent());
-                            getActivity().overridePendingTransition(0, 0);
-//                            refreshFragmentUI(getActivity().getSupportFragmentManager().findFragmentByTag("fragedit"));
-
-//                            Fragment frg = getActivity().getSupportFragmentManager().findFragmentByTag("fragedit");
-//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager()
-//                                    .beginTransaction();
-//                            if (Build.VERSION.SDK_INT >= 26) {
-//                                transaction.setReorderingAllowed(false);
-//                            }
-//                            transaction.detach(frg).attach
-//                                    (frg).commit();
-
-//                            Fragment frg = null;
-//                            frg = getActivity().getSupportFragmentManager().findFragmentByTag("fragedit");
-//                            final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                            ft.detach(frg);
-//                            ft.attach(frg);
-//                            ft.commit();
-
-//                            Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
-//                            if (currentFragment instanceof EditProfileFragment) {
-//                                getActivity().getSupportFragmentManager().beginTransaction().detach(currentFragment);
-//                                getActivity().getSupportFragmentManager().beginTransaction().attach(currentFragment);
-//                                getActivity().getSupportFragmentManager().beginTransaction().commit();
-//                            }
                         }
-
+                    }).addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onFailure(Call<Student> call, Throwable t) {
-                            Log.e(TAG, "onFailure: " + t.getMessage());
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: image not uploaded");
                         }
                     });
+
+
+//                    Log.e(TAG, "onClick: downloadeduri after anonymous class" + downloadedUri.toString());
+//                    updateStudentProfile(base_url);
+
                 }
             }
         });
 
     }
-
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser) {
-//            // Refresh your fragment here
-//            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-//            Log.i("IsRefresh", "Yes");
-//        }
-//    }
-
-//    public void refreshFragmentUI(Fragment fragment) {
-//        getActivity().getSupportFragmentManager()
-//                .beginTransaction()
-//                .detach(fragment)
-//                .attach(fragment)
-//                .commit();
-//    }
 
     private void openImageFile() {
         CropImage.activity()
@@ -225,21 +241,92 @@ public class EditProfileFragment extends Fragment {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == getActivity().RESULT_OK) {
                 imgavataruri = result.getUri();
+
                 Glide.with(this)
                         .load(imgavataruri)
                         .apply(RequestOptions.fitCenterTransform())
                         .into(imgvavataredit);
+//                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), imgavataruri);
             }
         }
-
-//        if(requestCode == 1) {
-//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            if (Build.VERSION.SDK_INT >= 26) {
-//                ft.setReorderingAllowed(false);
-//            }
-//            ft.detach(this).attach(this).commit();
-//        }
     }
 
+//    public String BitMapToString() {
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG ,100, baos);
+//        byte[] b = baos.toByteArray();
+//        return Base64.encodeToString(b, Base64.DEFAULT);
+//    }
+
+//    public void updateStudentProfile(String base_url) {
+////        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+////        bitmap.compress(Bitmap.CompressFormat.JPEG ,100, baos);
+////        byte[] b = baos.toByteArray();
+////        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+//
+////        Log.e(TAG, "onClick: temp : " + temp);
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(base_url)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+//        Call<Student> call = apiInterface.updateStudent(user.getUid(),firstnameedit,lastnameedit,downloadedUri.toString());
+//
+//        call.enqueue(new Callback<Student>() {
+//            @Override
+//            public void onResponse(Call<Student> call, Response<Student> response) {
+//                if(!response.isSuccessful()) {
+//                    Log.e(TAG, "onResponse: Code " + response.code());
+//                    return;
+//                }
+//                Log.e(TAG, "onResponse: " + "Data updates");
+//                Toast.makeText(getContext(),"Modification réussie !",Toast.LENGTH_SHORT).show();
+//
+//                getActivity().finish();
+//                getActivity().overridePendingTransition(0, 0);
+//                startActivity(getActivity().getIntent());
+//                getActivity().overridePendingTransition(0, 0);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Student> call, Throwable t) {
+//                Log.e(TAG, "onFailure: " + t.getMessage());
+//            }
+//        });
+//    }
+
 }
+
+
+
+
+
+//                    storageReference.child("students_avatars/"+user.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                        @Override
+//                        public void onSuccess(Uri uri) {
+//                            downloadedUri = uri;
+//                        }
+//                    });
+
+
+
+
+
+
+
+
+//                            if(taskSnapshot.getMetadata() != null) {
+//                                if(taskSnapshot.getMetadata().getReference() != null) {
+//                                    Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+//                                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                        @Override
+//                                        public void onSuccess(Uri uri) {
+//                                            final Uri downloadUri = uri;
+//                                            Log.e(TAG, "onSuccess: URI downloaded" + downloadUri);
+//                                        }
+//                                    });
+//                                }
+//                            }
 

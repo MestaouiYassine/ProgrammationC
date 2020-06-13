@@ -2,11 +2,35 @@ package com.projet.programmationenc;
 
 import android.net.Uri;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Student {
-    private String studentID,firstName,lastName,pass,avatar,completedBasic,completedCondLoop,completedFuncArrPoint,completedStrings,completedEnumStruct,completedFiles;
+public class Student implements Serializable {
+    @SerializedName("studentID")
+    private String studentID;
+    @SerializedName("firstName")
+    private String firstName;
+    @SerializedName("lastName")
+    private String lastName;
+    @SerializedName("pass")
+    private String pass;
+    @SerializedName("avatar")
+    private String avatar;
+    @SerializedName("completedBasic")
+    private String completedBasic;
+    @SerializedName("completedCondLoop")
+    private String completedCondLoop;
+    @SerializedName("completedFuncArrPoint")
+    private String completedFuncArrPoint;
+    @SerializedName("completedStrings")
+    private String completedStrings;
+    @SerializedName("completedEnumStruct")
+    private String completedEnumStruct;
+    @SerializedName("completedFiles")
+    private String completedFiles;
 
 //    public Student() {}
 //

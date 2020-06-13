@@ -6,13 +6,13 @@ import java.util.Date;
 
 public class CardViewForum {
     private Uri forumAvatar;
-    private String forumQuestion,forumFullname;
+    private String forumQuestion,forumFullName;
     private Date forumDatePost;
 
-    public CardViewForum(Uri forumAvatar, String forumQuestion, String forumFullname, Date forumDatePost) {
+    public CardViewForum(Uri forumAvatar, String forumQuestion, String forumFullName, Date forumDatePost) {
         this.forumAvatar = forumAvatar;
         this.forumQuestion = forumQuestion;
-        this.forumFullname = forumFullname;
+        this.forumFullName = forumFullName;
         this.forumDatePost = forumDatePost;
     }
 
@@ -24,8 +24,8 @@ public class CardViewForum {
         return forumQuestion;
     }
 
-    public String getForumFullname() {
-        return forumFullname;
+    public String getForumFullName() {
+        return forumFullName;
     }
 
     public Date getForumDatePost() {

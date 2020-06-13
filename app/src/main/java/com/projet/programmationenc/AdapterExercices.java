@@ -23,7 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterExercices extends RecyclerView.Adapter<AdapterExercices.ViewHolderEx> {
     private List<CardViewExercices> cardViewExercicesList;
     private Context context;
-    private String title;
     private int currentPosition = -1;
 
     public static class ViewHolderEx extends RecyclerView.ViewHolder {
