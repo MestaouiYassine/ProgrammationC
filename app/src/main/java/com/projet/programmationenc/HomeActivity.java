@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
     public List<String> retrievedCompletedStrings = new ArrayList<>();
     public List<String> retrievedCompletedEnumStruct = new ArrayList<>();
     public List<String> retrievedCompletedFiles = new ArrayList<>();
-    private ImageView imgvavatartopnagiv;
+    private CircleImageView imgvavatartopnagiv;
     private DatabaseReference databaseReference;
     private Student S;
 

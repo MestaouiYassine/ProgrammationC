@@ -1,14 +1,29 @@
 package com.projet.programmationenc;
 
+import android.net.Uri;
+
 import java.util.Date;
 
 public class Post {
-    private int postID;
-    private String questionPost,descriptionPost,studentID;
-    private Date datePost;
+//    public int postID;
+    public String studentAvatar;
+    public String questionPost,descriptionPost,studentFullName,studentID;
+    public String datePost;
 
-    public int getPostID() {
-        return postID;
+    public Post() {
+    }
+
+    public Post(String studentAvatar, String questionPost, String descriptionPost, String studentFullName, String studentID,String datePost) {
+        this.studentAvatar = studentAvatar;
+        this.questionPost = questionPost;
+        this.descriptionPost = descriptionPost;
+        this.studentFullName = studentFullName;
+        this.studentID = studentID;
+        this.datePost = datePost;
+    }
+
+    public String getStudentAvatar() {
+        return studentAvatar;
     }
 
     public String getQuestionPost() {
@@ -19,11 +34,15 @@ public class Post {
         return descriptionPost;
     }
 
+    public String getStudentFullName() {
+        return studentFullName;
+    }
+
     public String getStudentID() {
         return studentID;
     }
 
-    public Date getDatePost() {
+    public String getDatePost() {
         return datePost;
     }
 }

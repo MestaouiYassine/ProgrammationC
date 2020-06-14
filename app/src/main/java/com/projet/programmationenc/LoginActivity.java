@@ -22,6 +22,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,7 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txtvsignup,txtvforgotten;
     private TextInputLayout edtemail,edtpassword;
     private ProgressBar progressBar;
-
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
+    private Student S;
+    private String email,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         txtvsignup = findViewById(R.id.txtvsignuplogin);
         progressBar = findViewById(R.id.progressBarlogin);
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,8 +113,8 @@ public class LoginActivity extends AppCompatActivity {
         btnsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = edtemail.getEditText().getText().toString();
-                String password = edtpassword.getEditText().getText().toString();
+                email = edtemail.getEditText().getText().toString();
+                password = edtpassword.getEditText().getText().toString();
 
                 final String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,6}";
                 boolean flag = true;
@@ -133,12 +142,11 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressBar.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                user = mAuth.getCurrentUser();
                                 boolean emailVerified = user.isEmailVerified();
                                 if(emailVerified) {
                                     Log.d(TAG, "signInWithEmail:success");
-//                                    DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
-//                                    dr.child("Etudiants").child(user.getUid()).child("emailVerif").setValue(true);
+                                    SetStudentPassword(password);
                                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                                 }
                                 else {
@@ -158,13 +166,25 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser user = mAuth.getCurrentUser();
-//        if(user != null) {
-//            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-//        }
-//    }
+    public void SetStudentPassword(String password) {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    if(!password.equals(S.getPass())) {
+                        S.setPass(password);
+                        databaseReference.child("Students").child(user.getUid()).child("pass").setValue(S.getPass());
+                        Log.e(TAG, "onDataChange: Reset password modification done : " + S.getPass());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+            }
+        });
+    }
+
 }

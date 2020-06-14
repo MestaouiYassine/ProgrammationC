@@ -46,6 +46,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +58,7 @@ public class EditProfileFragment extends Fragment {
     private static final String TAG = "EditProfileFragment";
     private FirebaseUser user;
     private String firstnameedit, lastnameedit;
-    private ImageView imgvavataredit;
+    private CircleImageView imgvavataredit;
     private TextInputLayout edtlastnameedit, edtfirstnameedit;
     private TextView txtvchangeavatar;
     private Button btnconfirmedit;
