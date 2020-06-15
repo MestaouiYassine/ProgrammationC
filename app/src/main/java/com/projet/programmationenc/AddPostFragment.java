@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -114,7 +116,8 @@ public class AddPostFragment extends Fragment {
 //                        }
 //                    });
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy 'à' HH:mm");
+//                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                     P = new Post(avatar,question,description,fullName,user.getUid(),sdf.format(new Date()));
                     databaseReference.child("Posts").push().setValue(P);
                     Toast.makeText(getContext(), "Post posted !", Toast.LENGTH_SHORT).show();

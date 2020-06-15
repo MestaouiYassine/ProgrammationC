@@ -1,6 +1,7 @@
 package com.projet.programmationenc;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,21 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ForumFragment extends Fragment {
+    private static final String TAG = "ForumFragment";
     private RecyclerView rvforum;
     private RecyclerView.LayoutManager rvmanager;
     private FirebaseRecyclerOptions<Post> options;
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
     private FloatingActionButton fabpost;
     private FirebaseUser user;
+    private DatabaseReference databaseReference;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class ForumFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         rvforum = view.findViewById(R.id.rvforum);
         rvmanager = new LinearLayoutManager(getContext());
@@ -66,6 +71,20 @@ public class ForumFragment extends Fragment {
             @Override
             public ViewHolderFm onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_forum,parent,false);
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int itemPosition = rvforum.getChildLayoutPosition(view);
+                        String key = databaseReference.child("Posts").child(getRef(itemPosition).getKey()).getKey();
+                        Log.e(TAG, "onClick: KEY : " + key);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("key",key);
+                        PostCommentFragment postCommentFragment = new PostCommentFragment();
+                        postCommentFragment.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,postCommentFragment).addToBackStack(null).commit();
+
+                    }
+                });
                 ViewHolderFm vhf = new ViewHolderFm(v);
                 return vhf;
             }
@@ -78,7 +97,7 @@ public class ForumFragment extends Fragment {
                         .into(holder.civavatarforum);
                 holder.txtvfullnameforum.setText(model.getStudentFullName());
                 holder.txtvquestionforum.setText(model.getQuestionPost());
-                holder.txtvdatePost.setText(model.getDatePost());
+                holder.txtvdateforum.setText(model.getDatePost());
             }
         };
 
@@ -89,7 +108,7 @@ public class ForumFragment extends Fragment {
 
     public static class ViewHolderFm extends RecyclerView.ViewHolder {
         public CircleImageView civavatarforum;
-        public TextView txtvfullnameforum,txtvquestionforum,txtvdatePost;
+        public TextView txtvfullnameforum,txtvquestionforum,txtvdateforum;
 
 
         public ViewHolderFm(@NonNull View itemView) {
@@ -97,7 +116,7 @@ public class ForumFragment extends Fragment {
             civavatarforum = itemView.findViewById(R.id.civavatarforum);
             txtvfullnameforum = itemView.findViewById(R.id.txtvfullnameforum);
             txtvquestionforum = itemView.findViewById(R.id.txtvquestionforum);
-            txtvdatePost = itemView.findViewById(R.id.txtvdatePost);
+            txtvdateforum = itemView.findViewById(R.id.txtvdateforum);
         }
     }
 
