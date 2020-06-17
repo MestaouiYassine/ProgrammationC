@@ -63,7 +63,7 @@ public class AddPostFragment extends Fragment {
         btnaddpost = view.findViewById(R.id.btnaddpost);
 
         avatar = ((HomeActivity) getActivity()).retrievedAvatar;
-        Glide.with(view)
+        Glide.with(AddPostFragment.this)
                 .load(Uri.parse(avatar))
                 .apply(RequestOptions.fitCenterTransform())
                 .into(civavataraddpost);
@@ -120,7 +120,7 @@ public class AddPostFragment extends Fragment {
 //                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                     P = new Post(avatar,question,description,fullName,user.getUid(),sdf.format(new Date()));
                     databaseReference.child("Posts").push().setValue(P);
-                    Toast.makeText(getContext(), "Post posted !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Post posted !", Toast.LENGTH_SHORT).show();
 
                 }
             }

@@ -40,8 +40,8 @@ public class ExercicesFragment extends Fragment {
 
         rvexercices = view.findViewById(R.id.rvexercices);
         rvexercices.setHasFixedSize(true);
-        rvmanager = new LinearLayoutManager(getContext());
-        rvadapter = new AdapterExercices(cardViewExercicesList,getContext());
+        rvmanager = new LinearLayoutManager(getActivity());
+        rvadapter = new AdapterExercices(cardViewExercicesList,getActivity());
 
         rvexercices.setLayoutManager(rvmanager);
         rvexercices.setAdapter(rvadapter);

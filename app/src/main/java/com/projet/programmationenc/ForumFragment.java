@@ -50,7 +50,7 @@ public class ForumFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         rvforum = view.findViewById(R.id.rvforum);
-        rvmanager = new LinearLayoutManager(getContext());
+        rvmanager = new LinearLayoutManager(getActivity());
         fabpost = view.findViewById(R.id.fabpost);
 
         fabpost.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +91,7 @@ public class ForumFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderFm holder, int position, @NonNull Post model) {
-                Glide.with(getContext())
+                Glide.with(ForumFragment.this)
                         .load(model.getStudentAvatar())
                         .apply(RequestOptions.fitCenterTransform())
                         .into(holder.civavatarforum);

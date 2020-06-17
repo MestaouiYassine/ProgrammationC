@@ -95,7 +95,7 @@ public class ExFragment extends Fragment {
             public void onResponse(Call<Exercice> call, Response<Exercice> response) {
                 if(!response.isSuccessful()) {
                     Log.e(TAG, "onResponse: Code : " + response.code());
-                    Toast.makeText(getContext(),"Code : " + response.code(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Code : " + response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Exercice exercice = response.body();
@@ -106,7 +106,7 @@ public class ExFragment extends Fragment {
             @Override
             public void onFailure(Call<Exercice> call, Throwable t) {
                 Log.e(TAG, "onFailure: throwable msg : " + t.getMessage());
-                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
 

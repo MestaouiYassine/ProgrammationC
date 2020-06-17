@@ -38,6 +38,9 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         app:boxStrokeColor="@color/blue"
+        app:counterEnabled="true"
+        app:counterMaxLength="128"
+        android:nextFocusForward="@id/edtadddescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtvfullnameaddpost">
@@ -46,7 +49,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Question"
-            android:inputType="textMultiLine" />
+            android:maxLength="128"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionNext"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,6 +65,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:boxStrokeColor="@color/blue"
+        app:counterEnabled="true"
+        app:counterMaxLength="1024"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtaddquestion">
@@ -66,6 +75,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Description"
+            android:scrollbars="vertical"
+            android:maxLines="7"
+            android:maxLength="1024"
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 

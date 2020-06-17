@@ -94,14 +94,13 @@ public class EditProfileFragment extends Fragment {
 
         edtfirstnameedit.getEditText().setText(((HomeActivity) getActivity()).retrievedFirstName);
         edtlastnameedit.getEditText().setText(((HomeActivity) getActivity()).retrievedLastName);
-        if (((HomeActivity) getActivity()).retrievedAvatar != null) {
-            imgavataruri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
-            Glide.with(this)
-                    .load(imgavataruri)
-                    .apply(RequestOptions.fitCenterTransform())
-                    .into(imgvavataredit);
 
-        }
+        imgavataruri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
+        Glide.with(EditProfileFragment.this)
+                .load(imgavataruri)
+                .apply(RequestOptions.fitCenterTransform())
+                .into(imgvavataredit);
+
 
         imgvavataredit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +120,7 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
-                Glide.with(getActivity())
+                Glide.with(EditProfileFragment.this)
                         .load(imgavataruri)
                         .apply(RequestOptions.fitCenterTransform())
                         .into(imgvavataredit);
@@ -197,7 +196,7 @@ public class EditProfileFragment extends Fragment {
             if (resultCode == getActivity().RESULT_OK) {
                 imgavataruri = result.getUri();
 
-                Glide.with(this)
+                Glide.with(EditProfileFragment.this)
                         .load(imgavataruri)
                         .apply(RequestOptions.fitCenterTransform())
                         .into(imgvavataredit);
@@ -220,7 +219,7 @@ public class EditProfileFragment extends Fragment {
                     databaseReference.child("Students").child(user.getUid()).child("lastName").setValue(S.getLastName());
                     databaseReference.child("Students").child(user.getUid()).child("avatar").setValue(S.getAvatar());
                     progressBareditprofile.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Modification réussie !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Modification réussie !", Toast.LENGTH_SHORT).show();
                 }
             }
 

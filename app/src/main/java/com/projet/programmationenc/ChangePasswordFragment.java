@@ -81,7 +81,7 @@ public class ChangePasswordFragment extends Fragment {
                     flag = false;
                 } else {
                     if (!password1change.equals(password2change)) {
-                        Toast.makeText(getContext(), "Les deux mots de passes ne sont pas identiques.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Les deux mots de passes ne sont pas identiques.", Toast.LENGTH_SHORT).show();
                         flag = false;
                     }
                 }
@@ -117,13 +117,13 @@ public class ChangePasswordFragment extends Fragment {
                     S = dataSnapshot.getValue(Student.class);
                     S.setPass(password1change);
                     databaseReference.child("Students").child(user.getUid()).child("pass").setValue(S.getPass());
-                    Toast.makeText(getContext(), "Changement réussi du mot de passe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Changement réussi du mot de passe", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d(TAG, "onCancelled: " + databaseError.getMessage());
             }
         });
     }

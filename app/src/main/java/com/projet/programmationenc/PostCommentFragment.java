@@ -1,14 +1,19 @@
 package com.projet.programmationenc;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +22,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,8 +45,12 @@ public class PostCommentFragment extends Fragment {
     private FirebaseUser user;
     private Post P;
     private String key;
-    private CircleImageView civavatarpost;
+    private CircleImageView civavatarpost,civavataraddcomment;
     private TextView txtvfullnamepost,txtvquestionpost,txtvdescriptionpost,txtvdatepost;
+    private FloatingActionButton fabcomment;
+    private ConstraintLayout claddcoment;
+    private ImageButton btnsendcomment;
+    private TextInputLayout edtaddcomment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +72,11 @@ public class PostCommentFragment extends Fragment {
         txtvquestionpost = view.findViewById(R.id.txtvquestionpost);
         txtvdescriptionpost = view.findViewById(R.id.txtvdescriptionpost);
         txtvdatepost = view.findViewById(R.id.txtvdatepost);
+        fabcomment = view.findViewById(R.id.fabcomment);
+        claddcoment = view.findViewById(R.id.claddcomment);
+        civavataraddcomment = view.findViewById(R.id.civavataraddcomment);
+        btnsendcomment = view.findViewById(R.id.btnsendcomment);
+        edtaddcomment = view.findViewById(R.id.edtaddcomment);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -70,18 +86,28 @@ public class PostCommentFragment extends Fragment {
 
         LoadStudentPost();
 
-
-
-
+        Uri uri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
+        fabcomment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabcomment.setVisibility(View.GONE);
+                claddcoment.setVisibility(View.VISIBLE);
+                Glide.with(PostCommentFragment.this)
+                        .load(uri)
+                        .apply(RequestOptions.fitCenterTransform())
+                        .into(civavataraddcomment);
+                edtaddcomment.requestFocus();
+            }
+        });
     }
 
     public void LoadStudentPost() {
         databaseReference.child("Posts").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
+                if(dataSnapshot.exists() && isAdded()) {
                     P = dataSnapshot.getValue(Post.class);
-                    Glide.with(getContext())
+                    Glide.with(PostCommentFragment.this)
                             .load(P.getStudentAvatar())
                             .apply(RequestOptions.fitCenterTransform())
                             .into(civavatarpost);
