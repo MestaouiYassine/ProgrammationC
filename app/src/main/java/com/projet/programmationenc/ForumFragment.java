@@ -1,5 +1,6 @@
 package com.projet.programmationenc;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -92,7 +93,7 @@ public class ForumFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderFm holder, int position, @NonNull Post model) {
                 Glide.with(ForumFragment.this)
-                        .load(model.getStudentAvatar())
+                        .load(Uri.parse(model.getStudentAvatar()))
                         .apply(RequestOptions.fitCenterTransform())
                         .into(holder.civavatarforum);
                 holder.txtvfullnameforum.setText(model.getStudentFullName());

@@ -68,6 +68,8 @@ public class EditProfileFragment extends Fragment {
     private StorageReference storageReference;
     private Student S;
     private ProgressBar progressBareditprofile;
+    private Post P;
+    private Comment C;
     private boolean avatarchosen = false;
     @Nullable
     @Override
@@ -218,6 +220,65 @@ public class EditProfileFragment extends Fragment {
                     databaseReference.child("Students").child(user.getUid()).child("firstName").setValue(S.getFirstName());
                     databaseReference.child("Students").child(user.getUid()).child("lastName").setValue(S.getLastName());
                     databaseReference.child("Students").child(user.getUid()).child("avatar").setValue(S.getAvatar());
+
+                    databaseReference.child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()) {
+                                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                    P = dataSnapshot1.getValue(Post.class);
+                                    P.setStudentFullName(firstnameedit + " " + lastnameedit);
+                                    P.setStudentAvatar(uri.toString());
+                                    if(P.getStudentID().equals(user.getUid())) {
+                                        databaseReference.child("Posts").child(dataSnapshot1.getKey()).child("studentFullName").setValue(P.getStudentFullName());
+                                        databaseReference.child("Posts").child(dataSnapshot1.getKey()).child("studentAvatar").setValue(P.getStudentAvatar());
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+                        }
+                    });
+
+                    databaseReference.child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()) {
+                                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                    databaseReference.child("Posts").child(dataSnapshot1.getKey()).child("Comments").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists()) {
+                                                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+                                                    C = dataSnapshot2.getValue(Comment.class);
+                                                    C.setFullNameComment(firstnameedit + " " + lastnameedit);
+                                                    C.setAvatarComment(uri.toString());
+                                                    if(C.getCommentID().equals(user.getUid())) {
+                                                        databaseReference.child("Posts").child(dataSnapshot1.getKey()).child("Comments").child(dataSnapshot2.getKey()).child("fullNameComment").setValue(C.getFullNameComment());
+                                                        databaseReference.child("Posts").child(dataSnapshot1.getKey()).child("Comments").child(dataSnapshot2.getKey()).child("avatarComment").setValue(C.getAvatarComment());
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+                        }
+                    });
+
                     progressBareditprofile.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), "Modification réussie !", Toast.LENGTH_SHORT).show();
                 }

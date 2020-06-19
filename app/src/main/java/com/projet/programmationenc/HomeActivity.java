@@ -18,6 +18,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -274,6 +275,20 @@ public class HomeActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+//            PostCommentFragment postCommentFragment = new PostCommentFragment();
+            if(PostCommentFragment.claddcoment != null && PostCommentFragment.claddcoment.getVisibility() == View.VISIBLE) {
+                PostCommentFragment.claddcoment.setVisibility(View.INVISIBLE);
+                TranslateAnimation animate = new TranslateAnimation(
+                        0,                 // fromXDelta
+                        0,                 // toXDelta
+                        0,                 // fromYDelta
+                        PostCommentFragment.claddcoment.getHeight()); // toYDelta
+                animate.setDuration(350);
+                animate.setFillAfter(true);
+                PostCommentFragment.claddcoment.startAnimation(animate);
+                PostCommentFragment.fabcomment.setVisibility(View.VISIBLE);
+                return;
+            }
             FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager.getBackStackEntryCount() > 0) {
                 fragmentManager.popBackStack();
