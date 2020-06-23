@@ -61,6 +61,8 @@ public class PostCommentFragment extends Fragment {
     private Comment C;
     private TextView txtvnumvotespost;
     private int vote;
+    private String poststatus;
+    private String commentstatus;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ public class PostCommentFragment extends Fragment {
         fullName = ((HomeActivity) getActivity()).retrievedFirstName + " " + ((HomeActivity) getActivity()).retrievedLastName;
         avatar = ((HomeActivity) getActivity()).retrievedAvatar;
 
+        poststatus = "none";
         LoadStudentPost();
         LoadStudentPostVotes();
 
@@ -126,7 +129,7 @@ public class PostCommentFragment extends Fragment {
             }
         });
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Posts").child(key).child("Comments");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Comments").child(key);
         options = new FirebaseRecyclerOptions.Builder<Comment>()
                 .setQuery(query,Comment.class)
                 .build();
@@ -149,6 +152,95 @@ public class PostCommentFragment extends Fragment {
                 holder.txtvdescriptioncomment.setText(model.getDescriptionComment());
                 holder.txtvfullnamecomment.setText(model.getFullNameComment());
                 holder.txtvdatecomment.setText(model.getDateComment());
+//                voteC = model.getVotesComment();
+
+                if(holder.getAdapterPosition() == position) {
+                    databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("ReactionComment").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                commentstatus = dataSnapshot.getValue(String.class);
+                                holder.txtvnumvotescomment.setText(String.valueOf(model.getVotesComment()));
+                                if (commentstatus != null && commentstatus.equals("up")) {
+                                    holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
+                                    holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                                } else if (commentstatus != null && commentstatus.equals("down")) {
+                                    holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
+                                    holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
+                                } else if (commentstatus != null && commentstatus.equals("none")) {
+                                    holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
+                                    holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                                }
+                                Log.e(TAG, "onDataChange: commentstatus : " + commentstatus);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+                        }
+                    });
+
+                    holder.btnupvotecomment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.e(TAG, "onClick: btnupvote" + getRef(position).getKey());
+
+                            if (commentstatus != null && commentstatus.equals("down")) {
+                                holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
+                                holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                                holder.txtvnumvotescomment.setText(String.valueOf(model.getVotesComment() + 2));
+                                commentstatus = "up";
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("ReactionComment").child(user.getUid()).setValue(commentstatus);
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("votesComment").setValue(model.getVotesComment() + 2);
+                            } else if (commentstatus != null && commentstatus.equals("up")) {
+                                holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
+                                holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                                holder.txtvnumvotescomment.setText(String.valueOf(model.getVotesComment() - 1));
+                                commentstatus = "none";
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("ReactionComment").child(user.getUid()).setValue(commentstatus);
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("votesComment").setValue(model.getVotesComment() - 1);
+                            } else if (commentstatus != null && commentstatus.equals("none")) {
+                                holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
+                                holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                                holder.txtvnumvotescomment.setText(String.valueOf(model.getVotesComment() + 1));
+                                commentstatus = "up";
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("ReactionComment").child(user.getUid()).setValue(commentstatus);
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("votesComment").setValue(model.getVotesComment() + 1);
+                            }
+                        }
+                    });
+
+                    holder.btndownvotecomment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.e(TAG, "onClick: btnupvote" + getRef(position).getKey());
+
+                            if (commentstatus != null && commentstatus.equals("up")) {
+                                holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
+                                holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
+                                holder.txtvnumvotescomment.setText(String.valueOf(model.getVotesComment() - 2));
+                                commentstatus = "down";
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("ReactionComment").child(user.getUid()).setValue(commentstatus);
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("votesComment").setValue(model.getVotesComment() - 2);
+                            } else if (commentstatus != null && commentstatus.equals("down")) {
+                                holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                                holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
+                                holder.txtvnumvotescomment.setText(String.valueOf(model.getVotesComment() + 1));
+                                commentstatus = "none";
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("ReactionComment").child(user.getUid()).setValue(commentstatus);
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("votesComment").setValue(model.getVotesComment() + 1);
+                            } else if (commentstatus != null && commentstatus.equals("none")) {
+                                holder.btndownvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
+                                holder.btnupvotecomment.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
+                                holder.txtvnumvotescomment.setText(String.valueOf(model.getVotesComment() - 1));
+                                commentstatus = "down";
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("ReactionComment").child(user.getUid()).setValue(commentstatus);
+                                databaseReference.child("Comments").child(key).child(getRef(position).getKey()).child("votesComment").setValue(model.getVotesComment() - 1);
+                            }
+                        }
+                    });
+                }
             }
         };
 
@@ -165,8 +257,11 @@ public class PostCommentFragment extends Fragment {
                 }
                 else {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy 'à' HH:mm");
-                    C = new Comment(comment,fullName,avatar,user.getUid(),sdf.format(new Date()));
-                    databaseReference.child("Posts").child(key).child("Comments").push().setValue(C);
+                    C = new Comment(comment,fullName,avatar,user.getUid(),sdf.format(new Date()),0);
+//                    databaseReference.child("Posts").child(key).child("Comments").push().setValue(C);
+                    String cKey = databaseReference.child("Comments").child(key).push().getKey();
+                    databaseReference.child("Comments").child(key).child(cKey).setValue(C);
+                    databaseReference.child("Comments").child(key).child(cKey).child("ReactionComment").child(user.getUid()).setValue("none");
 
                     claddcoment.setVisibility(View.INVISIBLE);
                     TranslateAnimation animate = new TranslateAnimation(
@@ -187,39 +282,32 @@ public class PostCommentFragment extends Fragment {
         btnupvotepost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer resourceUp = (Integer)btnupvotepost.getTag();
-                Integer resourceDown = (Integer)btndownvotepost.getTag();
-
-                if(resourceDown != null && resourceDown.equals((Integer) R.drawable.ic_baseline_keyboard_arrow_down_voted_30)) {
+                if(poststatus.equals("down")) {
                     btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
-                    btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
                     btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
-                    btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_30);
                     vote+=2;
                     txtvnumvotespost.setText(String.valueOf(vote));
-                    databaseReference.child("ReactionPost").child(user.getUid()).child(key).child("Vote").setValue("up");
+                    poststatus = "up";
+                    databaseReference.child("Posts").child(key).child("ReactionPost").child(user.getUid()).setValue(poststatus);
                     databaseReference.child("Posts").child(key).child("votes").setValue(vote);
                     return;
                 }
 
-                if(resourceUp != null && resourceUp.equals((Integer) R.drawable.ic_baseline_keyboard_arrow_up_voted_30)) {
+                if(poststatus.equals("up")) {
                     btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
-                    btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_30);
                     btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
-                    btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_30);
                     vote--;
                     txtvnumvotespost.setText(String.valueOf(vote));
-                    databaseReference.child("ReactionPost").child(user.getUid()).child(key).child("Vote").setValue("none");
+                    poststatus = "none";
                 }
                 else {
                     btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
-                    btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
                     btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
-                    btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_30);
                     vote++;
                     txtvnumvotespost.setText(String.valueOf(vote));
-                    databaseReference.child("ReactionPost").child(user.getUid()).child(key).child("Vote").setValue("up");
+                    poststatus = "up";
                 }
+                databaseReference.child("Posts").child(key).child("ReactionPost").child(user.getUid()).setValue(poststatus);
                 databaseReference.child("Posts").child(key).child("votes").setValue(vote);
             }
         });
@@ -227,39 +315,32 @@ public class PostCommentFragment extends Fragment {
         btndownvotepost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer resourceUp = (Integer)btnupvotepost.getTag();
-                Integer resourceDown = (Integer)btndownvotepost.getTag();
-
-                if(resourceUp != null && resourceUp.equals((Integer) R.drawable.ic_baseline_keyboard_arrow_up_voted_30)) {
+                if(poststatus.equals("up")) {
                     btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
-                    btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
                     btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
-                    btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_30);
                     vote-=2;
                     txtvnumvotespost.setText(String.valueOf(vote));
-                    databaseReference.child("ReactionPost").child(user.getUid()).child(key).child("Vote").setValue("down");
+                    poststatus = "down";
+                    databaseReference.child("Posts").child(key).child("ReactionPost").child(user.getUid()).setValue(poststatus);
                     databaseReference.child("Posts").child(key).child("votes").setValue(vote);
                     return;
                 }
 
-                if(resourceDown != null && resourceDown.equals((Integer) R.drawable.ic_baseline_keyboard_arrow_down_voted_30)) {
+                if(poststatus.equals("down")) {
                     btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
-                    btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_30);
                     btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
-                    btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_30);
                     vote++;
                     txtvnumvotespost.setText(String.valueOf(vote));
-                    databaseReference.child("ReactionPost").child(user.getUid()).child(key).child("Vote").setValue("none");
+                    poststatus = "none";
                 }
                 else {
                     btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
-                    btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
                     btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
-                    btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_30);
                     vote--;
                     txtvnumvotespost.setText(String.valueOf(vote));
-                    databaseReference.child("ReactionPost").child(user.getUid()).child(key).child("Vote").setValue("down");
+                    poststatus = "down";
                 }
+                databaseReference.child("Posts").child(key).child("ReactionPost").child(user.getUid()).setValue(poststatus);
                 databaseReference.child("Posts").child(key).child("votes").setValue(vote);
             }
         });
@@ -272,7 +353,7 @@ public class PostCommentFragment extends Fragment {
                 if(dataSnapshot.exists() && isAdded()) {
                     P = dataSnapshot.getValue(Post.class);
                     Glide.with(PostCommentFragment.this)
-                            .load(P.getStudentAvatar())
+                            .load(Uri.parse(P.getStudentAvatar()))
                             .apply(RequestOptions.fitCenterTransform())
                             .into(civavatarpost);
                     txtvfullnamepost.setText(P.getStudentFullName());
@@ -293,7 +374,8 @@ public class PostCommentFragment extends Fragment {
 
     public static class ViewHolderCm extends RecyclerView.ViewHolder {
         public CircleImageView civavatarcomment;
-        public TextView txtvfullnamecomment,txtvdescriptioncomment,txtvdatecomment;
+        public TextView txtvfullnamecomment,txtvdescriptioncomment,txtvdatecomment,txtvnumvotescomment;
+        public ImageButton btnupvotecomment,btndownvotecomment;
 
 
         public ViewHolderCm(@NonNull View itemView) {
@@ -302,32 +384,32 @@ public class PostCommentFragment extends Fragment {
             txtvfullnamecomment = itemView.findViewById(R.id.txtvfullnamecomment);
             txtvdescriptioncomment = itemView.findViewById(R.id.txtvdescriptioncomment);
             txtvdatecomment = itemView.findViewById(R.id.txtvdatecomment);
+            txtvnumvotescomment = itemView.findViewById(R.id.txtvnumvotescomment);
+            btnupvotecomment = itemView.findViewById(R.id.btnupvotecomment);
+            btndownvotecomment = itemView.findViewById(R.id.btndownvotecomment);
         }
     }
 
     public void LoadStudentPostVotes() {
-        databaseReference.child("ReactionPost").child(user.getUid()).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Posts").child(key).child("ReactionPost").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    String vote = dataSnapshot.child("Vote").getValue(String.class);
-                    if(vote.equals("up")) {
+                    String vote = dataSnapshot.child(user.getUid()).getValue(String.class);
+                    if(vote != null && vote.equals("up")) {
                         btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
-                        btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_voted_30);
                         btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
-                        btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                        poststatus = "up";
                     }
-                    else if(vote.equals("down")){
+                    else if(vote != null && vote.equals("down")){
                         btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
-                        btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_voted_30);
                         btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
-                        btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_30);
+                        poststatus = "down";
                     }
                     else {
                         btnupvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_30);
-                        btnupvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_up_30);
                         btndownvotepost.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_30);
-                        btndownvotepost.setTag(R.drawable.ic_baseline_keyboard_arrow_down_30);
+                        poststatus = "none";
                     }
                 }
             }
