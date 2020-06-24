@@ -2,6 +2,9 @@ package com.projet.programmationenc;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,10 +29,27 @@ public class DiscussionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setHasOptionsMenu(true);
+
         viewPager = view.findViewById(R.id.maintabspager);
         tabLayout = view.findViewById(R.id.maintabs);
 
         viewPager.setAdapter(new SectionsPagerAdapter(getChildFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.top_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.allusers) {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new AllUsersFragment()).addToBackStack(null).commit();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
     private CircleImageView imgvavatarprofile;
     private TextView txtvfullnameprofile,txtvstatusprofile;
-    private Button btnchangestatus;
+    private ImageButton btnchangestatus;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
     private String fullname,status;
@@ -51,9 +52,27 @@ public class ProfileFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        RetrieveStudentProfile();
+
+        if(getArguments() != null) {
+            String key = getArguments().getString("key");
+            RetrieveOtherProfile(key);
+        }
+        else {
+            RetrieveStudentProfile();
+        }
 
         btnchangestatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("status",status);
+                ChangeStatusFragment changeStatusFragment = new ChangeStatusFragment();
+                changeStatusFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,changeStatusFragment).addToBackStack(null).commit();
+            }
+        });
+
+        txtvstatusprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
@@ -82,6 +101,35 @@ public class ProfileFragment extends Fragment {
 
                     txtvfullnameprofile.setText(fullname);
                     txtvstatusprofile.setText(status);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void RetrieveOtherProfile(String key) {
+        databaseReference.child("Students").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    S = dataSnapshot.getValue(Student.class);
+                    fullname = S.getFirstName() + " " + S.getLastName();
+                    uri = Uri.parse(S.getAvatar());
+                    status = S.getStatus();
+
+                    Glide.with(ProfileFragment.this)
+                            .load(uri)
+                            .apply(RequestOptions.fitCenterTransform())
+                            .into(imgvavatarprofile);
+
+                    txtvfullnameprofile.setText(fullname);
+                    txtvstatusprofile.setText(status);
+                    btnchangestatus.setVisibility(View.GONE);
                 }
             }
 

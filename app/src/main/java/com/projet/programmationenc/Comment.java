@@ -6,18 +6,16 @@ public class Comment {
 //    private int commentID,postID;
     public String descriptionComment,fullNameComment,avatarComment,commentID;
     public String dateComment;
-    public int votesComment;
 
     public Comment() {
     }
 
-    public Comment(String descriptionComment, String fullNameComment, String avatarComment, String commentID, String dateComment, int votesComment) {
+    public Comment(String descriptionComment, String fullNameComment, String avatarComment, String commentID, String dateComment) {
         this.descriptionComment = descriptionComment;
         this.fullNameComment = fullNameComment;
         this.avatarComment = avatarComment;
         this.commentID = commentID;
         this.dateComment = dateComment;
-        this.votesComment = votesComment;
     }
 
     public String getDescriptionComment() {
@@ -40,10 +38,6 @@ public class Comment {
         return dateComment;
     }
 
-    public int getVotesComment() {
-        return votesComment;
-    }
-
     public void setDescriptionComment(String descriptionComment) {
         this.descriptionComment = descriptionComment;
     }
@@ -64,7 +58,4 @@ public class Comment {
         this.dateComment = dateComment;
     }
 
-    public void setVotesComment(int votesComment) {
-        this.votesComment = votesComment;
-    }
 }

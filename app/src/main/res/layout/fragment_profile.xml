@@ -51,29 +51,30 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="normal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/clprofile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btnchangestatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@id/clprofile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile" />
+            app:layout_constraintStart_toEndOf="@id/txtvstatusprofile"
+            app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile"
+            app:srcCompat="@drawable/ic_baseline_edit_20" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btnchangestatus"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/buttonpurple"
-        android:fontFamily="@font/regular"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center"
-        android:text="Changer le status"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="19sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clprofile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
