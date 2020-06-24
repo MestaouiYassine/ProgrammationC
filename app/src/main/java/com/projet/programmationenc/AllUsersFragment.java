@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -32,6 +34,7 @@ public class AllUsersFragment extends Fragment {
     private FirebaseRecyclerOptions<Student> options;
     private LinearLayoutManager rvmanager;
     private DatabaseReference databaseReference;
+    private FirebaseUser user;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class AllUsersFragment extends Fragment {
         ((HomeActivity) getActivity()).ShowBackButton(true);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         rvallusers = view.findViewById(R.id.rvallusers);
@@ -67,6 +71,12 @@ public class AllUsersFragment extends Fragment {
                         int itemPosition = rvallusers.getChildLayoutPosition(view);
                         String key = databaseReference.child("Students").child(getRef(itemPosition).getKey()).getKey();
                         Log.e(TAG, "onClick: KEY : " + key);
+                        if(key != null && key.equals(user.getUid())) {
+//                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
+//                            ((HomeActivity) getActivity()).ShowBackButton(false);
+//                            ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
+                            return;
+                        }
                         Bundle bundle = new Bundle();
                         bundle.putString("key",key);
                         ProfileFragment profileFragment = new ProfileFragment();

@@ -63,16 +63,33 @@
             android:id="@+id/btnchangestatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="120dp"
             android:layout_marginBottom="16dp"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@id/clprofile"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/txtvstatusprofile"
             app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile"
             app:srcCompat="@drawable/ic_baseline_edit_20" />
+
+        <Button
+            android:id="@+id/btnsendrequest"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/buttongray"
+            android:drawableLeft="@drawable/ic_baseline_person_add_20"
+            android:fontFamily="@font/regular"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Envoyer une invitation"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
