@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
-            android:id="@+id/homeb"
-            android:icon="@drawable/ic_home_gray_24dp"
-            android:title="Accueil" />
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_person_gray_24dp"
+            android:title="Profil" />
 
         <item
             android:id="@+id/courses"
@@ -21,7 +21,7 @@
             android:title="Forum" />
 
         <item
-            android:id="@+id/profile"
-            android:icon="@drawable/ic_person_gray_24dp"
-            android:title="Profil" />
+            android:id="@+id/discussion"
+            android:icon="@drawable/ic_baseline_chat_24"
+            android:title="Discussion" />
 </menu>

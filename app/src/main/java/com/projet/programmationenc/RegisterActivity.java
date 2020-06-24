@@ -127,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                S = new Student(user.getUid(),firstname,lastname,password1,"android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
+                                S = new Student(user.getUid(),firstname,lastname,password1,"android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round","Bonjour !");
                                 databaseReference.child("Students").child(user.getUid()).setValue(S);
 
                                 user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {

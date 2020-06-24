@@ -6,22 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -38,15 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
@@ -106,15 +93,16 @@ public class HomeActivity extends AppCompatActivity {
         drawer.addDrawerListener(actionBarDrawerToggle);// Setting the actionbarToggle to drawer layout
         actionBarDrawerToggle.syncState();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new HomeFragment()).commit();
         ShowBackButton(false);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfileFragment()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.homeb:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new HomeFragment()).addToBackStack(null).commit();
+                    case R.id.discussion:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new DiscussionFragment()).addToBackStack(null).commit();
                         break;
                     case R.id.courses:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new MenuCoursesFragment()).addToBackStack(null).commit();
@@ -126,7 +114,7 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ForumFragment()).addToBackStack(null).commit();
                         break;
                     case R.id.profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfilFragment()).addToBackStack(null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfileFragment()).addToBackStack(null).commit();
                         break;
                 }
 
@@ -169,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void RetrieveStudentInfo() {
+    public void RetrieveStudentData() {
         databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -216,7 +204,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public void RetrieveStudentData() {
+    public void RetrieveStudentInfo() {
         databaseReference.child("Students").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

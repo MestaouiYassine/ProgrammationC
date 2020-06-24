@@ -1,21 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clprofile"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="346dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginBottom="366dp"
-        android:text="Profil"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgvavatarprofile"
+            android:layout_width="112dp"
+            android:layout_height="117dp"
+            android:layout_marginTop="24dp"
+            android:src="@mipmap/ic_person_grayv2_round"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtvfullnameprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgvavatarprofile" />
+
+        <TextView
+            android:id="@+id/txtvstatusprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/clprofile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnchangestatus"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/buttonpurple"
+        android:fontFamily="@font/regular"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Changer le status"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/clprofile" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

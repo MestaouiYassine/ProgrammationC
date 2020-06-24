@@ -10,11 +10,12 @@ import java.util.List;
 
 public class Student {
     public String studentID, firstName, lastName, pass, avatar, completedBasic, completedCondLoop, completedFuncArrPoint, completedStrings, completedEnumStruct, completedFiles;
+    public String status;
 
     public Student() {
     }
 
-    public Student(String studentID, String firstName, String lastName, String pass, String avatar) {
+    public Student(String studentID, String firstName, String lastName, String pass, String avatar, String status) {
         this.studentID = studentID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +27,7 @@ public class Student {
         this.completedStrings = "null";
         this.completedEnumStruct = "null";
         this.completedFiles = "null";
+        this.status = status;
     }
 
     public String getStudentID() {
@@ -72,6 +74,10 @@ public class Student {
         return completedFiles;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
@@ -114,5 +120,9 @@ public class Student {
 
     public void setCompletedFiles(String completedFiles) {
         this.completedFiles = completedFiles;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
