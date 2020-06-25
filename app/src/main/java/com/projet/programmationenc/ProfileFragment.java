@@ -26,13 +26,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
     private CircleImageView imgvavatarprofile;
     private TextView txtvfullnameprofile, txtvstatusprofile;
     private ImageButton btnchangestatus;
-    private Button btnsendrequest;
+    private Button btnsendrequest,btncancelrequest;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
     private String fullname, status;
@@ -56,6 +59,7 @@ public class ProfileFragment extends Fragment {
         txtvstatusprofile = view.findViewById(R.id.txtvstatusprofile);
         btnchangestatus = view.findViewById(R.id.btnchangestatus);
         btnsendrequest = view.findViewById(R.id.btnsendrequest);
+        btncancelrequest = view.findViewById(R.id.btncancelrequest);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -64,21 +68,6 @@ public class ProfileFragment extends Fragment {
         if (getArguments() != null) {
             key = getArguments().getString("key");
             RetrieveOtherProfile(key);
-            databaseReference.child(user.getUid()).child(key).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        friendstatus = dataSnapshot.getValue(String.class);
-                        btnsendrequest.setText("Annuler l'invitation");
-                        btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_disabled_20, 0, 0, 0);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
         } else {
             RetrieveStudentProfile();
         }
@@ -94,62 +83,28 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        txtvstatusprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("status", status);
-                ChangeStatusFragment changeStatusFragment = new ChangeStatusFragment();
-                changeStatusFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, changeStatusFragment).addToBackStack(null).commit();
-            }
-        });
-
         btnsendrequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 btnsendrequest.setEnabled(false);
                 if (friendstatus.equals("notfriends")) {
-                    databaseReference.child(user.getUid()).child(key).child("type").setValue("sent").addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                databaseReference.child(key).child(user.getUid()).child("type").setValue("received").addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            btnsendrequest.setEnabled(true);
-                                            friendstatus = "sent";
-                                            btnsendrequest.setText("Annuler l'invitation");
-                                            btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_disabled_20, 0, 0, 0);
-                                            Toast.makeText(getActivity(), "Invitation envoyée !", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
+                    SendRequestFriend();
                 } else if (friendstatus.equals("sent")) {
-                    databaseReference.child(user.getUid()).child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                databaseReference.child(key).child(user.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            btnsendrequest.setEnabled(true);
-                                            friendstatus = "notfriends";
-                                            btnsendrequest.setText("Envoyer une invitation");
-                                            btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_20, 0, 0, 0);
-                                            Toast.makeText(getActivity(), "Invitation annulée !", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
+                    CancelRequestFriend();
                 }
+                else if(friendstatus.equals("received")) {
+                    AcceptRequestFriend();
+                }
+                else if(friendstatus.equals("friends")) {
+                    DeleteFriend();
+                }
+            }
+        });
+
+        btncancelrequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DeclineRequestFriend();
             }
         });
     }
@@ -201,12 +156,181 @@ public class ProfileFragment extends Fragment {
                     txtvstatusprofile.setText(status);
                     btnchangestatus.setVisibility(View.GONE);
                     btnsendrequest.setVisibility(View.VISIBLE);
+
+                    databaseReference.child("Requests").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild(key)) {
+                                String req = dataSnapshot.child(key).child("type").getValue(String.class);
+                                if(req != null && req.equals("received")) {
+                                    friendstatus = "received";
+                                    btnsendrequest.setText("Accepter l'invitation");
+                                    btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_20, 0, 0, 0);
+                                    btncancelrequest.setVisibility(View.VISIBLE);
+                                }
+                                else if(req != null && req.equals("sent")) {
+                                    friendstatus = "sent";
+                                    btnsendrequest.setText("Annuler l'invitation");
+                                    btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_disabled_20, 0, 0, 0);
+                                }
+                            }
+                            else {
+                                databaseReference.child("Friends").child(user.getUid()).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists()) {
+                                            friendstatus = "friends";
+                                            btnsendrequest.setText("Supprimer " + fullname);
+                                            btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_20, 0, 0, 0);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public void SendRequestFriend() {
+        databaseReference.child("Requests").child(user.getUid()).child(key).child("type").setValue("sent").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    databaseReference.child("Requests").child(key).child(user.getUid()).child("type").setValue("received").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                friendstatus = "sent";
+                                btnsendrequest.setText("Annuler l'invitation");
+                                btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_disabled_20, 0, 0, 0);
+                                Toast.makeText(getActivity(), "Invitation envoyée !", Toast.LENGTH_SHORT).show();
+                            }
+                            btnsendrequest.setEnabled(true);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void CancelRequestFriend() {
+        databaseReference.child("Requests").child(user.getUid()).child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    databaseReference.child("Requests").child(key).child(user.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                friendstatus = "notfriends";
+                                btnsendrequest.setText("Envoyer une invitation");
+                                btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_20, 0, 0, 0);
+                                Toast.makeText(getActivity(), "Invitation annulée !", Toast.LENGTH_SHORT).show();
+                            }
+                            btnsendrequest.setEnabled(true);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void AcceptRequestFriend() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        databaseReference.child("Friends").child(user.getUid()).child(key).setValue(sdf.format(new Date())).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()) {
+                    databaseReference.child("Friends").child(key).child(user.getUid()).setValue(sdf.format(new Date())).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+                                databaseReference.child("Requests").child(user.getUid()).child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            databaseReference.child("Requests").child(key).child(user.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        btncancelrequest.setVisibility(View.GONE);
+                                                        friendstatus = "friends";
+                                                        btnsendrequest.setText("Supprimer " + fullname);
+                                                        btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_20, 0, 0, 0);
+                                                        Toast.makeText(getActivity(), "Personne ajoutée !", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    btnsendrequest.setEnabled(true);
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void DeclineRequestFriend() {
+        databaseReference.child("Requests").child(user.getUid()).child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    databaseReference.child("Requests").child(key).child(user.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                btncancelrequest.setVisibility(View.GONE);
+                                friendstatus = "notfriends";
+                                btnsendrequest.setText("Envoyer une invitation");
+                                btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_20, 0, 0, 0);
+                                Toast.makeText(getActivity(), "Invitation déclinée !", Toast.LENGTH_SHORT).show();
+                            }
+                            btnsendrequest.setEnabled(true);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void DeleteFriend() {
+        databaseReference.child("Friends").child(user.getUid()).child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()) {
+                    databaseReference.child("Friends").child(key).child(user.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+                                friendstatus = "notfriends";
+                                btnsendrequest.setText("Envoyer une invitation");
+                                btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_20, 0, 0, 0);
+                                Toast.makeText(getActivity(), "Personne supprimée !", Toast.LENGTH_SHORT).show();
+                            }
+                            btnsendrequest.setEnabled(true);
+                        }
+                    });
+                }
             }
         });
     }

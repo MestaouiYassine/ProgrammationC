@@ -116,7 +116,7 @@ public class AddPostFragment extends Fragment {
 //                        }
 //                    });
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy 'à' HH:mm");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
 //                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                     P = new Post(avatar,question,description,fullName,user.getUid(),sdf.format(new Date()),0);
                     databaseReference.child("Posts").push().setValue(P);

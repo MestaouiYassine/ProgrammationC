@@ -51,8 +51,6 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="normal"
-            android:clickable="true"
-            android:focusable="true"
             android:background="?attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@id/clprofile"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +88,24 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btncancelrequest"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/buttongray"
+            android:drawableLeft="@drawable/ic_baseline_person_add_disabled_20"
+            android:fontFamily="@font/regular"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Décliner l'invitation"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnsendrequest"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
