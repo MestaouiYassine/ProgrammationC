@@ -86,6 +86,23 @@ public class HomeActivity extends AppCompatActivity {
         RetrieveStudentData();
         RetrieveStudentInfo();
 
+        databaseReference.child("Notifications").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
+                        databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).child("connected").setValue("yes");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//Sets our toolbar as the actionbar
         drawer = findViewById(R.id.drawer_layout);

@@ -218,6 +218,7 @@ public class ProfileFragment extends Fragment {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("from",user.getUid());
         hashMap.put("type","Invitation d'amitié");
+        hashMap.put("connected","no");
         databaseReference.child("Notifications").child(key).push().setValue(hashMap);
         friendstatus = "sent";
         btnsendrequest.setText("Annuler l'invitation");
