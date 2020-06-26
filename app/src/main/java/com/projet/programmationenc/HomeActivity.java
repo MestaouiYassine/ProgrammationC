@@ -95,6 +95,13 @@ public class HomeActivity extends AppCompatActivity {
 
         ShowBackButton(false);
 
+        if(getIntent().getStringExtra("key") != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("key",getIntent().getStringExtra("key"));
+            ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).commit();
+        }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfileFragment()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

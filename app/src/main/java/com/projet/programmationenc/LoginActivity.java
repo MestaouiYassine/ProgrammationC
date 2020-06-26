@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -147,6 +149,23 @@ public class LoginActivity extends AppCompatActivity {
                                 if(emailVerified) {
                                     Log.d(TAG, "signInWithEmail:success");
                                     SetStudentPassword(password);
+
+                                    FirebaseInstanceId.getInstance().getInstanceId()
+                                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                                    if (!task.isSuccessful()) {
+                                                        Log.w(TAG, "getInstanceId failed", task.getException());
+                                                        return;
+                                                    }
+
+                                                    // Get new Instance ID token
+                                                    String token = task.getResult().getToken();
+                                                    Log.e(TAG, "onComplete: token : " + token );
+                                                    databaseReference.child("Students").child(user.getUid()).child("token").setValue(token);
+                                                }
+                                            });
+
                                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                                 }
                                 else {

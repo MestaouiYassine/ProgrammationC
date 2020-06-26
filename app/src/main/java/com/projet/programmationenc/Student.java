@@ -11,6 +11,7 @@ import java.util.List;
 public class Student {
     public String studentID, firstName, lastName, pass, avatar, completedBasic, completedCondLoop, completedFuncArrPoint, completedStrings, completedEnumStruct, completedFiles;
     public String status;
+    public String token;
 
     public Student() {
     }
@@ -28,6 +29,7 @@ public class Student {
         this.completedEnumStruct = "null";
         this.completedFiles = "null";
         this.status = status;
+        this.token = "null";
     }
 
     public String getStudentID() {
@@ -78,6 +80,10 @@ public class Student {
         return status;
     }
 
+    public String getToken() {
+        return token;
+    }
+
     public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
@@ -124,5 +130,9 @@ public class Student {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

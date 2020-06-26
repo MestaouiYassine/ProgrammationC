@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -217,10 +218,20 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                friendstatus = "sent";
-                                btnsendrequest.setText("Annuler l'invitation");
-                                btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_disabled_20, 0, 0, 0);
-                                Toast.makeText(getActivity(), "Invitation envoyée !", Toast.LENGTH_SHORT).show();
+                                HashMap<String,String> hashMap = new HashMap<>();
+                                hashMap.put("from",user.getUid());
+                                hashMap.put("type","Invitation d'amitié");
+                                databaseReference.child("Notifications").child(key).push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()) {
+                                            friendstatus = "sent";
+                                            btnsendrequest.setText("Annuler l'invitation");
+                                            btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_disabled_20, 0, 0, 0);
+                                            Toast.makeText(getActivity(), "Invitation envoyée !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }
                             btnsendrequest.setEnabled(true);
                         }
