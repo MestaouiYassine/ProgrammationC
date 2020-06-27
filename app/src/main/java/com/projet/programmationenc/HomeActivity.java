@@ -168,6 +168,7 @@ public class HomeActivity extends AppCompatActivity {
                         StringsFragment.completedStrings = null;
                         StructFragment.completedEnumStruct = null;
                         FileFragment.completedFiles = null;
+                        databaseReference.child("Students").child(user.getUid()).child("online").setValue(false);
                         FirebaseAuth.getInstance().signOut();
                         finish();
                         break;
@@ -313,4 +314,15 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseReference.child("Students").child(user.getUid()).child("online").setValue(true);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        databaseReference.child("Students").child(user.getUid()).child("online").setValue(false);
+    }
 }

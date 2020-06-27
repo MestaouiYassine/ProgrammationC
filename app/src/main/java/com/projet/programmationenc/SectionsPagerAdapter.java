@@ -19,7 +19,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new RequestFragment();
             case 1:
-                return new ChatFragment();
+                return new ChatsFragment();
             case 2:
                 return new FriendsFragment();
             default:
