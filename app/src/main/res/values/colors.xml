@@ -24,4 +24,6 @@
     <color name = "greenadd">#7db343</color>
     <color name ="graybutton">#5E5E5E</color>
     <color name = "orange">#d8481c</color>
+    <color name = "backgroundchat">#f3f2f1</color>
+    <color name = "mychat">#c8d9ed</color>
 </resources>

@@ -1,21 +1,23 @@
 package com.projet.programmationenc;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,13 +25,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatFragment extends Fragment {
     private static final String TAG = "ChatFragment";
@@ -39,6 +42,14 @@ public class ChatFragment extends Fragment {
     private DatabaseReference databaseReference;
     private ImageButton btnsendimage,btnsendmessage;
     private TextInputLayout edtsendmessage;
+    private RecyclerView rvchat;
+    private LinearLayoutManager rvmanager;
+    private FirebaseRecyclerOptions<Chat> options;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private static final int right = 1;
+    private static final int left = -1;
+    private Chat C;
+    private String avatarReceiver;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,45 +68,71 @@ public class ChatFragment extends Fragment {
         btnsendmessage = view.findViewById(R.id.btnsendmessage);
         edtsendmessage = view.findViewById(R.id.edtsendmessage);
 
+        rvchat = view.findViewById(R.id.rvchat);
+        rvmanager = new LinearLayoutManager(getActivity());
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         key = getArguments().getString("key");
         RetrieveChatterInfo(key);
 
-        databaseReference.child("Chats").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        Query query = FirebaseDatabase.getInstance().getReference().child("Chats").child(user.getUid()).child(key);
+        options = new FirebaseRecyclerOptions.Builder<Chat>()
+                .setQuery(query, Chat.class)
+                .build();
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Chat,ViewHolderCt>(options) {
+
+            @NonNull
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild(key)) {
-                    Map chatAddMap = new HashMap();
-                    chatAddMap.put("seen",false);
-                    chatAddMap.put("timestamp",ServerValue.TIMESTAMP);
-
-                    Map chatUserMap = new HashMap();
-                    chatUserMap.put("Chats/" + user.getUid() + "/" + key, chatAddMap);
-                    chatUserMap.put("Chats/" + key + "/" + user.getUid(), chatAddMap);
-
-                    databaseReference.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                            if(error != null) {
-                                Log.e(TAG, "onComplete: Error : " + error.getMessage());
-                            }
-                        }
-                    });
+            public ViewHolderCt onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                if(viewType == left) {
+                    View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_receiver, parent, false);
+                    return new ViewHolderCt(v);
+                }
+                else {
+                    View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_sender, parent, false);
+                    return new ViewHolderCt(v);
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            protected void onBindViewHolder(@NonNull ViewHolderCt holder, int position, @NonNull Chat model) {
+                holder.txtvmessage.setText(model.getMessage());
+                holder.txtvmessagedate.setText(model.getDate());
+                if(holder.civavatarchat != null) {
+                    Glide.with(getActivity())
+                            .load(Uri.parse(model.getAvatarReceiver()))
+                            .apply(RequestOptions.fitCenterTransform())
+                            .into(holder.civavatarchat);
+                }
             }
-        });
+
+            @Override
+            public int getItemViewType(int position) {
+                if(getItem(position).getSender().equals(user.getUid())) {
+                    return right;
+                }
+                else {
+                    return left;
+                }
+            }
+        };
+
+        rvmanager.setStackFromEnd(true);
+        rvchat.setLayoutManager(rvmanager);
+        rvchat.setAdapter(firebaseRecyclerAdapter);
+
 
         btnsendmessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage();
+                String message = edtsendmessage.getEditText().getText().toString().trim();
+                if(!message.isEmpty()) {
+                    sendMessage(user.getUid(), key, message,avatarReceiver);
+                    edtsendmessage.getEditText().setText(null);
+                }
             }
         });
 
@@ -111,7 +148,7 @@ public class ChatFragment extends Fragment {
                     long lastSeen = snapshot.child("lastseen").getValue(Long.class);
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
                     ((HomeActivity) getActivity()).txtvfullnamebar.setText(S.getFirstName() + " " + S.getLastName());
-
+                    avatarReceiver = S.getAvatar();
                     Glide.with(getActivity())
                             .load(Uri.parse(S.getAvatar()))
                             .apply(RequestOptions.fitCenterTransform())
@@ -134,32 +171,34 @@ public class ChatFragment extends Fragment {
         });
     }
 
-    public void sendMessage() {
-        String message = edtsendmessage.getEditText().getText().toString().trim();
-        if(!message.isEmpty()) {
-            String user_ref = "Messages/" + user.getUid() + "/" + key;
-            String otheruser_ref = "Messages/" + key + "/" + user.getUid();
-            String pushkey = databaseReference.child("Messages").child(user.getUid()).child(key).push().getKey();
+    public void sendMessage(String sender,String receiver,String message,String avatarReceiver) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
+        C = new Chat(message,sender,receiver,sdf.format(new Date()),avatarReceiver);
+        databaseReference.child("Chats").child(user.getUid()).child(key).push().setValue(C);
+    }
 
-            Map messageMap = new HashMap();
-            messageMap.put("message", message);
-            messageMap.put("seen", false);
-            messageMap.put("type", "text");
-            messageMap.put("time", ServerValue.TIMESTAMP);
+    public static class ViewHolderCt extends RecyclerView.ViewHolder {
+        public CircleImageView civavatarchat;
+        public TextView txtvmessage,txtvmessagedate;
 
-            Map messageUserMap = new HashMap();
-            messageUserMap.put(user_ref + "/" + pushkey, messageMap);
-            messageUserMap.put(otheruser_ref + "/" + pushkey, messageMap);
 
-            databaseReference.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                    if(error != null) {
-                        Log.e(TAG, "onComplete: Error : " + error.getMessage());
-                    }
-                }
-            });
-            edtsendmessage.getEditText().setText(null);
+        public ViewHolderCt(@NonNull View itemView) {
+            super(itemView);
+            civavatarchat = itemView.findViewById(R.id.civavatarchat);
+            txtvmessage = itemView.findViewById(R.id.txtvmessage);
+            txtvmessagedate = itemView.findViewById(R.id.txtvmessagedate);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        firebaseRecyclerAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        firebaseRecyclerAdapter.stopListening();
     }
 }
