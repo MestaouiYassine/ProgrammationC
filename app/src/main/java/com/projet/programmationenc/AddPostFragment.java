@@ -63,7 +63,7 @@ public class AddPostFragment extends Fragment {
         btnaddpost = view.findViewById(R.id.btnaddpost);
 
         avatar = ((HomeActivity) getActivity()).retrievedAvatar;
-        Glide.with(AddPostFragment.this)
+        Glide.with(getActivity())
                 .load(Uri.parse(avatar))
                 .apply(RequestOptions.fitCenterTransform())
                 .into(civavataraddpost);
@@ -93,35 +93,10 @@ public class AddPostFragment extends Fragment {
                     return;
                 }
                 else {
-//                    databaseReference.child("Posts").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-//                            if(dataSnapshot.exists()) {
-//                                long count = dataSnapshot.getChildrenCount();
-//                                P = new Post(avatar,question,description,fullName,user.getUid(),sdf.format(new Date()));
-//                                databaseReference.child("Posts").child(user.getUid()).child("Post " + (count + 1)).setValue(P);
-//                                Toast.makeText(getContext(), "Post posted !", Toast.LENGTH_SHORT).show();
-//                            }
-//                            else {
-//                                P = new Post(avatar,question,description,fullName,user.getUid(),sdf.format(new Date()));
-//                                databaseReference.child("Posts").child(user.getUid()).child("Post 1").setValue(P);
-//                                Toast.makeText(getContext(), "Post posted !", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
-//                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                     P = new Post(avatar,question,description,fullName,user.getUid(),sdf.format(new Date()),0);
                     databaseReference.child("Posts").push().setValue(P);
                     Toast.makeText(getActivity(), "Post posted !", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });

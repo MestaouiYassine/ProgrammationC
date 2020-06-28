@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -58,7 +60,9 @@ public class HomeActivity extends AppCompatActivity {
     private CircleImageView imgvavatartopnagiv;
     private DatabaseReference databaseReference;
     private Student S;
-
+    public ConstraintLayout clchatbar;
+    public CircleImageView civavatarbar;
+    public TextView txtvfullnamebar,txtvseenbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +78,10 @@ public class HomeActivity extends AppCompatActivity {
 
         navigationView = findViewById(R.id.nvhome);
         bottomNavigationView = findViewById(R.id.bnvhome);
+        clchatbar = findViewById(R.id.clchatbar);
+        civavatarbar = findViewById(R.id.civavatarbar);
+        txtvfullnamebar = findViewById(R.id.txtvfullnamebar);
+        txtvseenbar = findViewById(R.id.txtvseenbar);
 
         View headerView = navigationView.getHeaderView(0);
         imgvavatartopnagiv = headerView.findViewById(R.id.imgvavatartopnavig);
@@ -169,6 +177,7 @@ public class HomeActivity extends AppCompatActivity {
                         StructFragment.completedEnumStruct = null;
                         FileFragment.completedFiles = null;
                         databaseReference.child("Students").child(user.getUid()).child("online").setValue(false);
+                        databaseReference.child("Students").child(user.getUid()).child("lastseen").setValue(ServerValue.TIMESTAMP);
                         FirebaseAuth.getInstance().signOut();
                         finish();
                         break;
@@ -243,7 +252,7 @@ public class HomeActivity extends AppCompatActivity {
                     txtvemail.setText(user.getEmail());
                     txtvfullname.setText(fullname);
                     Uri uri = Uri.parse(retrievedAvatar);
-                    Glide.with(HomeActivity.this)
+                    Glide.with(getApplicationContext())
                             .load(uri)
                             .apply(RequestOptions.fitCenterTransform())
                             .into(imgvavatartopnagiv);
@@ -285,6 +294,9 @@ public class HomeActivity extends AppCompatActivity {
     //instead we want to close our navigation drawer
     @Override
     public void onBackPressed() {
+        if(clchatbar.getVisibility() == View.VISIBLE) {
+            clchatbar.setVisibility(View.GONE);
+        }
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -324,5 +336,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         databaseReference.child("Students").child(user.getUid()).child("online").setValue(false);
+        databaseReference.child("Students").child(user.getUid()).child("lastseen").setValue(ServerValue.TIMESTAMP);
     }
 }

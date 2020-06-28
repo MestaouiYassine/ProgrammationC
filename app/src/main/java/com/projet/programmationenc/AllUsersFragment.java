@@ -89,7 +89,7 @@ public class AllUsersFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderSt holder, int position, @NonNull Student model) {
-                Glide.with(AllUsersFragment.this)
+                Glide.with(getActivity())
                         .load(Uri.parse(model.getAvatar()))
                         .apply(RequestOptions.fitCenterTransform())
                         .into(holder.civavatarallusers);

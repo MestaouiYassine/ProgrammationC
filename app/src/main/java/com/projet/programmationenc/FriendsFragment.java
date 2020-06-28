@@ -71,7 +71,7 @@ public class FriendsFragment extends Fragment {
                     public void onClick(View view) {
                         int itemPosition = rvfriends.getChildLayoutPosition(view);
                         CharSequence option[] = new CharSequence[]{"Ouvrir le profil","Envoyer un message"};
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                         builder.setTitle("Choisir une option");
                         builder.setItems(option, new DialogInterface.OnClickListener() {
                             @Override
@@ -83,8 +83,14 @@ public class FriendsFragment extends Fragment {
                                     profileFragment.setArguments(bundle);
                                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).addToBackStack(null).commit();
                                 }
+                                else if(i == 1) {
+                                    bundle.putString("key",getRef(itemPosition).getKey());
+                                    ChatFragment chatFragment = new ChatFragment();
+                                    chatFragment.setArguments(bundle);
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,chatFragment).addToBackStack(null).commit();
+                                }
                             }
-                        });
+                        }).show();
                     }
                 });
                 return new ViewHolderFd(v);
@@ -92,7 +98,7 @@ public class FriendsFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderFd holder, int position, @NonNull Friend model) {
-                Glide.with(FriendsFragment.this)
+                Glide.with(getActivity())
                         .load(Uri.parse(model.getFriendAvatar()))
                         .apply(RequestOptions.fitCenterTransform())
                         .into(holder.civavatarfriends);

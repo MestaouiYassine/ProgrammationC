@@ -121,7 +121,7 @@ public class PostCommentFragment extends Fragment {
                 animate.setDuration(350);
                 animate.setFillAfter(true);
                 claddcoment.startAnimation(animate);
-                Glide.with(PostCommentFragment.this)
+                Glide.with(getActivity())
                         .load(uri)
                         .apply(RequestOptions.fitCenterTransform())
                         .into(civavataraddcomment);
@@ -144,7 +144,7 @@ public class PostCommentFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderCm holder, int position, @NonNull Comment model) {
-                Glide.with(PostCommentFragment.this)
+                Glide.with(getActivity())
                         .load(Uri.parse(model.getAvatarComment()))
                         .apply(RequestOptions.fitCenterTransform())
                         .into(holder.civavatarcomment);
@@ -257,7 +257,7 @@ public class PostCommentFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists() && isAdded()) {
                     P = dataSnapshot.getValue(Post.class);
-                    Glide.with(PostCommentFragment.this)
+                    Glide.with(getActivity())
                             .load(Uri.parse(P.getStudentAvatar()))
                             .apply(RequestOptions.fitCenterTransform())
                             .into(civavatarpost);

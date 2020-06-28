@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class App extends Application {
     public static final String CHANNEL_1_ID = "channel1";
@@ -41,6 +42,7 @@ public class App extends Application {
     private void PresenceSystem() {
         if(user != null) {
             databaseReference.child("Students").child(user.getUid()).child("online").onDisconnect().setValue(false);
+            databaseReference.child("Students").child(user.getUid()).child("lastseen").setValue(ServerValue.TIMESTAMP);
         }
     }
 }

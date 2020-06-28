@@ -123,7 +123,7 @@ public class ProfileFragment extends Fragment {
                     uri = Uri.parse(S.getAvatar());
                     status = S.getStatus();
 
-                    Glide.with(ProfileFragment.this)
+                    Glide.with(getActivity())
                             .load(uri)
                             .apply(RequestOptions.fitCenterTransform())
                             .into(imgvavatarprofile);
@@ -151,7 +151,7 @@ public class ProfileFragment extends Fragment {
                     uri = Uri.parse(S.getAvatar());
                     status = S.getStatus();
 
-                    Glide.with(ProfileFragment.this)
+                    Glide.with(getActivity())
                             .load(uri)
                             .apply(RequestOptions.fitCenterTransform())
                             .into(imgvavatarprofile);

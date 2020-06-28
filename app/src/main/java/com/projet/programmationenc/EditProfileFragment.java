@@ -98,7 +98,7 @@ public class EditProfileFragment extends Fragment {
         edtlastnameedit.getEditText().setText(((HomeActivity) getActivity()).retrievedLastName);
 
         imgavataruri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
-        Glide.with(EditProfileFragment.this)
+        Glide.with(getActivity())
                 .load(imgavataruri)
                 .apply(RequestOptions.fitCenterTransform())
                 .into(imgvavataredit);
@@ -122,7 +122,7 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
-                Glide.with(EditProfileFragment.this)
+                Glide.with(getActivity())
                         .load(imgavataruri)
                         .apply(RequestOptions.fitCenterTransform())
                         .into(imgvavataredit);
@@ -198,7 +198,7 @@ public class EditProfileFragment extends Fragment {
             if (resultCode == getActivity().RESULT_OK) {
                 imgavataruri = result.getUri();
 
-                Glide.with(EditProfileFragment.this)
+                Glide.with(getActivity())
                         .load(imgavataruri)
                         .apply(RequestOptions.fitCenterTransform())
                         .into(imgvavataredit);
