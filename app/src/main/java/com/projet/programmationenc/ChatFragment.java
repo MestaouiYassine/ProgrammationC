@@ -2,6 +2,7 @@ package com.projet.programmationenc;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,8 @@ public class ChatFragment extends Fragment {
     private static final int left = -1;
     private Chat C;
     private String avatarReceiver;
+    private LastChat LC;
+    private String message;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -128,9 +131,9 @@ public class ChatFragment extends Fragment {
         btnsendmessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = edtsendmessage.getEditText().getText().toString().trim();
+                message = edtsendmessage.getEditText().getText().toString().trim();
                 if(!message.isEmpty()) {
-                    sendMessage(user.getUid(), key, message,avatarReceiver);
+                    sendMessage();
                     edtsendmessage.getEditText().setText(null);
                 }
             }
@@ -171,10 +174,45 @@ public class ChatFragment extends Fragment {
         });
     }
 
-    public void sendMessage(String sender,String receiver,String message,String avatarReceiver) {
+    public void sendMessage() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
-        C = new Chat(message,sender,receiver,sdf.format(new Date()),avatarReceiver);
-        databaseReference.child("Chats").child(user.getUid()).child(key).push().setValue(C);
+
+        databaseReference.child("Students").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    S = snapshot.getValue(Student.class);
+                    LC = new LastChat(message,user.getUid(),key,S.getFirstName(),S.getLastName(),avatarReceiver,sdf.format(new Date()));
+                    C = new Chat(message,user.getUid(),key,sdf.format(new Date()),avatarReceiver);
+                    databaseReference.child("Last Chats").child(user.getUid()).child(key).setValue(LC);
+                    databaseReference.child("Chats").child(user.getUid()).child(key).push().setValue(C);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    S = snapshot.getValue(Student.class);
+                    LC = new LastChat(message,user.getUid(),key,S.getFirstName(),S.getLastName(),S.getAvatar(),sdf.format(new Date()));
+                    C = new Chat(message,user.getUid(),key,sdf.format(new Date()),avatarReceiver);
+                    databaseReference.child("Last Chats").child(key).child(user.getUid()).setValue(LC);
+                    databaseReference.child("Chats").child(key).child(user.getUid()).push().setValue(C);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     public static class ViewHolderCt extends RecyclerView.ViewHolder {

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -30,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -42,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser user;
     private Student S;
     private String email,password;
+    private CircleImageView civloginicon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +61,16 @@ public class LoginActivity extends AppCompatActivity {
         txtvforgotten = findViewById(R.id.txtvforgotten);
         txtvsignup = findViewById(R.id.txtvsignuplogin);
         progressBar = findViewById(R.id.progressBarlogin);
+        civloginicon = findViewById(R.id.civloginicon);
+
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        String img = "android.resource://com.projet.programmationenc/drawable/ic_baseline_person_150";
+        Glide.with(getApplicationContext())
+                .load(Uri.parse(img))
+                .apply(RequestOptions.fitCenterTransform())
+                .into(civloginicon);
 
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
