@@ -1,14 +1,20 @@
 package com.projet.programmationenc;
 
 public class LastChat {
-    public String lastMessage,senderId,receiverId,receiverFirstName,receiverLastName,receiverAvatar,messageDate;
+    public String lastMessage,senderId,receiverId,senderFirstName,receiverFirstName,senderLastName,receiverLastName,senderAvatar,receiverAvatar,messageDate;
 
-    public LastChat(String lastMessage, String senderId, String receiverId, String receiverFirstName, String receiverLastName, String receiverAvatar, String messageDate) {
+    public LastChat() {
+    }
+
+    public LastChat(String lastMessage, String senderId, String receiverId, String senderFirstName, String receiverFirstName, String senderLastName, String receiverLastName, String senderAvatar, String receiverAvatar, String messageDate) {
         this.lastMessage = lastMessage;
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.senderFirstName = senderFirstName;
         this.receiverFirstName = receiverFirstName;
+        this.senderLastName = senderLastName;
         this.receiverLastName = receiverLastName;
+        this.senderAvatar = senderAvatar;
         this.receiverAvatar = receiverAvatar;
         this.messageDate = messageDate;
     }
@@ -25,12 +31,24 @@ public class LastChat {
         return receiverId;
     }
 
+    public String getSenderFirstName() {
+        return senderFirstName;
+    }
+
     public String getReceiverFirstName() {
         return receiverFirstName;
     }
 
+    public String getSenderLastName() {
+        return senderLastName;
+    }
+
     public String getReceiverLastName() {
         return receiverLastName;
+    }
+
+    public String getSenderAvatar() {
+        return senderAvatar;
     }
 
     public String getReceiverAvatar() {
@@ -53,12 +71,24 @@ public class LastChat {
         this.receiverId = receiverId;
     }
 
+    public void setSenderFirstName(String senderFirstName) {
+        this.senderFirstName = senderFirstName;
+    }
+
     public void setReceiverFirstName(String receiverFirstName) {
         this.receiverFirstName = receiverFirstName;
     }
 
+    public void setSenderLastName(String senderLastName) {
+        this.senderLastName = senderLastName;
+    }
+
     public void setReceiverLastName(String receiverLastName) {
         this.receiverLastName = receiverLastName;
+    }
+
+    public void setSenderAvatar(String senderAvatar) {
+        this.senderAvatar = senderAvatar;
     }
 
     public void setReceiverAvatar(String receiverAvatar) {

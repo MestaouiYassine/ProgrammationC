@@ -65,16 +65,27 @@ public class ChatsFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderCts holder, int position, @NonNull LastChat model) {
-                Glide.with(getActivity())
-                        .load(Uri.parse(model.getReceiverAvatar()))
-                        .apply(RequestOptions.fitCenterTransform())
-                        .into(holder.civavatarachats);
-                holder.txtvfullnamechats.setText(model.getReceiverFirstName() + " " + model.getReceiverLastName());
+                if(user.getUid().equals(model.getSenderId())) {
+                    Glide.with(getActivity())
+                            .load(Uri.parse(model.getReceiverAvatar()))
+                            .apply(RequestOptions.fitCenterTransform())
+                            .into(holder.civavatarachats);
+                    holder.txtvfullnamechats.setText(model.getReceiverFirstName() + " " + model.getReceiverLastName());
+                }
+                else {
+                    Glide.with(getActivity())
+                            .load(Uri.parse(model.getSenderAvatar()))
+                            .apply(RequestOptions.fitCenterTransform())
+                            .into(holder.civavatarachats);
+                    holder.txtvfullnamechats.setText(model.getSenderFirstName() + " " + model.getSenderLastName());
+                }
                 holder.txtvmessagechats.setText(model.getLastMessage());
                 holder.txtvdatechats.setText(model.getMessageDate());
             }
         };
 
+        rvchats.setLayoutManager(rvmanager);
+        rvchats.setAdapter(firebaseRecyclerAdapter);
     }
 
     public static class ViewHolderCts extends RecyclerView.ViewHolder {

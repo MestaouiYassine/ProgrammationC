@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatFragment extends Fragment {
     private static final String TAG = "ChatFragment";
     private String key;
-    private Student S;
+    private Student S,S2,S3;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
     private ImageButton btnsendimage,btnsendmessage;
@@ -106,7 +106,7 @@ public class ChatFragment extends Fragment {
                 holder.txtvmessagedate.setText(model.getDate());
                 if(holder.civavatarchat != null) {
                     Glide.with(getActivity())
-                            .load(Uri.parse(model.getAvatarReceiver()))
+                            .load(avatarReceiver)
                             .apply(RequestOptions.fitCenterTransform())
                             .into(holder.civavatarchat);
                 }
@@ -175,33 +175,18 @@ public class ChatFragment extends Fragment {
     }
 
     public void sendMessage() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
-
-        databaseReference.child("Students").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    S = snapshot.getValue(Student.class);
-                    LC = new LastChat(message,user.getUid(),key,S.getFirstName(),S.getLastName(),avatarReceiver,sdf.format(new Date()));
+                    S2 = snapshot.child(user.getUid()).getValue(Student.class);
+                    S3 = snapshot.child(key).getValue(Student.class);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
+                    LC = new LastChat(message,user.getUid(),key,S2.getFirstName(),S3.getFirstName(),S2.getFirstName(),S3.getLastName(),S2.getAvatar(),S3.getAvatar(),sdf.format(new Date()));
                     C = new Chat(message,user.getUid(),key,sdf.format(new Date()),avatarReceiver);
                     databaseReference.child("Last Chats").child(user.getUid()).child(key).setValue(LC);
                     databaseReference.child("Chats").child(user.getUid()).child(key).push().setValue(C);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    S = snapshot.getValue(Student.class);
-                    LC = new LastChat(message,user.getUid(),key,S.getFirstName(),S.getLastName(),S.getAvatar(),sdf.format(new Date()));
-                    C = new Chat(message,user.getUid(),key,sdf.format(new Date()),avatarReceiver);
                     databaseReference.child("Last Chats").child(key).child(user.getUid()).setValue(LC);
                     databaseReference.child("Chats").child(key).child(user.getUid()).push().setValue(C);
                 }
@@ -212,6 +197,26 @@ public class ChatFragment extends Fragment {
 
             }
         });
+
+
+
+//        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()) {
+//                    S = snapshot.getValue(Student.class);
+//                    LC = new LastChat(message,user.getUid(),key,S.getFirstName(),S.getLastName(),S.getAvatar(),sdf.format(new Date()));
+//                    C = new Chat(message,user.getUid(),key,sdf.format(new Date()),avatarReceiver);
+//                    databaseReference.child("Last Chats").child(key).child(user.getUid()).setValue(LC);
+//                    databaseReference.child("Chats").child(key).child(user.getUid()).push().setValue(C);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 
