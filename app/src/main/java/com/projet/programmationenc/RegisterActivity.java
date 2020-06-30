@@ -151,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             }else {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(RegisterActivity.this, "Erreur lors de l'inscription.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterActivity.this, "L'adresse email saisie existe déjà.", Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.INVISIBLE);
                             }
                         }

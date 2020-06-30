@@ -166,9 +166,6 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.changepassword:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ChangePasswordFragment()).addToBackStack(null).commit();
                         break;
-                    case R.id.contact:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ContactFragment()).addToBackStack(null).commit();
-                        break;
                     case R.id.signout:
                         BaseCFragment.completedBasic = null;
                         ConditFragment.completedCondLoop = null;

@@ -36,6 +36,7 @@ public class ChatsFragment extends Fragment {
     private LinearLayoutManager rvmanager;
     private FirebaseRecyclerOptions<LastChat> options;
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private TextView txtvchatsempty;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class ChatsFragment extends Fragment {
 
         rvchats = view.findViewById(R.id.rvchats);
         rvmanager = new LinearLayoutManager(getActivity());
+        txtvchatsempty = view.findViewById(R.id.txtvchatsempty);
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Last Chats").child(user.getUid());
         options = new FirebaseRecyclerOptions.Builder<LastChat>()
@@ -97,12 +99,24 @@ public class ChatsFragment extends Fragment {
                     holder.txtvfullnamechats.setText(model.getSenderFirstName() + " " + model.getSenderLastName());
                 }
                 holder.txtvmessagechats.setText(model.getLastMessage());
-                holder.txtvdatechats.setText(model.getMessageDate());
+                holder.txtvdatechats.setText(GetTimeAgo.getTimeAgo(model.getLastChatMillis(),getActivity()));
+            }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                if(firebaseRecyclerAdapter.getItemCount() == 0) {
+                    txtvchatsempty.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtvchatsempty.setVisibility(View.GONE);
+                }
             }
         };
 
         rvchats.setLayoutManager(rvmanager);
         rvchats.setAdapter(firebaseRecyclerAdapter);
+
     }
 
     public static class ViewHolderCts extends RecyclerView.ViewHolder {

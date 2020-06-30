@@ -35,9 +35,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChangePasswordFragment extends Fragment {
     private static final String TAG = "ChangePasswordFragment";
-    private TextInputLayout edtpassword1change, edtpassword2change;
+    private TextInputLayout edtpassword1change, edtpassword2change,edtoldpass;
     private Button btnconfirmchange;
-    private String password1change, password2change;
+    private String oldpassword,password1change, password2change;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
     private Student S;
@@ -60,13 +60,20 @@ public class ChangePasswordFragment extends Fragment {
         edtpassword1change = view.findViewById(R.id.edtpassword1change);
         edtpassword2change = view.findViewById(R.id.edtpassword2change);
         btnconfirmchange = view.findViewById(R.id.btnconfirmchange);
+        edtoldpass = view.findViewById(R.id.edtoldpass);
 
         btnconfirmchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                oldpassword = edtoldpass.getEditText().getText().toString();
                 password1change = edtpassword1change.getEditText().getText().toString();
                 password2change = edtpassword2change.getEditText().getText().toString();
                 boolean flag = true;
+
+                if(oldpassword.isEmpty()) {
+                    edtoldpass.setError("Veuillez saisir le mot de passe actuel");
+                    flag = false;
+                }
 
                 if (password2change.isEmpty()) {
                     edtpassword2change.setError("Veuillez retaper le mot de passe.");
@@ -83,6 +90,10 @@ public class ChangePasswordFragment extends Fragment {
                     if (!password1change.equals(password2change)) {
                         Toast.makeText(getActivity(), "Les deux mots de passes ne sont pas identiques.", Toast.LENGTH_SHORT).show();
                         flag = false;
+                    }
+                    if(!oldpassword.equals(((HomeActivity)getActivity()).retrievedPassword)) {
+                        Toast.makeText(getActivity(), "Le mot de passe actuel est incorrect", Toast.LENGTH_SHORT).show();
+                        return;
                     }
                 }
 

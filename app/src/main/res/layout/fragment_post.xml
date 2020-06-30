@@ -162,6 +162,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtvnumbercomments" />
 
+    <TextView
+        android:id="@+id/txtvcommentsempty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="La liste des commentaires est vide"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtvnumbercomments"
+        app:layout_constraintBottom_toTopOf="@id/claddcomment"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/claddcomment"
         android:layout_width="match_parent"

@@ -172,7 +172,6 @@ public class ChatFragment extends Fragment {
                     S = snapshot.getValue(Student.class);
                     boolean status = snapshot.child("online").getValue(Boolean.class);
                     long lastSeen = snapshot.child("lastseen").getValue(Long.class);
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
                     ((HomeActivity) getActivity()).txtvfullnamebar.setText(S.getFirstName() + " " + S.getLastName());
                     avatarReceiver = S.getAvatar();
                     Glide.with(getActivity())
@@ -206,7 +205,7 @@ public class ChatFragment extends Fragment {
                     S3 = snapshot.child(key).getValue(Student.class);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
-                    LC = new LastChat(message,user.getUid(),key,S2.getFirstName(),S3.getFirstName(),S2.getLastName(),S3.getLastName(),S2.getAvatar(),S3.getAvatar(),sdf.format(new Date()));
+                    LC = new LastChat(message,user.getUid(),key,S2.getFirstName(),S3.getFirstName(),S2.getLastName(),S3.getLastName(),S2.getAvatar(),S3.getAvatar(),System.currentTimeMillis());
                     C = new Chat(message,user.getUid(),key,sdf.format(new Date()),avatarReceiver);
                     databaseReference.child("Last Chats").child(user.getUid()).child(key).setValue(LC);
                     databaseReference.child("Chats").child(user.getUid()).child(key).push().setValue(C);

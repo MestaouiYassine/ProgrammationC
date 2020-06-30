@@ -41,6 +41,7 @@ public class ForumFragment extends Fragment {
     private FloatingActionButton fabpost;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
+    private TextView txtvforumempty;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class ForumFragment extends Fragment {
         rvforum = view.findViewById(R.id.rvforum);
         rvmanager = new LinearLayoutManager(getActivity());
         fabpost = view.findViewById(R.id.fabpost);
+        txtvforumempty = view.findViewById(R.id.txtvforumempty);
 
         fabpost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,10 +139,22 @@ public class ForumFragment extends Fragment {
                     }
                 });
             }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                if(firebaseRecyclerAdapter.getItemCount() == 0) {
+                    txtvforumempty.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtvforumempty.setVisibility(View.GONE);
+                }
+            }
         };
 
         rvforum.setAdapter(firebaseRecyclerAdapter);
         rvforum.setLayoutManager(rvmanager);
+
 
     }
 
@@ -256,11 +270,24 @@ public class ForumFragment extends Fragment {
                 });
 
             }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                if(firebaseRecyclerAdapter.getItemCount() == 0) {
+                    txtvforumempty.setVisibility(View.VISIBLE);
+                    txtvforumempty.setText("Aucun résultat trouvé");
+                }
+                else {
+                    txtvforumempty.setVisibility(View.GONE);
+                }
+            }
         };
 
         firebaseRecyclerAdapter.startListening();
         rvforum.setAdapter(firebaseRecyclerAdapter);
         rvforum.setLayoutManager(rvmanager);
+
     }
 
     @Override

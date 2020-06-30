@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("Saisir votre e-mail");
+                builder.setTitle("Saisir votre email");
                 final EditText input = new EditText(LoginActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                 builder.setView(input);
@@ -99,10 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Log.d(TAG, "Email sent.");
-                                            Toast.makeText(LoginActivity.this,"Password Reset Email sent",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(LoginActivity.this,"Un email vous a été envoyé pour réinitialiser votre mot de passe",Toast.LENGTH_LONG).show();
                                         }
                                         else {
-                                            Toast.makeText(LoginActivity.this,"Some error happened",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(LoginActivity.this,"Erreur lors de l'envoi de l'email de vérification",Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
@@ -172,7 +172,8 @@ public class LoginActivity extends AppCompatActivity {
                                                     databaseReference.child("Students").child(user.getUid()).child("token").setValue(token);
                                                 }
                                             });
-
+                                    edtemail.getEditText().setText(null);
+                                    edtpassword.getEditText().setText(null);
                                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                                 }
                                 else {
@@ -180,8 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Erreur lors de la connexion.", Toast.LENGTH_LONG).show();
-
+                                Toast.makeText(LoginActivity.this, "Adresse email ou mot de passe invalide.", Toast.LENGTH_LONG).show();
                             }
                         }
                     });

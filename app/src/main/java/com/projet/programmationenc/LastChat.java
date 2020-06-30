@@ -1,12 +1,13 @@
 package com.projet.programmationenc;
 
 public class LastChat {
-    public String lastMessage,senderId,receiverId,senderFirstName,receiverFirstName,senderLastName,receiverLastName,senderAvatar,receiverAvatar,messageDate;
+    public String lastMessage,senderId,receiverId,senderFirstName,receiverFirstName,senderLastName,receiverLastName,senderAvatar,receiverAvatar;
+    public long lastChatMillis;
 
     public LastChat() {
     }
 
-    public LastChat(String lastMessage, String senderId, String receiverId, String senderFirstName, String receiverFirstName, String senderLastName, String receiverLastName, String senderAvatar, String receiverAvatar, String messageDate) {
+    public LastChat(String lastMessage, String senderId, String receiverId, String senderFirstName, String receiverFirstName, String senderLastName, String receiverLastName, String senderAvatar, String receiverAvatar, long lastChatMillis) {
         this.lastMessage = lastMessage;
         this.senderId = senderId;
         this.receiverId = receiverId;
@@ -16,7 +17,7 @@ public class LastChat {
         this.receiverLastName = receiverLastName;
         this.senderAvatar = senderAvatar;
         this.receiverAvatar = receiverAvatar;
-        this.messageDate = messageDate;
+        this.lastChatMillis = lastChatMillis;
     }
 
     public String getLastMessage() {
@@ -55,8 +56,8 @@ public class LastChat {
         return receiverAvatar;
     }
 
-    public String getMessageDate() {
-        return messageDate;
+    public long getLastChatMillis() {
+        return lastChatMillis;
     }
 
     public void setLastMessage(String lastMessage) {
@@ -95,7 +96,7 @@ public class LastChat {
         this.receiverAvatar = receiverAvatar;
     }
 
-    public void setMessageDate(String messageDate) {
-        this.messageDate = messageDate;
+    public void setLastChatMillis(long lastChatMillis) {
+        this.lastChatMillis = lastChatMillis;
     }
 }

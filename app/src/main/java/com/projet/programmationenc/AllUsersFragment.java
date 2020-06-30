@@ -39,6 +39,7 @@ public class AllUsersFragment extends Fragment {
     private LinearLayoutManager rvmanager;
     private DatabaseReference databaseReference;
     private FirebaseUser user;
+    private TextView txtvallusersempty;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class AllUsersFragment extends Fragment {
 
         rvallusers = view.findViewById(R.id.rvallusers);
         rvmanager = new LinearLayoutManager(getActivity());
+        txtvallusersempty = view.findViewById(R.id.txtvallusersempty);
 
         Query query = databaseReference.child("Students");
         options = new FirebaseRecyclerOptions.Builder<Student>()
@@ -77,9 +79,6 @@ public class AllUsersFragment extends Fragment {
                         String key = databaseReference.child("Students").child(getRef(itemPosition).getKey()).getKey();
                         Log.e(TAG, "onClick: KEY : " + key);
                         if(key != null && key.equals(user.getUid())) {
-//                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
-//                            ((HomeActivity) getActivity()).ShowBackButton(false);
-//                            ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
                             return;
                         }
                         Bundle bundle = new Bundle();
@@ -101,11 +100,24 @@ public class AllUsersFragment extends Fragment {
                 holder.txtvfullnameallusers.setText(model.getFirstName() + " " + model.getLastName());
                 holder.txtvstatusallusers.setText(model.getStatus());
             }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                if(firebaseRecyclerAdapter.getItemCount() == 0) {
+                    txtvallusersempty.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtvallusersempty.setVisibility(View.GONE);
+                }
+            }
         };
 
-        rvallusers.setHasFixedSize(true);
+
         rvallusers.setLayoutManager(rvmanager);
         rvallusers.setAdapter(firebaseRecyclerAdapter);
+
+
     }
 
     public static class ViewHolderSt extends RecyclerView.ViewHolder {
@@ -164,9 +176,6 @@ public class AllUsersFragment extends Fragment {
                         String key = databaseReference.child("Students").child(getRef(itemPosition).getKey()).getKey();
                         Log.e(TAG, "onClick: KEY : " + key);
                         if(key != null && key.equals(user.getUid())) {
-//                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
-//                            ((HomeActivity) getActivity()).ShowBackButton(false);
-//                            ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
                             return;
                         }
                         Bundle bundle = new Bundle();
@@ -187,6 +196,18 @@ public class AllUsersFragment extends Fragment {
                         .into(holder.civavatarallusers);
                 holder.txtvfullnameallusers.setText(model.getFirstName() + " " + model.getLastName());
                 holder.txtvstatusallusers.setText(model.getStatus());
+            }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                if(firebaseRecyclerAdapter.getItemCount() == 0) {
+                    txtvallusersempty.setVisibility(View.VISIBLE);
+                    txtvallusersempty.setText("Aucun résultat trouvé");
+                }
+                else {
+                    txtvallusersempty.setVisibility(View.GONE);
+                }
             }
         };
 

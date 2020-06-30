@@ -57,7 +57,7 @@ public class PostCommentFragment extends Fragment {
     private ImageButton btnsendcomment, btnupvotepost, btndownvotepost;
     private TextInputLayout edtaddcomment;
     private Comment C;
-    private TextView txtvnumvotespost;
+    private TextView txtvnumvotespost,txtvcommentsempty;
     private int vote;
     private String poststatus;
 
@@ -94,6 +94,7 @@ public class PostCommentFragment extends Fragment {
         btndownvotepost = view.findViewById(R.id.btndownvotepost);
         txtvnumvotespost = view.findViewById(R.id.txtvnumvotespost);
         txtvnumbercomments = view.findViewById(R.id.txtvnumbercomments);
+        txtvcommentsempty = view.findViewById(R.id.txtvcommentsempty);
 
         key = getArguments().getString("key");
         Log.e(TAG, "onViewCreated: KEY" + key);
@@ -177,11 +178,22 @@ public class PostCommentFragment extends Fragment {
                     }
                 });
             }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                if(firebaseRecyclerAdapter.getItemCount() == 0) {
+                    txtvcommentsempty.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtvcommentsempty.setVisibility(View.GONE);
+                }
+            }
         };
 
-        rvcomment.setHasFixedSize(true);
         rvcomment.setLayoutManager(rvmanager);
         rvcomment.setAdapter(firebaseRecyclerAdapter);
+
 
         btnsendcomment.setOnClickListener(new View.OnClickListener() {
             @Override
