@@ -4,12 +4,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,9 +36,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,7 +51,7 @@ public class PostCommentFragment extends Fragment {
     private Post P;
     private String key, comment, fullName, avatar;
     private CircleImageView civavatarpost, civavataraddcomment;
-    private TextView txtvfullnamepost, txtvquestionpost, txtvdescriptionpost, txtvdatepost;
+    private TextView txtvfullnamepost, txtvquestionpost, txtvdescriptionpost, txtvdatepost,txtvnumbercomments;
     public static FloatingActionButton fabcomment;
     public static ConstraintLayout claddcoment;
     private ImageButton btnsendcomment, btnupvotepost, btndownvotepost;
@@ -95,6 +93,7 @@ public class PostCommentFragment extends Fragment {
         btnupvotepost = view.findViewById(R.id.btnupvotepost);
         btndownvotepost = view.findViewById(R.id.btndownvotepost);
         txtvnumvotespost = view.findViewById(R.id.txtvnumvotespost);
+        txtvnumbercomments = view.findViewById(R.id.txtvnumbercomments);
 
         key = getArguments().getString("key");
         Log.e(TAG, "onViewCreated: KEY" + key);
@@ -105,6 +104,7 @@ public class PostCommentFragment extends Fragment {
         poststatus = "none";
         LoadStudentPost();
         LoadStudentPostVotes();
+        LoadNumberComments();
 
         Uri uri = Uri.parse(((HomeActivity) getActivity()).retrievedAvatar);
         fabcomment.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +151,31 @@ public class PostCommentFragment extends Fragment {
                 holder.txtvdescriptioncomment.setText(model.getDescriptionComment());
                 holder.txtvfullnamecomment.setText(model.getFullNameComment());
                 holder.txtvdatecomment.setText(model.getDateComment());
+
+                if(model.getCommentID().equals(user.getUid())) {
+                    holder.txtvoptionscomment.setVisibility(View.VISIBLE);
+                }
+
+                holder.txtvoptionscomment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        PopupMenu popupMenu = new PopupMenu(getActivity(),holder.txtvoptionscomment);
+                        popupMenu.inflate(R.menu.comment_menu);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                switch(menuItem.getItemId()) {
+                                    case R.id.deletecomment:
+                                        databaseReference.child("Posts").child(key).child("Comments").child(getRef(position).getKey()).removeValue();
+                                        return true;
+                                    default:
+                                        return false;
+                                }
+                            }
+                        });
+                        popupMenu.show();
+                    }
+                });
             }
         };
 
@@ -279,7 +304,7 @@ public class PostCommentFragment extends Fragment {
 
     public static class ViewHolderCm extends RecyclerView.ViewHolder {
         public CircleImageView civavatarcomment;
-        public TextView txtvfullnamecomment, txtvdescriptioncomment, txtvdatecomment;
+        public TextView txtvfullnamecomment, txtvdescriptioncomment, txtvdatecomment,txtvoptionscomment;
 
 
         public ViewHolderCm(@NonNull View itemView) {
@@ -288,6 +313,7 @@ public class PostCommentFragment extends Fragment {
             txtvfullnamecomment = itemView.findViewById(R.id.txtvfullnamecomment);
             txtvdescriptioncomment = itemView.findViewById(R.id.txtvdescriptioncomment);
             txtvdatecomment = itemView.findViewById(R.id.txtvdatecomment);
+            txtvoptionscomment = itemView.findViewById(R.id.txtvoptionscomment);
         }
     }
 
@@ -319,6 +345,20 @@ public class PostCommentFragment extends Fragment {
             }
         });
 
+    }
+
+    public void LoadNumberComments() {
+        databaseReference.child("Posts").child(key).child("Comments").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                txtvnumbercomments.setText(String.valueOf(snapshot.getChildrenCount()) + " Commentaires");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

@@ -137,7 +137,7 @@
             android:id="@+id/txtvprofilecourses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
+            android:text="0"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="15sp"
@@ -159,21 +159,76 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pbprofilecourses" />
 
-        <TextView
-            android:id="@+id/txtvtotalfpc"
+
+        <ImageView
+            android:id="@+id/imgvtotalfriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="100dp"
-            android:layout_marginBottom="100dp"
-            android:text="324 Amis | 68 Publications | 77 Commentaires"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtvprogcourse"
+            app:srcCompat="@drawable/ic_baseline_group_60" />
+
+        <TextView
+            android:id="@+id/txtvtotalfriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="0 Amis"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imgvtotalfriends"
+            app:layout_constraintStart_toStartOf="@+id/imgvtotalfriends"
+            app:layout_constraintTop_toBottomOf="@+id/imgvtotalfriends" />
+
+        <ImageView
+            android:id="@+id/imgvtotalposts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtvprogcourse" />
+            app:layout_constraintTop_toBottomOf="@+id/txtvprogcourse"
+            app:srcCompat="@drawable/ic_baseline_post_add_60" />
 
+        <TextView
+            android:id="@+id/txtvtotalposts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="0 Publications"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/imgvtotalposts"
+            app:layout_constraintStart_toStartOf="@+id/imgvtotalposts"
+            app:layout_constraintTop_toBottomOf="@+id/imgvtotalposts" />
+
+        <ImageView
+            android:id="@+id/imgvtotalcomments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtvprogcourse"
+            app:srcCompat="@drawable/ic_baseline_comment_60" />
+
+        <TextView
+            android:id="@+id/txtvtotalcomments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="0 Commentaires"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/imgvtotalcomments"
+            app:layout_constraintStart_toStartOf="@+id/imgvtotalcomments"
+            app:layout_constraintTop_toBottomOf="@+id/imgvtotalcomments" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

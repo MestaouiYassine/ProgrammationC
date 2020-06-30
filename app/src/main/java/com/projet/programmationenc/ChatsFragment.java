@@ -70,11 +70,11 @@ public class ChatsFragment extends Fragment {
                         Log.e(TAG, "onClick: key : " + key);
                         Bundle bundle = new Bundle();
                         bundle.putString("key",key);
-                        ProfileFragment profileFragment = new ProfileFragment();
-                        profileFragment.setArguments(bundle);
+                        ChatFragment chatFragment = new ChatFragment();
+                        chatFragment.setArguments(bundle);
                         ((HomeActivity) getActivity()).ShowBackButton(true);
                         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).addToBackStack(null).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,chatFragment).addToBackStack(null).commit();
                     }
                 });
                 return new ViewHolderCts(v);

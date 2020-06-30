@@ -70,6 +70,9 @@ public class EditProfileFragment extends Fragment {
     private ProgressBar progressBareditprofile;
     private Post P;
     private Comment C;
+    private Friend F;
+    private Chat CT;
+    private LastChat LC;
     private boolean avatarchosen = false;
     @Nullable
     @Override
@@ -276,6 +279,89 @@ public class EditProfileFragment extends Fragment {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+                        }
+                    });
+
+                    databaseReference.child("Friends").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
+                                for(DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                    if(dataSnapshot1.hasChild(user.getUid())) {
+                                        F = dataSnapshot1.child(user.getUid()).getValue(Friend.class);
+                                        F.setFriendFirstName(firstnameedit);
+                                        F.setFriendLastName(lastnameedit);
+                                        F.setFriendAvatar(uri.toString());
+                                        databaseReference.child("Friends").child(dataSnapshot1.getKey()).child(user.getUid()).child("friendFirstName").setValue(F.getFriendFirstName());
+                                        databaseReference.child("Friends").child(dataSnapshot1.getKey()).child(user.getUid()).child("friendLastName").setValue(F.getFriendLastName());
+                                        databaseReference.child("Friends").child(dataSnapshot1.getKey()).child(user.getUid()).child("friendAvatar").setValue(F.getFriendAvatar());
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    databaseReference.child("Chats").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
+                                for(DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                    for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                        for(DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                            if(dataSnapshot3.child("receiver").getValue(String.class).equals(user.getUid())) {
+                                                CT = dataSnapshot3.getValue(Chat.class);
+                                                CT.setAvatarReceiver(uri.toString());
+                                                databaseReference.child("Chats").child(dataSnapshot1.getKey()).child(dataSnapshot2.getKey()).child(dataSnapshot3.getKey()).child("avatarReceiver").setValue(CT.getAvatarReceiver());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    databaseReference.child("Last Chats").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
+                                for(DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                    for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                        if(dataSnapshot2.child("senderId").getValue(String.class).equals(user.getUid())) {
+                                            LC = dataSnapshot2.getValue(LastChat.class);
+                                            LC.setSenderFirstName(firstnameedit);
+                                            LC.setSenderLastName(lastnameedit);
+                                            LC.setSenderAvatar(uri.toString());
+                                            databaseReference.child("Last Chats").child(dataSnapshot1.getKey()).child(dataSnapshot2.getKey()).child("senderFirstName").setValue(LC.getSenderFirstName());
+                                            databaseReference.child("Last Chats").child(dataSnapshot1.getKey()).child(dataSnapshot2.getKey()).child("senderLastName").setValue(LC.getSenderLastName());
+                                            databaseReference.child("Last Chats").child(dataSnapshot1.getKey()).child(dataSnapshot2.getKey()).child("senderAvatar").setValue(LC.getSenderAvatar());
+                                        }
+                                        else if(dataSnapshot2.child("receiverId").getValue(String.class).equals(user.getUid())) {
+                                            LC = dataSnapshot2.getValue(LastChat.class);
+                                            LC.setReceiverFirstName(firstnameedit);
+                                            LC.setReceiverLastName(lastnameedit);
+                                            LC.setReceiverAvatar(uri.toString());
+                                            databaseReference.child("Last Chats").child(dataSnapshot1.getKey()).child(dataSnapshot2.getKey()).child("receiverFirstName").setValue(LC.getReceiverFirstName());
+                                            databaseReference.child("Last Chats").child(dataSnapshot1.getKey()).child(dataSnapshot2.getKey()).child("receiverLastName").setValue(LC.getReceiverLastName());
+                                            databaseReference.child("Last Chats").child(dataSnapshot1.getKey()).child(dataSnapshot2.getKey()).child("receiverAvatar").setValue(LC.getReceiverAvatar());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
                         }
                     });
 

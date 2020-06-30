@@ -4,9 +4,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +42,7 @@ public class AllUsersFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_allusers,container,false);
     }
 
@@ -54,7 +59,7 @@ public class AllUsersFragment extends Fragment {
         rvallusers = view.findViewById(R.id.rvallusers);
         rvmanager = new LinearLayoutManager(getActivity());
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Students");
+        Query query = databaseReference.child("Students");
         options = new FirebaseRecyclerOptions.Builder<Student>()
                 .setQuery(query,Student.class)
                 .build();
@@ -114,6 +119,80 @@ public class AllUsersFragment extends Fragment {
             txtvfullnameallusers = itemView.findViewById(R.id.txtvfullnameallusers);
             txtvstatusallusers = itemView.findViewById(R.id.txtvstatusallusers);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu,inflater);
+        menu.clear();
+        inflater.inflate(R.menu.menusearch,menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = new SearchView(((HomeActivity)getActivity()).getSupportActionBar().getThemedContext());
+        searchView.setQueryHint("Recherche par nom");
+        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menuItem.setActionView(searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                AllUsersSearch(s);
+                return false;
+            }
+        });
+    }
+
+    public void AllUsersSearch(String text) {
+        Query query = databaseReference.child("Students").orderByChild("lastName").startAt(text).endAt(text+"\uf8ff");
+        options = new FirebaseRecyclerOptions.Builder<Student>()
+                .setQuery(query,Student.class)
+                .build();
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Student,ViewHolderSt>(options) {
+
+            @NonNull
+            @Override
+            public ViewHolderSt onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_allusers,parent,false);
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int itemPosition = rvallusers.getChildLayoutPosition(view);
+                        String key = databaseReference.child("Students").child(getRef(itemPosition).getKey()).getKey();
+                        Log.e(TAG, "onClick: KEY : " + key);
+                        if(key != null && key.equals(user.getUid())) {
+//                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
+//                            ((HomeActivity) getActivity()).ShowBackButton(false);
+//                            ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
+                            return;
+                        }
+                        Bundle bundle = new Bundle();
+                        bundle.putString("key",key);
+                        ProfileFragment profileFragment = new ProfileFragment();
+                        profileFragment.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).addToBackStack(null).commit();
+                    }
+                });
+                return new ViewHolderSt(v);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull ViewHolderSt holder, int position, @NonNull Student model) {
+                Glide.with(getActivity())
+                        .load(Uri.parse(model.getAvatar()))
+                        .apply(RequestOptions.fitCenterTransform())
+                        .into(holder.civavatarallusers);
+                holder.txtvfullnameallusers.setText(model.getFirstName() + " " + model.getLastName());
+                holder.txtvstatusallusers.setText(model.getStatus());
+            }
+        };
+
+        firebaseRecyclerAdapter.startListening();
+        rvallusers.setAdapter(firebaseRecyclerAdapter);
+        rvallusers.setLayoutManager(rvmanager);
     }
 
     @Override

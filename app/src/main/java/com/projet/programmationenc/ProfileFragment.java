@@ -41,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
     private CircleImageView imgvavatarprofile;
-    private TextView txtvfullnameprofile, txtvstatusprofile, txtvprofilebasec,txtvtotalfpc;
+    private TextView txtvfullnameprofile, txtvstatusprofile, txtvprofilebasec,txtvtotalfriends,txtvtotalposts,txtvtotalcomments;
     private ImageButton btnchangestatus;
     private Button btnsendrequest, btncancelrequest;
     private FirebaseUser user;
@@ -83,7 +83,9 @@ public class ProfileFragment extends Fragment {
         clprofile = view.findViewById(R.id.clprofile);
         pbprofilecourses = view.findViewById(R.id.pbprofilecourses);
         txtvprofilebasec = view.findViewById(R.id.txtvprofilecourses);
-        txtvtotalfpc = view.findViewById(R.id.txtvtotalfpc);
+        txtvtotalfriends = view.findViewById(R.id.txtvtotalfriends);
+        txtvtotalposts = view.findViewById(R.id.txtvtotalposts);
+        txtvtotalcomments = view.findViewById(R.id.txtvtotalcomments);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -92,10 +94,16 @@ public class ProfileFragment extends Fragment {
         if (getArguments() != null) {
             key = getArguments().getString("key");
             RetrieveOtherProfile(key);
+            RetrieveProgress(key);
+            RetrieveFriends(key);
+            RetrievePosts(key);
+            RetrieveComments(key);
         } else {
             RetrieveStudentProfile();
-            RetrieveProgress();
-            RetrievePosts();
+            RetrieveProgress(user.getUid());
+            RetrieveFriends(user.getUid());
+            RetrievePosts(user.getUid());
+            RetrieveComments(user.getUid());
         }
 
         btnchangestatus.setOnClickListener(new View.OnClickListener() {
@@ -423,8 +431,8 @@ public class ProfileFragment extends Fragment {
         btnsendrequest.setEnabled(true);
     }
 
-    public void RetrieveProgress() {
-        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void RetrieveProgress(String key) {
+        databaseReference.child("Students").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -468,6 +476,9 @@ public class ProfileFragment extends Fragment {
                     Log.e(TAG, "onDataChange: strings  : " + retrievedStrings.size() );
                     Log.e(TAG, "onDataChange: struct  : " + retrievedEnumStruct.size() );
                     Log.e(TAG, "onDataChange: file  : " + retrievedFiles.size() );
+                    if(totalprogress == 100) {
+                        pbprofilecourses.setProgressBarColor(getResources().getColor(R.color.lightgreen));
+                    }
                     pbprofilecourses.setProgress(totalprogress);
                     txtvprofilebasec.setText(new DecimalFormat("##.#").format(totalprogress) + " %");
                 }
@@ -480,40 +491,57 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    public void RetrievePosts() {
-        totalPosts = 0;
-        totalComments = 0;
+    public void RetrieveFriends(String key) {
+        databaseReference.child("Friends").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                totalFriends = (int)snapshot.getChildrenCount();
+                txtvtotalfriends.setText(totalFriends + " Amis");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void RetrievePosts(String key) {
         databaseReference.child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if(dataSnapshot.child("studentID").getValue(String.class).equals(user.getUid())) {
+                    if(dataSnapshot.child("studentID").getValue(String.class).equals(key)) {
                         totalPosts++;
                         Log.e(TAG, "onDataChange: totalposts : " + totalPosts );
                     }
+                }
+                txtvtotalposts.setText(totalPosts + " Publications");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void RetrieveComments(String key) {
+        databaseReference.child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if(dataSnapshot.hasChild("Comments")) {
                         databaseReference.child("Posts").child(dataSnapshot.getKey()).child("Comments").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for(DataSnapshot snapshot1 : snapshot.getChildren()) {
-                                    if(snapshot1.child("commentID").getValue(String.class).equals(user.getUid())) {
+                                    if(snapshot1.child("commentID").getValue(String.class).equals(key)) {
                                         totalComments++;
                                         Log.e(TAG, "onDataChange: totalcomments : " + totalComments );
                                     }
                                 }
-                                databaseReference.child("Friends").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        totalFriends = (int)snapshot.getChildrenCount();
-                                        txtvtotalfpc.setText(totalFriends + " Amis | " + totalPosts + " Publications | " + totalComments + " Commentaires");
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
+                                txtvtotalcomments.setText(totalComments + " Commentaires");
                             }
 
                             @Override
