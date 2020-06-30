@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser user;
     private Student S;
     private String email,password;
-    private CircleImageView civloginicon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,16 +60,10 @@ public class LoginActivity extends AppCompatActivity {
         txtvforgotten = findViewById(R.id.txtvforgotten);
         txtvsignup = findViewById(R.id.txtvsignuplogin);
         progressBar = findViewById(R.id.progressBarlogin);
-        civloginicon = findViewById(R.id.civloginicon);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        String img = "android.resource://com.projet.programmationenc/drawable/ic_baseline_person_150";
-        Glide.with(getApplicationContext())
-                .load(Uri.parse(img))
-                .apply(RequestOptions.fitCenterTransform())
-                .into(civloginicon);
 
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("Réinitialiser le mot de passe");
+                builder.setTitle("Saisir votre e-mail");
                 final EditText input = new EditText(LoginActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                 builder.setView(input);

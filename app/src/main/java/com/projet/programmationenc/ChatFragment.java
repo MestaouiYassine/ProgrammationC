@@ -41,7 +41,8 @@ public class ChatFragment extends Fragment {
     private Student S,S2,S3;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
-    private ImageButton btnsendimage,btnsendmessage;
+    private ImageButton btnsendmessage;
+    private CircleImageView civsenderavatar;
     private TextInputLayout edtsendmessage;
     private RecyclerView rvchat;
     private LinearLayoutManager rvmanager;
@@ -67,7 +68,7 @@ public class ChatFragment extends Fragment {
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
         ((HomeActivity) getActivity()).clchatbar.setVisibility(View.VISIBLE);
 
-        btnsendimage = view.findViewById(R.id.btnsendimage);
+        civsenderavatar = view.findViewById(R.id.civsenderavatar);
         btnsendmessage = view.findViewById(R.id.btnsendmessage);
         edtsendmessage = view.findViewById(R.id.edtsendmessage);
 
@@ -76,6 +77,8 @@ public class ChatFragment extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        RetrieveSenderAvatar();
 
         key = getArguments().getString("key");
         RetrieveChatterInfo(key);
@@ -141,7 +144,27 @@ public class ChatFragment extends Fragment {
 
     }
 
-    public void RetrieveChatterInfo(String key) {
+    private void RetrieveSenderAvatar() {
+        databaseReference.child("Students").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    S = snapshot.getValue(Student.class);
+                    Glide.with(getActivity())
+                            .load(Uri.parse(S.getAvatar()))
+                            .apply(RequestOptions.fitCenterTransform())
+                            .into(civsenderavatar);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void RetrieveChatterInfo(String key) {
         databaseReference.child("Students").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -174,7 +197,7 @@ public class ChatFragment extends Fragment {
         });
     }
 
-    public void sendMessage() {
+    private void sendMessage() {
         databaseReference.child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -183,7 +206,7 @@ public class ChatFragment extends Fragment {
                     S3 = snapshot.child(key).getValue(Student.class);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm");
-                    LC = new LastChat(message,user.getUid(),key,S2.getFirstName(),S3.getFirstName(),S2.getFirstName(),S3.getLastName(),S2.getAvatar(),S3.getAvatar(),sdf.format(new Date()));
+                    LC = new LastChat(message,user.getUid(),key,S2.getFirstName(),S3.getFirstName(),S2.getLastName(),S3.getLastName(),S2.getAvatar(),S3.getAvatar(),sdf.format(new Date()));
                     C = new Chat(message,user.getUid(),key,sdf.format(new Date()),avatarReceiver);
                     databaseReference.child("Last Chats").child(user.getUid()).child(key).setValue(LC);
                     databaseReference.child("Chats").child(user.getUid()).child(key).push().setValue(C);

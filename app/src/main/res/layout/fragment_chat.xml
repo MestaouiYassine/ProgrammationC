@@ -17,19 +17,18 @@
         android:background="@color/white"
         android:layout_alignParentBottom="true">
 
-        <ImageButton
-            android:id="@+id/btnsendimage"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civsenderavatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_gray_40" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtsendmessage"
@@ -43,7 +42,7 @@
             app:boxStrokeColor="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnsendmessage"
-            app:layout_constraintStart_toEndOf="@id/btnsendimage"
+            app:layout_constraintStart_toEndOf="@id/civsenderavatar"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText

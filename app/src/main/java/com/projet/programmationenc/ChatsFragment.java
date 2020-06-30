@@ -2,6 +2,7 @@ package com.projet.programmationenc;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatsFragment extends Fragment {
+    private static final String TAG = "ChatsFragment";
     private FirebaseUser user;
     private DatabaseReference databaseReference;
     private RecyclerView rvchats;
@@ -60,6 +62,21 @@ public class ChatsFragment extends Fragment {
             @Override
             public ViewHolderCts onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_chats, parent, false);
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int itemPosition = rvchats.getChildLayoutPosition(view);
+                        String key = databaseReference.child("Last Chats").child(user.getUid()).child(getRef(itemPosition).getKey()).getKey();
+                        Log.e(TAG, "onClick: key : " + key);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("key",key);
+                        ProfileFragment profileFragment = new ProfileFragment();
+                        profileFragment.setArguments(bundle);
+                        ((HomeActivity) getActivity()).ShowBackButton(true);
+                        ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).addToBackStack(null).commit();
+                    }
+                });
                 return new ViewHolderCts(v);
             }
 

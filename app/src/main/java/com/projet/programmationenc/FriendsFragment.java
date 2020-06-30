@@ -81,6 +81,8 @@ public class FriendsFragment extends Fragment {
                                     bundle.putString("key",getRef(itemPosition).getKey());
                                     ProfileFragment profileFragment = new ProfileFragment();
                                     profileFragment.setArguments(bundle);
+                                    ((HomeActivity) getActivity()).ShowBackButton(true);
+                                    ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
                                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).addToBackStack(null).commit();
                                 }
                                 else if(i == 1) {

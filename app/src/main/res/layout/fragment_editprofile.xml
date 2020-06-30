@@ -12,9 +12,8 @@
         android:layout_marginTop="64dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@mipmap/ic_person_grayv2_round"
         app:civ_border_color="@color/black"
-        app:civ_border_width="2dp"
+        app:civ_border_width="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

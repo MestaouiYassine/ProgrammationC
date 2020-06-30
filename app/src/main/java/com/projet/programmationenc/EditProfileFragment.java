@@ -121,7 +121,7 @@ public class EditProfileFragment extends Fragment {
         btnremoveavatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/mipmap/ic_person_grayv2_round");
+                imgavataruri = Uri.parse("android.resource://com.projet.programmationenc/drawable/ic_baseline_person_black_110");
                 Glide.with(getActivity())
                         .load(imgavataruri)
                         .apply(RequestOptions.fitCenterTransform())

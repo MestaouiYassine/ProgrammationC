@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clprofile"
@@ -20,9 +19,8 @@
             android:layout_width="112dp"
             android:layout_height="117dp"
             android:layout_marginTop="24dp"
-            android:src="@mipmap/ic_person_grayv2_round"
             app:civ_border_color="@color/black"
-            app:civ_border_width="2dp"
+            app:civ_border_width="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,15 +45,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackground"
             android:text="TextView"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="normal"
-            android:background="?attr/selectableItemBackground"
-            app:layout_constraintBottom_toBottomOf="@id/clprofile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile" />
 
         <ImageButton
             android:id="@+id/btnchangestatus"
@@ -66,17 +64,17 @@
             android:layout_marginBottom="16dp"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
-            app:layout_constraintBottom_toBottomOf="@id/clprofile"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/txtvstatusprofile"
             app:layout_constraintTop_toBottomOf="@id/txtvfullnameprofile"
             app:srcCompat="@drawable/ic_baseline_edit_20" />
 
         <Button
             android:id="@+id/btnsendrequest"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/buttonorange"
             android:drawableLeft="@drawable/ic_baseline_person_add_20"
             android:fontFamily="@font/regular"
@@ -86,15 +84,17 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/txtvstatusprofile" />
 
         <Button
             android:id="@+id/btncancelrequest"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/buttonorange"
             android:drawableLeft="@drawable/ic_baseline_person_add_disabled_20"
             android:fontFamily="@font/regular"
@@ -104,10 +104,77 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/clprofile"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnsendrequest"/>
+            app:layout_constraintTop_toBottomOf="@id/btnsendrequest" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clcourses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clprofile">
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/pbprofilecourses"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            app:cpb_background_progressbar_color="@color/graycircle"
+            app:cpb_progress_max="100"
+            app:cpb_progressbar_color="@color/blue"
+            app:cpb_progressbar_width="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtvprofilecourses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/pbprofilecourses"
+            app:layout_constraintEnd_toEndOf="@id/pbprofilecourses"
+            app:layout_constraintStart_toStartOf="@id/pbprofilecourses"
+            app:layout_constraintTop_toTopOf="@id/pbprofilecourses" />
+
+        <TextView
+            android:id="@+id/txtvprogcourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Progression des cours"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pbprofilecourses" />
+
+        <TextView
+            android:id="@+id/txtvtotalfpc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp"
+            android:text="324 Amis | 68 Publications | 77 Commentaires"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtvprogcourse" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
