@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/txtvdescriptioncomment"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
@@ -76,6 +76,7 @@
             android:text="&#8942;"
             android:textAppearance="?android:textAppearanceLarge"
             android:gravity="center"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -50,7 +50,7 @@ public class AllUsersFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Tous les étudiants");
         ((HomeActivity) getActivity()).ShowBackButton(true);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 

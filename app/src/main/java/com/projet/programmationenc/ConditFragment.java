@@ -48,6 +48,7 @@ public class ConditFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Conditions et boucles");
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
 

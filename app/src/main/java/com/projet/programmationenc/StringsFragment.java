@@ -47,7 +47,7 @@ public class StringsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Chaînes de caractères");
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();

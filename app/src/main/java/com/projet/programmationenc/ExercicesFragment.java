@@ -29,7 +29,7 @@ public class ExercicesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Quiz et exercices");
         List<CardViewExercices> cardViewExercicesList = new ArrayList<>();
         cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_code_grray_34dp,"Les bases du langage C","Quiz 1 : Les bases du langage C","Quiz 2 : Les bases du langage C", "Exercice 1 : Les bases du langage C", "Exercice 2 : Les bases du langage C",false));
         cardViewExercicesList.add(new CardViewExercices(R.drawable.ic_all_inclusive_grray_34dp,"Les structures conditionelles et les boucles","Quiz 1 : Les structures conditionelles et les boucles","Quiz 2 : Les structures conditionelles et les boucles", "Exercice 1 : Les structures conditionelles et les boucles", "Exercice 2 : Les structures conditionelles et les boucles",false));

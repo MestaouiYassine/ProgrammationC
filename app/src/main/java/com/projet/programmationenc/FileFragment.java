@@ -47,7 +47,7 @@ public class FileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Les fichiers");
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();

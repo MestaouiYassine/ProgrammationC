@@ -46,7 +46,7 @@ public class ChatsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+//        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Liste de conversations");
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

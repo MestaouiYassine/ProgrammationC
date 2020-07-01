@@ -52,6 +52,7 @@ public class BaseCFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Bases du langage C");
         ((HomeActivity) getActivity()).ShowBackButton(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();

@@ -70,7 +70,7 @@ public class PostCommentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Publication");
         ((HomeActivity) getActivity()).ShowBackButton(true);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 
@@ -145,6 +145,9 @@ public class PostCommentFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderCm holder, int position, @NonNull Comment model) {
+                if(model.getCommentID().equals(user.getUid())) {
+                    holder.txtvoptionscomment.setVisibility(View.VISIBLE);
+                }
                 Glide.with(getActivity())
                         .load(Uri.parse(model.getAvatarComment()))
                         .apply(RequestOptions.fitCenterTransform())
@@ -363,7 +366,12 @@ public class PostCommentFragment extends Fragment {
         databaseReference.child("Posts").child(key).child("Comments").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                txtvnumbercomments.setText(String.valueOf(snapshot.getChildrenCount()) + " Commentaires");
+                if(snapshot.getChildrenCount() == 1) {
+                    txtvnumbercomments.setText(String.valueOf(snapshot.getChildrenCount()) + " Commentaire");
+                }
+                else {
+                    txtvnumbercomments.setText(String.valueOf(snapshot.getChildrenCount()) + " Commentaires");
+                }
             }
 
             @Override

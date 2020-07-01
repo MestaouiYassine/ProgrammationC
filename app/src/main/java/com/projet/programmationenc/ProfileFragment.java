@@ -73,7 +73,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Profil");
         imgvavatarprofile = view.findViewById(R.id.imgvavatarprofile);
         txtvfullnameprofile = view.findViewById(R.id.txtvfullnameprofile);
         txtvstatusprofile = view.findViewById(R.id.txtvstatusprofile);
@@ -496,7 +496,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 totalFriends = (int)snapshot.getChildrenCount();
-                txtvtotalfriends.setText(totalFriends + " Amis");
+                if(snapshot.getChildrenCount() == 1) {
+                    txtvtotalfriends.setText(totalFriends + " Ami");
+                }
+                else {
+                    txtvtotalfriends.setText(totalFriends + " Amis");
+                }
             }
 
             @Override
@@ -516,7 +521,13 @@ public class ProfileFragment extends Fragment {
                         Log.e(TAG, "onDataChange: totalposts : " + totalPosts );
                     }
                 }
-                txtvtotalposts.setText(totalPosts + " Publications");
+                if(totalPosts == 1) {
+                    txtvtotalposts.setText(totalPosts + " Publication");
+                }
+                else {
+                    txtvtotalposts.setText(totalPosts + " Publications");
+                }
+
             }
 
             @Override
@@ -541,7 +552,12 @@ public class ProfileFragment extends Fragment {
                                         Log.e(TAG, "onDataChange: totalcomments : " + totalComments );
                                     }
                                 }
-                                txtvtotalcomments.setText(totalComments + " Commentaires");
+                                if(totalComments == 1) {
+                                    txtvtotalcomments.setText(totalComments + " Commentaire");
+                                }
+                                else {
+                                    txtvtotalcomments.setText(totalComments + " Commentaires");
+                                }
                             }
 
                             @Override

@@ -33,7 +33,7 @@ public class ChangeStatusFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Changement du status");
         ((HomeActivity) getActivity()).ShowBackButton(true);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 

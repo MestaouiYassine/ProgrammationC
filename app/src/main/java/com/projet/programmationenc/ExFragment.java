@@ -33,7 +33,7 @@ public class ExFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Exercice");
         ((HomeActivity) getActivity()).ShowBackButton(true);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 

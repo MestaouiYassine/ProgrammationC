@@ -53,7 +53,7 @@ public class ForumFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Forum");
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -100,6 +100,9 @@ public class ForumFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderFm holder, int position, @NonNull Post model) {
+                if(model.getStudentID().equals(user.getUid())) {
+                    holder.txtvoptionsforum.setVisibility(View.VISIBLE);
+                }
                 Glide.with(getActivity())
                         .load(Uri.parse(model.getStudentAvatar()))
                         .apply(RequestOptions.fitCenterTransform())

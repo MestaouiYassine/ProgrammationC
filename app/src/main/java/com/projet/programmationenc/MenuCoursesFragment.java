@@ -46,7 +46,7 @@ public class MenuCoursesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Menu des cours");
 //        user = FirebaseAuth.getInstance().getCurrentUser();
 
         btnbasec = view.findViewById(R.id.btnbasec);

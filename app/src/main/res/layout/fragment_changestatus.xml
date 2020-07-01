@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="Changement du mot de passe"
+        android:text="Changement du status"
         android:textColor="@color/blue"
         android:textSize="25sp"
         android:textStyle="bold"

@@ -30,6 +30,7 @@ public class DiscussionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setHasOptionsMenu(true);
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Discussions");
 
         viewPager = view.findViewById(R.id.maintabspager);
         tabLayout = view.findViewById(R.id.maintabs);

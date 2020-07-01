@@ -180,7 +180,7 @@ public class ChatFragment extends Fragment {
                             .into(((HomeActivity) getActivity()).civavatarbar);
 
                     if(status) {
-                        ((HomeActivity) getActivity()).txtvseenbar.setText("Online");
+                        ((HomeActivity) getActivity()).txtvseenbar.setText("En ligne");
                     }
                     else{
                         String lastTimeSeen = GetTimeAgo.getTimeAgo(lastSeen,getActivity());

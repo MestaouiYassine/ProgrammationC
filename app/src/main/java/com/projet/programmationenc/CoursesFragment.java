@@ -32,6 +32,7 @@ public class CoursesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Cours");
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
 
 
