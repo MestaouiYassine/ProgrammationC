@@ -25,25 +25,25 @@ public class GetTimeAgo extends Application {
         // TODO: localize
         final long diff = now - time;
         if (diff < MINUTE_MILLIS) {
-            return "juste maintenant";
+            return "Juste maintenant";
         } else if (diff < 2 * MINUTE_MILLIS) {
-            return "il y a une minute";
+            return "Il y a une minute";
         } else if (diff < 50 * MINUTE_MILLIS) {
             if(diff / MINUTE_MILLIS == 1) {
-                return "il y a une minute";
+                return "Il y a une minute";
             }
-            return "il y a " + diff / MINUTE_MILLIS + " minutes";
+            return "Il y a " + diff / MINUTE_MILLIS + " minutes";
         } else if (diff < 90 * MINUTE_MILLIS) {
-            return "il y a une heure";
+            return "Il y a une heure";
         } else if (diff < 24 * HOUR_MILLIS) {
             if(diff / HOUR_MILLIS == 1) {
-                return "il y a une heure";
+                return "Il y a une heure";
             }
-            return "il y a " + diff / HOUR_MILLIS + " heures";
+            return "Il y a " + diff / HOUR_MILLIS + " heures";
         } else if (diff < 48 * HOUR_MILLIS) {
-            return "hier";
+            return "Hier";
         } else {
-            return diff / DAY_MILLIS + " il y a quelques jours";
+            return "Il y a " + diff / DAY_MILLIS + " jours";
         }
     }
 

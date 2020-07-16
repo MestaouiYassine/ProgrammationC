@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import android.net.Uri;
@@ -94,22 +96,22 @@ public class HomeActivity extends AppCompatActivity {
         RetrieveStudentData();
         RetrieveStudentInfo();
 
-        databaseReference.child("Notifications").child(user.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
-                        databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).child("connected").setValue("yes");
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        databaseReference.child("Notifications").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()) {
+//                    for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                        Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
+//                        databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).child("connected").setValue("yes");
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//Sets our toolbar as the actionbar
@@ -120,13 +122,13 @@ public class HomeActivity extends AppCompatActivity {
 
         ShowBackButton(false);
 
-        if(getIntent().getStringExtra("key") != null) {
-            Bundle bundle = new Bundle();
-            bundle.putString("key",getIntent().getStringExtra("key"));
-            ProfileFragment profileFragment = new ProfileFragment();
-            profileFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).commit();
-        }
+//        if(getIntent().getStringExtra("key") != null) {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("key",getIntent().getStringExtra("key"));
+//            ProfileFragment profileFragment = new ProfileFragment();
+//            profileFragment.setArguments(bundle);
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,profileFragment).commit();
+//        }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfileFragment()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -291,6 +293,16 @@ public class HomeActivity extends AppCompatActivity {
     //instead we want to close our navigation drawer
     @Override
     public void onBackPressed() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
+        if (currentFragment instanceof ChangeStatusFragment) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
+        }
+        if (currentFragment instanceof EditProfileFragment) {
+            finish();
+            overridePendingTransition( 0, 0);
+            startActivity(getIntent());
+            overridePendingTransition( 0, 0);
+        }
         if(clchatbar.getVisibility() == View.VISIBLE) {
             clchatbar.setVisibility(View.GONE);
         }

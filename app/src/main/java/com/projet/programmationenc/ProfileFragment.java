@@ -1,5 +1,6 @@
 package com.projet.programmationenc;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -63,6 +65,7 @@ public class ProfileFragment extends Fragment {
     private List<String> retrievedFiles = new ArrayList<>();
 
     private int totalPosts,totalComments,totalFriends;
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -89,7 +92,7 @@ public class ProfileFragment extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
+        progressDialog = new ProgressDialog(getContext());
 
         if (getArguments() != null) {
             key = getArguments().getString("key");
@@ -113,6 +116,12 @@ public class ProfileFragment extends Fragment {
                 bundle.putString("status", status);
                 ChangeStatusFragment changeStatusFragment = new ChangeStatusFragment();
                 changeStatusFragment.setArguments(bundle);
+                Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
+                if (currentFragment instanceof ProfileFragment) {
+                    FragmentTransaction fragTransaction =   getActivity().getSupportFragmentManager().beginTransaction();
+                    fragTransaction.detach(currentFragment);
+                    fragTransaction.commit();
+                }
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, changeStatusFragment).addToBackStack(null).commit();
             }
         });
@@ -142,10 +151,14 @@ public class ProfileFragment extends Fragment {
     }
 
     public void RetrieveStudentProfile() {
+        progressDialog.setTitle("Chargement des données");
+        progressDialog.setMessage("Veuillez patienter quelques instants");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         databaseReference.child("Students").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists() && isAdded()) {
                     S = dataSnapshot.getValue(Student.class);
                     fullname = S.getFirstName() + " " + S.getLastName();
                     uri = Uri.parse(S.getAvatar());
@@ -158,7 +171,7 @@ public class ProfileFragment extends Fragment {
 
                     txtvfullnameprofile.setText(fullname);
                     txtvstatusprofile.setText(status);
-
+                    progressDialog.dismiss();
                 }
             }
 
@@ -170,6 +183,10 @@ public class ProfileFragment extends Fragment {
     }
 
     public void RetrieveOtherProfile(String key) {
+        progressDialog.setTitle("Chargement des données");
+        progressDialog.setMessage("Veuillez patienter quelques instants");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(clprofile);
         constraintSet.clear(R.id.txtvstatusprofile, ConstraintSet.BOTTOM);
@@ -179,7 +196,7 @@ public class ProfileFragment extends Fragment {
         databaseReference.child("Students").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists() && isAdded()) {
                     S = dataSnapshot.getValue(Student.class);
                     fullname = S.getFirstName() + " " + S.getLastName();
                     uri = Uri.parse(S.getAvatar());
@@ -238,6 +255,7 @@ public class ProfileFragment extends Fragment {
 
                         }
                     });
+                    progressDialog.dismiss();
                 }
             }
 
@@ -251,11 +269,11 @@ public class ProfileFragment extends Fragment {
     public void SendRequestFriend() {
         databaseReference.child("Requests").child(user.getUid()).child(key).child("type").setValue("sent");
         databaseReference.child("Requests").child(key).child(user.getUid()).child("type").setValue("received");
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("from", user.getUid());
-        hashMap.put("type", "Invitation d'amitié");
-        hashMap.put("connected", "no");
-        databaseReference.child("Notifications").child(key).push().setValue(hashMap);
+//        HashMap<String, String> hashMap = new HashMap<>();
+//        hashMap.put("from", user.getUid());
+//        hashMap.put("type", "Invitation d'amitié");
+//        hashMap.put("connected", "no");
+//        databaseReference.child("Notifications").child(key).push().setValue(hashMap);
         friendstatus = "sent";
         btnsendrequest.setText("Annuler l'invitation");
         btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_disabled_20, 0, 0, 0);
@@ -266,37 +284,37 @@ public class ProfileFragment extends Fragment {
     public void CancelRequestFriend() {
         databaseReference.child("Requests").child(user.getUid()).child(key).removeValue();
         databaseReference.child("Requests").child(key).child(user.getUid()).removeValue();
-        databaseReference.child("Notifications").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
-                        databaseReference.child("Notifications").child(key).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    String id = snapshot.child("from").getValue(String.class);
-                                    if (id.equals(user.getUid())) {
-                                        databaseReference.child("Notifications").child(key).child(dataSnapshot.getKey()).removeValue();
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        databaseReference.child("Notifications").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                        Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
+//                        databaseReference.child("Notifications").child(key).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                if (snapshot.exists()) {
+//                                    String id = snapshot.child("from").getValue(String.class);
+//                                    if (id.equals(user.getUid())) {
+//                                        databaseReference.child("Notifications").child(key).child(dataSnapshot.getKey()).removeValue();
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
         friendstatus = "notfriends";
         btnsendrequest.setText("Envoyer une invitation");
         btnsendrequest.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_person_add_20, 0, 0, 0);
@@ -333,37 +351,37 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(getActivity(), "Personne ajoutée !", Toast.LENGTH_SHORT).show();
                     btnsendrequest.setEnabled(true);
 
-                    databaseReference.child("Notifications").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
-                                    databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.exists()) {
-                                                String id = snapshot.child("from").getValue(String.class);
-                                                if (id.equals(key)) {
-                                                    databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).removeValue();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+//                    databaseReference.child("Notifications").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            if (snapshot.exists()) {
+//                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                    Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
+//                                    databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                            if (snapshot.exists()) {
+//                                                String id = snapshot.child("from").getValue(String.class);
+//                                                if (id.equals(key)) {
+//                                                    databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).removeValue();
+//                                                }
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
                 }
             }
 
@@ -388,37 +406,37 @@ public class ProfileFragment extends Fragment {
         Toast.makeText(getActivity(), "Invitation déclinée !", Toast.LENGTH_SHORT).show();
         btnsendrequest.setEnabled(true);
 
-        databaseReference.child("Notifications").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
-                        databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    String id = snapshot.child("from").getValue(String.class);
-                                    if (id.equals(key)) {
-                                        databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).removeValue();
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        databaseReference.child("Notifications").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                        Log.e(TAG, "onDataChange: datasnap : " + dataSnapshot.getKey());
+//                        databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                if (snapshot.exists()) {
+//                                    String id = snapshot.child("from").getValue(String.class);
+//                                    if (id.equals(key)) {
+//                                        databaseReference.child("Notifications").child(user.getUid()).child(dataSnapshot.getKey()).removeValue();
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     public void DeleteFriend() {
@@ -574,5 +592,17 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
+//        if (currentFragment instanceof ProfileFragment) {
+//            FragmentTransaction fragTransaction =   getActivity().getSupportFragmentManager().beginTransaction();
+//            fragTransaction.detach(currentFragment);
+//            fragTransaction.attach(currentFragment);
+//            fragTransaction.commit();
+//        }
     }
 }

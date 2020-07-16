@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,15 +25,17 @@ public class ChangeStatusFragment extends Fragment {
     private Button btnchangestatus;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_changestatus,container,false);
+        return inflater.inflate(R.layout.fragment_changestatus, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Changement du status");
         ((HomeActivity) getActivity()).ShowBackButton(true);
         ((HomeActivity) getActivity()).bottomNavigationView.setVisibility(View.GONE);
@@ -49,20 +52,26 @@ public class ChangeStatusFragment extends Fragment {
         btnchangestatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String statusChanged = edtchangestatus.getEditText().getText().toString();
+                String statusChanged = edtchangestatus.getEditText().getText().toString().trim();
 
-                if(statusChanged.isEmpty()) {
+                if (statusChanged.isEmpty()) {
                     edtchangestatus.setError("Veuillez saisir votre status");
-                }
-                else if(statusChanged.equals(status)) {
+                } else if (statusChanged.equals(status)) {
                     return;
-                }
-                else {
+                } else {
                     databaseReference.child("Students").child(user.getUid()).child("status").setValue(statusChanged).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()) {
+                            if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Changement réussi du status !", Toast.LENGTH_SHORT).show();
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfileFragment()).commit();
+//                                Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
+//                                if (currentFragment instanceof ProfileFragment) {
+//                                    FragmentTransaction fragTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                                    fragTransaction.detach(currentFragment);
+//                                    fragTransaction.attach(currentFragment);
+//                                    fragTransaction.commit();
+//                                }
                             }
                         }
                     });

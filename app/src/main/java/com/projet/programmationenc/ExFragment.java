@@ -85,7 +85,7 @@ public class ExFragment extends Fragment {
         }
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.105/progc/")
+                .baseUrl("http://192.168.1.106/progc/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
