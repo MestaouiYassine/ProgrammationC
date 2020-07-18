@@ -161,11 +161,22 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
                 switch (item.getItemId()) {
                     case R.id.editprofile:
+                        if (currentFragment instanceof ProfileFragment) {
+                            FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+                            fragTransaction.detach(currentFragment);
+                            fragTransaction.commit();
+                        }
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new EditProfileFragment()).addToBackStack(null).commit();
                         break;
                     case R.id.changepassword:
+                        if (currentFragment instanceof ProfileFragment) {
+                            FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+                            fragTransaction.detach(currentFragment);
+                            fragTransaction.commit();
+                        }
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ChangePasswordFragment()).addToBackStack(null).commit();
                         break;
                     case R.id.signout:
@@ -298,10 +309,10 @@ public class HomeActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
         }
         if (currentFragment instanceof EditProfileFragment) {
-            finish();
-            overridePendingTransition( 0, 0);
-            startActivity(getIntent());
-            overridePendingTransition( 0, 0);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
+        }
+        if(currentFragment instanceof ChangePasswordFragment) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer,new ProfileFragment()).commit();
         }
         if(clchatbar.getVisibility() == View.VISIBLE) {
             clchatbar.setVisibility(View.GONE);

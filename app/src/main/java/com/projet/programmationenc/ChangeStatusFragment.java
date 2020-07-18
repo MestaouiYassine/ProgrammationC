@@ -64,14 +64,6 @@ public class ChangeStatusFragment extends Fragment {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Changement réussi du status !", Toast.LENGTH_SHORT).show();
-                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfileFragment()).commit();
-//                                Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragcontainer);
-//                                if (currentFragment instanceof ProfileFragment) {
-//                                    FragmentTransaction fragTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                                    fragTransaction.detach(currentFragment);
-//                                    fragTransaction.attach(currentFragment);
-//                                    fragTransaction.commit();
-//                                }
                             }
                         }
                     });

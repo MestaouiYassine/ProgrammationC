@@ -77,6 +77,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Profil");
+        ((HomeActivity)getActivity()).ShowBackButton(false);
+        ((HomeActivity)getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
+
         imgvavatarprofile = view.findViewById(R.id.imgvavatarprofile);
         txtvfullnameprofile = view.findViewById(R.id.txtvfullnameprofile);
         txtvstatusprofile = view.findViewById(R.id.txtvstatusprofile);

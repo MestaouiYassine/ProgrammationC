@@ -364,13 +364,8 @@ public class EditProfileFragment extends Fragment {
 
                         }
                     });
-
                     progressBareditprofile.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), "Modification réussie !", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent();
-                    intent.setClass(getActivity(), HomeActivity.class);
-                    getActivity().startActivity(intent);
-//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragcontainer, new ProfileFragment()).commit();
                 }
             }
 
