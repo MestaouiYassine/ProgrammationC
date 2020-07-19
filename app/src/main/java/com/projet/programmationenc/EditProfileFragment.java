@@ -144,10 +144,16 @@ public class EditProfileFragment extends Fragment {
                     edtfirstnameedit.setError("Veuillez saisir le prénom.");
                     flag = false;
                 }
+                else {
+                    edtfirstnameedit.setErrorEnabled(false);
+                }
 
                 if (lastnameedit.isEmpty()) {
                     edtlastnameedit.setError("Veuillez saisir le nom.");
                     flag = false;
+                }
+                else {
+                    edtlastnameedit.setErrorEnabled(false);
                 }
 
                 if (!flag) {

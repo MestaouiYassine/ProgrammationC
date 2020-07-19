@@ -74,10 +74,16 @@ public class ChangePasswordFragment extends Fragment {
                     edtoldpass.setError("Veuillez saisir le mot de passe actuel");
                     flag = false;
                 }
+                else {
+                    edtoldpass.setErrorEnabled(false);
+                }
 
                 if (password2change.isEmpty()) {
                     edtpassword2change.setError("Veuillez retaper le mot de passe.");
                     flag = false;
+                }
+                else {
+                    edtpassword2change.setErrorEnabled(false);
                 }
 
                 if (password1change.isEmpty()) {
@@ -87,6 +93,7 @@ public class ChangePasswordFragment extends Fragment {
                     edtpassword1change.setError("Le mot de passe doit contenir au moins 6 caractères.");
                     flag = false;
                 } else {
+                    edtpassword1change.setErrorEnabled(false);
                     if (!password1change.equals(password2change)) {
                         Toast.makeText(getActivity(), "Les deux mots de passes ne sont pas identiques.", Toast.LENGTH_SHORT).show();
                         flag = false;
@@ -100,6 +107,7 @@ public class ChangePasswordFragment extends Fragment {
                 if (!flag) {
                     return;
                 } else {
+                    edtpassword1change.setErrorEnabled(false);
                     AuthCredential authCredential = EmailAuthProvider.getCredential(user.getEmail(), ((HomeActivity) getActivity()).retrievedPassword);
                     user.reauthenticate(authCredential).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

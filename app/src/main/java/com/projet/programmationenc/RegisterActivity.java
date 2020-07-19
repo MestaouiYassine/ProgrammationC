@@ -85,21 +85,33 @@ public class RegisterActivity extends AppCompatActivity {
                     edtemail.setError("Email invalide");
                     flag = false;
                 }
+                if(!email.isEmpty() && email.matches(emailPattern)){
+                    edtemail.setErrorEnabled(false);
+                }
 
                 if(firstname.isEmpty()) {
                     edtfirstname.setError("Veuillez saisir le prénom.");
                     flag = false;
+                }
+                else {
+                    edtfirstname.setErrorEnabled(false);
                 }
 
                 if(lastname.isEmpty()) {
                     edtlastname.setError("Veuillez saisir le nom.");
                     flag = false;
                 }
+                else {
+                    edtlastname.setErrorEnabled(false);
+                }
 
                 if(password2.isEmpty())
                 {
                     edtpassword2.setError("Veuillez retaper le mot de passe.");
                     flag = false;
+                }
+                else {
+                    edtpassword2.setErrorEnabled(false);
                 }
 
                 if(password1.isEmpty()) {
@@ -111,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                     flag = false;
                 }
                 else {
+                    edtpassword1.setErrorEnabled(false);
                     if(!password1.equals(password2)) {
                         Toast.makeText(RegisterActivity.this,"Les deux mots de passes ne sont pas identiques.",Toast.LENGTH_SHORT).show();
                         flag = false;
@@ -128,11 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "createUserWithEmail:success");
-                                user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-                                S = new Student(user.getUid(),firstname,lastname,password1,"android.resource://com.projet.programmationenc/drawable/ic_baseline_person_black_110","Bonjour !");
-                                databaseReference.child("Students").child(user.getUid()).setValue(S);
+                                user = mAuth.getCurrentUser();
 
                                 user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -140,6 +149,8 @@ public class RegisterActivity extends AppCompatActivity {
                                         progressBar.setVisibility(View.GONE);
                                         if (task.isSuccessful()) {
                                             Log.d(TAG, "Email sent.");
+                                            S = new Student(user.getUid(),firstname,lastname,password1,"android.resource://com.projet.programmationenc/drawable/ic_baseline_person_black_110","Bonjour !");
+                                            databaseReference.child("Students").child(user.getUid()).setValue(S);
                                             Toast.makeText(RegisterActivity.this,"Inscription réussie, une demande de validation vous a été envoyée à l'adresse " + email,Toast.LENGTH_LONG).show();
                                             FirebaseAuth.getInstance().signOut();
                                             startActivity(new Intent(RegisterActivity.this,LoginActivity.class));

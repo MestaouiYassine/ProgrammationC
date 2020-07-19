@@ -206,6 +206,7 @@ public class PostCommentFragment extends Fragment {
                 if (comment.isEmpty()) {
                     edtaddcomment.setError("Veuillez saisir votre commentaire");
                 } else {
+                    edtaddcomment.setErrorEnabled(false);
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy 'à' HH:mm");
                     C = new Comment(comment, fullName, avatar, user.getUid(), sdf.format(new Date()));
                     databaseReference.child("Posts").child(key).child("Comments").push().setValue(C);

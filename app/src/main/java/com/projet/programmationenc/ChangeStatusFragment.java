@@ -59,6 +59,7 @@ public class ChangeStatusFragment extends Fragment {
                 } else if (statusChanged.equals(status)) {
                     return;
                 } else {
+                    edtchangestatus.setErrorEnabled(false);
                     databaseReference.child("Students").child(user.getUid()).child("status").setValue(statusChanged).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

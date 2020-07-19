@@ -135,10 +135,16 @@ public class LoginActivity extends AppCompatActivity {
                     edtemail.setError("Email invalide");
                     flag = false;
                 }
+                if(!email.isEmpty() && email.matches(emailPattern)) {
+                    edtemail.setErrorEnabled(false);
+                }
 
                 if(password.isEmpty()) {
                     edtpassword.setError("Veuillez saisir le mot de passe");
                     flag = false;
+                }
+                else {
+                    edtpassword.setErrorEnabled(false);
                 }
 
                 if(flag == false) {

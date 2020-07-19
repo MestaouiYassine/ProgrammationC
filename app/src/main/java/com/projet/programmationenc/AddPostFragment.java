@@ -83,10 +83,16 @@ public class AddPostFragment extends Fragment {
                     edtaddquestion.setError("Veuillez saisir votre question");
                     flag = false;
                 }
+                else {
+                    edtaddquestion.setErrorEnabled(false);
+                }
 
                 if(description.isEmpty()) {
                     edtadddescription.setError("Veuillez saisir votre description");
                     flag = false;
+                }
+                else {
+                    edtadddescription.setErrorEnabled(false);
                 }
 
                 if(!flag) {
